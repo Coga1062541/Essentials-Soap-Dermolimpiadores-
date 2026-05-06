@@ -188,7 +188,7 @@ letter-spacing:2px;
 <h3>Masculino</h3>
 <div class="grid-decants">
   
-<div class="card-sm"><h4>Nautica Voyage</h4><p>manzana verde fresca, loto acuático y fondo limpio de cedro y almizcle.</p></div>
+<div class="card-sm"><h4>Nautica Voyage</h4><p>manzana verde fresca, loto acuático y fondo limpio.</p></div>
 <div class="card-sm"><h4>Santal 33</h4><p>Amaderado elegante con cuero.</p></div>
 <div class="card-sm"><h4>Eros Flame</h4><p>Cítrico especiado atractivo.</p></div>
 <div class="card-sm"><h4>Le Male</h4><p>Dulce con lavanda y vainilla.</p></div>
