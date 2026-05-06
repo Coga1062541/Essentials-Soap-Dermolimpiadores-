@@ -1,6 +1,4 @@
-# Essentials-Soap-Dermolimpiadores-
-Jabones Dermolimpiadores para uso personal
-<!DOCTYPE html>
+
 <html lang="es">
 <head>
     <meta charset="UTF-8">
