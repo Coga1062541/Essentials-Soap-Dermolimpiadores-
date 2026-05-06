@@ -15,6 +15,80 @@ Jabones Dermolimpiadores para uso personal
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
     <style>
+        @media (max-width: 768px) { 
+    .container {
+        padding: 0 18px;
+    }
+
+    .hero {
+        height: auto;
+        padding: 120px 0 60px;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+        line-height: 1.1;
+    }
+
+    .hero p.tagline {
+        letter-spacing: 3px;
+        font-size: 0.65rem;
+    }
+
+    .hero p {
+        font-size: 0.95rem !important;
+    }
+
+    .section-header h2 {
+        font-size: 2rem;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .card {
+        padding: 30px;
+    }
+
+    .card h3 {
+        font-size: 1.5rem;
+    }
+
+    .card .price {
+        font-size: 1.2rem;
+    }
+
+    .grid-decants {
+        grid-template-columns: 1fr;
+    }
+
+    .card-sm {
+        padding: 25px;
+    }
+
+    .card-sm h4 {
+        font-size: 1.1rem;
+    }
+
+    .card-sm p {
+        font-size: 0.8rem;
+    }
+
+    .cta-glass {
+        padding: 60px 25px;
+        border-radius: 30px;
+    }
+
+    .cta-glass h2 {
+        font-size: 2rem !important;
+    }
+
+    footer p:first-child {
+        font-size: 1.3rem;
+    }
+}
         :root {
             --white: #ffffff;
             --cream: #fbf9f7;
