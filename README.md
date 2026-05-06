@@ -1,2 +1,487 @@
 # Essentials-Soap-Dermolimpiadores-
 Jabones Dermolimpiadores para uso personal
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Essentials Soap | Cuidado Esencial</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --white: #ffffff;
+            --cream: #fbf9f7;
+            --beige: #f2ede4;
+            --black: #1a1a1a;
+            --olive: #6b705c;
+            --olive-light: #a5a58d;
+            
+            /* Liquid Glass Evolution: Más sólido y profundo */
+            --glass-bg: rgba(255, 255, 255, 0.92); /* Incrementada opacidad para legibilidad */
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --glass-blur: blur(50px) saturate(180%); /* Desenfoque más fuerte */
+            
+            --btn-dark-glass: rgba(26, 26, 26, 0.95); /* Fondo oscuro para botones */
+            --btn-blur: blur(20px);
+            
+            --shadow-apple: 0 20px 40px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+            --shadow-hover: 0 30px 60px rgba(0,0,0,0.12);
+            --transition-apple: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--white);
+            color: var(--black);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- BACKGROUND ATMOSPHERE --- */
+        .bg-glows {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #ffffff, #fcfaf8);
+        }
+
+        .glow-1 { position: absolute; top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(107, 112, 92, 0.12) 0%, transparent 70%); animation: drift 20s infinite alternate; }
+        .glow-2 { position: absolute; bottom: 10%; right: -5%; width: 40vw; height: 40vw; background: radial-gradient(circle, rgba(212, 163, 115, 0.15) 0%, transparent 70%); animation: drift 25s infinite alternate-reverse; }
+
+        @keyframes drift {
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(5%, 5%) scale(1.1); }
+        }
+
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; letter-spacing: -0.01em; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 25px; }
+
+        /* --- LIQUID GLASS NAV --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.03);
+            padding: 18px 0;
+            transition: var(--transition-apple);
+        }
+
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.3rem; font-weight: 600; text-decoration: none; color: var(--black); letter-spacing: -0.5px; }
+
+        /* --- HERO --- */
+        .hero {
+            height: 95vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding-top: 80px;
+        }
+
+        .hero-content { opacity: 0; transform: translateY(40px); transition: var(--transition-apple); z-index: 2; }
+        .hero-content.active { opacity: 1; transform: translateY(0); }
+        .hero h1 { font-size: clamp(3.5rem, 12vw, 6rem); margin-bottom: 10px; font-weight: 700; line-height: 1; }
+        .hero p.tagline { letter-spacing: 6px; text-transform: uppercase; color: var(--olive); font-size: 0.75rem; font-weight: 600; margin-bottom: 35px; opacity: 0.8; }
+
+        /* --- BUTTONS --- */
+        .btn {
+            display: inline-block;
+            padding: 18px 45px;
+            background-color: var(--black);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            transition: var(--transition-apple);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 30px rgba(0,0,0,0.2); background-color: #000; }
+
+        /* BOTÓN WHATSAPP MEJORADO */
+        .btn-wa {
+            display: inline-block;
+            background: var(--btn-dark-glass);
+            backdrop-filter: var(--btn-blur);
+            -webkit-backdrop-filter: var(--btn-blur);
+            color: var(--white);
+            padding: 14px 24px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            transition: var(--transition-apple);
+            margin-top: auto;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .btn-wa:hover, .btn-wa:active { 
+            background: #000; 
+            color: var(--white); 
+            transform: translateY(-3px); 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        /* --- CARDS & GRIDS --- */
+        section { padding: 120px 0; position: relative; }
+        .section-header { text-align: center; margin-bottom: 70px; opacity: 0; transform: translateY(30px); transition: var(--transition-apple); }
+        .section-header.reveal { opacity: 1; transform: translateY(0); }
+        .section-header h2 { font-size: 2.8rem; margin-bottom: 10px; }
+        .section-header p { font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; color: var(--olive-light); }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; }
+
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            padding: 45px;
+            border-radius: 35px;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition-apple);
+            opacity: 0;
+            transform: translateY(50px);
+            box-shadow: var(--shadow-apple);
+        }
+
+        .card.reveal { opacity: 1; transform: translateY(0); }
+        .card:hover { transform: translateY(-12px); box-shadow: var(--shadow-hover); border-color: var(--white); }
+        .card h3 { font-size: 1.8rem; margin-bottom: 8px; }
+        .card .weight { font-size: 0.75rem; color: var(--olive); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 15px; display: block; opacity: 0.8; }
+        .card .price { font-size: 1.4rem; color: var(--black); font-weight: 500; margin-bottom: 30px; display: block; }
+
+        /* --- FRAGRANCE CARDS --- */
+        .grid-decants { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+
+        .card-sm {
+            padding: 35px;
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition-apple);
+            opacity: 0;
+            transform: scale(0.95);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+
+        .card-sm.reveal { opacity: 1; transform: scale(1); }
+        .card-sm:hover { transform: translateY(-8px); background: #fff; box-shadow: var(--shadow-hover); }
+        .card-sm h4 { font-size: 1.3rem; margin-bottom: 8px; color: var(--black); }
+        .card-sm p { font-size: 0.85rem; color: #555; margin-bottom: 25px; line-height: 1.5; }
+
+        .decant-category { margin-top: 60px; margin-bottom: 35px; font-size: 0.75rem; letter-spacing: 5px; text-transform: uppercase; color: var(--olive); border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 15px; font-weight: 600; }
+
+        /* --- ABOUT & CTA --- */
+        .cta-glass { 
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur); 
+            border-radius: 50px; 
+            padding: 100px 50px; 
+            text-align: center; 
+            border: 1px solid var(--glass-border); 
+            box-shadow: var(--shadow-apple);
+        }
+
+        .about { background: var(--black); color: var(--white); text-align: center; padding: 140px 20px; position: relative; }
+        .about p { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 4vw, 2.6rem); max-width: 900px; margin: 0 auto; font-style: italic; line-height: 1.3; opacity: 0.9; }
+
+        footer { padding: 80px 0; text-align: center; border-top: 1px solid var(--beige); background: var(--white); }
+
+        @media (max-width: 768px) { 
+            .grid-decants { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 3.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glows">
+        <div class="glow-1"></div>
+        <div class="glow-2"></div>
+    </div>
+
+    <nav id="navbar">
+        <div class="container">
+            <a href="#" class="logo">Essentials Soap</a>
+            <div class="nav-social">
+                <a href="https://instagram.com/essentials_.soap" style="color:var(--black); margin-left:15px; font-size:1.2rem; opacity: 0.7;"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://wa.me/523334795014" style="color:var(--black); margin-left:15px; font-size:1.2rem; opacity: 0.7;"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <div class="hero-content" id="hero-content">
+                <p class="tagline">Pureza en cada detalle</p>
+                <h1>Essentials Soap</h1>
+                <p style="color: #555; margin-bottom: 45px; font-size: 1.1rem; max-width: 600px; margin-left: auto; margin-right: auto;">Cuidado dermolimpiador natural y una selección exclusiva de fragancias de nicho.</p>
+                <a href="#jabones" class="btn">Explorar Colección</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- JABONES -->
+    <section id="jabones">
+        <div class="container">
+            <div class="section-header scroll-reveal">
+                <h2>Jabones Naturales</h2>
+                <p>Artesanía & Bienestar</p>
+            </div>
+            <div class="grid">
+                <div class="card scroll-reveal">
+                    <div>
+                        <h3>Carbón activado</h3>
+                        <span class="weight">Cont. Neto 100g</span>
+                        <p style="color:#555; margin-bottom:20px;">Limpieza profunda que elimina impurezas y toxinas del rostro y cuerpo.</p>
+                    </div>
+                    <span class="price">$30 MXN</span>
+                    <a href="https://wa.me/523334795014?text=Hola,%20quiero%20Jabón%20de%20Carbón" class="btn-wa">Pedir por WhatsApp</a>
+                </div>
+                <div class="card scroll-reveal">
+                    <div>
+                        <h3>Coco y arroz</h3>
+                        <span class="weight">Cont. Neto 100g</span>
+                        <p style="color:#555; margin-bottom:20px;">Exfoliación suave que ilumina y suaviza la piel instantáneamente.</p>
+                    </div>
+                    <span class="price">$30 MXN</span>
+                    <a href="https://wa.me/523334795014?text=Hola,%20quiero%20Jabón%20de%20Coco%20y%20Arroz" class="btn-wa">Pedir por WhatsApp</a>
+                </div>
+                <div class="card scroll-reveal">
+                    <div>
+                        <h3>Baba de caracol</h3>
+                        <span class="weight">Cont. Neto 100g</span>
+                        <p style="color:#555; margin-bottom:20px;">Ayuda a regenerar y mejorar la textura de la dermis dañada.</p>
+                    </div>
+                    <span class="price">$30 MXN</span>
+                    <a href="https://wa.me/523334795014?text=Hola,%20quiero%20Jabón%20de%20Baba%20de%20Caracol" class="btn-wa">Pedir por WhatsApp</a>
+                </div>
+                <div class="card scroll-reveal">
+                    <div>
+                        <h3>Leche de burra</h3>
+                        <span class="weight">Cont. Neto 100g</span>
+                        <p style="color:#555; margin-bottom:20px;">Nutrición intensa para pieles maduras que buscan elasticidad.</p>
+                    </div>
+                    <span class="price">$30 MXN</span>
+                    <a href="https://wa.me/523334795014?text=Hola,%20quiero%20Jabón%20de%20Leche%20de%20Burra" class="btn-wa">Pedir por WhatsApp</a>
+                </div>
+                <div class="card scroll-reveal">
+                    <div>
+                        <h3>Avena y bioazufre</h3>
+                        <span class="weight">Cont. Neto 100g</span>
+                        <p style="color:#555; margin-bottom:20px;">Ideal para piel con tendencia grasa o imperfecciones persistentes.</p>
+                    </div>
+                    <span class="price">$30 MXN</span>
+                    <a href="https://wa.me/523334795014?text=Hola,%20quiero%20Jabón%20de%20Avena" class="btn-wa">Pedir por WhatsApp</a>
+                </div>
+                <div class="card scroll-reveal">
+                    <div>
+                        <h3>Tepezcohuite</h3>
+                        <span class="weight">Cont. Neto 100g</span>
+                        <p style="color:#555; margin-bottom:20px;">Potente regenerador natural para una piel sana y renovada.</p>
+                    </div>
+                    <span class="price">$30 MXN</span>
+                    <a href="https://wa.me/523334795014?text=Hola,%20quiero%20Jabón%20de%20Tepezcohuite" class="btn-wa">Pedir por WhatsApp</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPLEMENTOS -->
+    <section id="complementos">
+        <div class="container">
+            <div class="section-header scroll-reveal">
+                <h2>Complementos</h2>
+                <p>El Ritual Completo</p>
+            </div>
+            <div class="grid">
+                <div class="card scroll-reveal">
+                    <div>
+                        <h3>Pasta de coco y arroz</h3>
+                        <span class="weight">250 ML</span>
+                        <p style="color:#555; margin-bottom:20px;">Jabón corporal cremoso. Limpieza con ligera exfoliación diaria.</p>
+                    </div>
+                    <span class="price">$40 MXN</span>
+                    <a href="https://wa.me/523334795014?text=Hola,%20quiero%20Pasta%20de%20Coco%20y%20Arroz" class="btn-wa">Pedir por WhatsApp</a>
+                </div>
+                <div class="card scroll-reveal">
+                    <div>
+                        <h3>Crema de baba de caracol</h3>
+                        <span class="weight">150 ML</span>
+                        <p style="color:#555; margin-bottom:20px;">Hidratación profunda diseñada para mantener una piel joven.</p>
+                    </div>
+                    <span class="price">$60 MXN</span>
+                    <a href="https://wa.me/523334795014?text=Hola,%20quiero%20Crema%20de%20Baba%20de%20Caracol" class="btn-wa">Pedir por WhatsApp</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DECANTS -->
+    <section id="decants">
+        <div class="container">
+            <div class="section-header scroll-reveal">
+                <h2>Catálogo de Fragancias</h2>
+                <p>Decants Inspired Premium Fragances 10ml — $50 MXN</p>
+            </div>
+
+            <h3 class="decant-category scroll-reveal">Masculino</h3>
+            <div class="grid-decants">
+                <div class="card-sm scroll-reveal">
+                    <h4>Santal 33</h4>
+                    <p>Aroma amaderado icónico: sándalo, cuero y cardamomo.</p>
+                    <a href="https://wa.me/523334795014?text=Pedido:%20Santal33" class="btn-wa">Pedir por WhatsApp</a>
+                </div>
+                <div class="card-sm scroll-reveal">
+                    <h4>Eros Flame</h4>
+                    <p>Cítrico y especiado: mandarina, pimienta negra y romero.</p>
+                    <a href="https://wa.me/523334795014?text=Pedido:%20ErosFlame" class="btn-wa">Pedir por WhatsApp</a>
+                </div>
+                <div class="card-sm scroll-reveal">
+                    <h4>Le Male</h4>
+                    <p>Sensual y magnético: lavanda fresca, menta y vainilla dulce.</p>
+                    <a href="https://wa.me/523334795014?text=Pedido:%20LeMale" class="btn-wa">Pedir por WhatsApp</a>
+                </div>
+                <div class="card-sm scroll-reveal">
+                    <h4>212 VIP Black</h4>
+                    <p>Enigmático y audaz: notas de absenta y almizcle oscuro.</p>
+                    <a href="https://wa.me/523334795014?text=Pedido:%20212VIPBlack" class="btn-wa">Pedir por WhatsApp</a>
+                </div>
+                <div class="card-sm scroll-reveal">
+                    <h4>Uomo</h4>
+                    <p>Elegancia italiana: notas de café, chocolate y cuero.</p>
+                    <a href="https://wa.me/523334795014?text=Pedido:%20Uomo" class="btn-wa">Pedir por WhatsApp</a>
+                </div>
+                <div class="card-sm scroll-reveal">
+                    <h4>Invictus Victory</h4>
+                    <p>Fresco y oriental: combinación de incienso y vainilla.</p>
+                    <a href="https://wa.me/523334795014?text=Pedido:%20Invictus" class="btn-wa">Pedir por WhatsApp</a>
+                </div>
+                <div class="card-sm scroll-reveal">
+                    <h4>Hugo Boss</h4>
+                    <p>Clásico fresco: manzana verde y notas herbales masculinas.</p>
+                    <a href="https://wa.me/523334795014?text=Pedido:%20HugoBoss" class="btn-wa">Pedir por WhatsApp</a>
+                </div>
+                <div class="card-sm scroll-reveal">
+                    <h4>Acqua di Gio</h4>
+                    <p>El rey de la frescura: notas marinas, bergamota y flores.</p>
+                    <a href="https://wa.me/523334795014?text=Pedido:%20Acqua" class="btn-wa">Pedir por WhatsApp</a>
+                </div>
+                <div class="card-sm scroll-reveal">
+                    <h4>Bleu de Chanel</h4>
+                    <p>Sofisticación atemporal: cedro y cítricos vibrantes.</p>
+                    <a href="https://wa.me/523334795014?text=Pedido:%20Bleu" class="btn-wa">Pedir por WhatsApp</a>
+                </div>
+                <div class="card-sm scroll-reveal">
+                    <h4>Sauvage</h4>
+                    <p>Noble y salvaje: bergamota de Calabria y ambroxan.</p>
+                    <a href="https://wa.me/523334795014?text=Pedido:%20Sauvage" class="btn-wa">Pedir por WhatsApp</a>
+                </div>
+            </div>
+
+            <h3 class="decant-category scroll-reveal">Femenino</h3>
+            <div class="grid-decants">
+                <div class="card-sm scroll-reveal">
+                    <h4>CH Carolina Herrera</h4>
+                    <p>Elegancia clásica: notas de cítricos y rosa búlgara.</p>
+                    <a href="https://wa.me/523334795014?text=Pedido:%20CH" class="btn-wa">Pedir por WhatsApp</a>
+                </div>
+                <div class="card-sm scroll-reveal">
+                    <h4>Ariana Grande Cloud</h4>
+                    <p>Aroma soñador: lavanda, coco, praliné y pera dulce.</p>
+                    <a href="https://wa.me/523334795014?text=Pedido:%20Cloud" class="btn-wa">Pedir por WhatsApp</a>
+                </div>
+                <div class="card-sm scroll-reveal">
+                    <h4>Paris Hilton</h4>
+                    <p>Vibrante y chic: mezcla frutal de manzana y melón.</p>
+                    <a href="https://wa.me/523334795014?text=Pedido:%20ParisHilton" class="btn-wa">Pedir por WhatsApp</a>
+                </div>
+                <div class="card-sm scroll-reveal">
+                    <h4>Olympéa</h4>
+                    <p>Diosa moderna: vainilla salada irresistible y jazmín.</p>
+                    <a href="https://wa.me/523334795014?text=Pedido:%20Olympea" class="btn-wa">Pedir por WhatsApp</a>
+                </div>
+                <div class="card-sm scroll-reveal">
+                    <h4>Attrape-Rêves</h4>
+                    <p>Mágico: explosión de cacao, peonía y lichi fresco.</p>
+                    <a href="https://wa.me/523334795014?text=Pedido:%20Attrape" class="btn-wa">Pedir por WhatsApp</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO CTA -->
+    <section>
+        <div class="container">
+            <div class="cta-glass scroll-reveal">
+                <h2 style="font-size: 3rem;">Encuentra tu esencia</h2>
+                <p style="margin-bottom:40px; color:#444; max-width: 600px; margin-left: auto; margin-right: auto;">¿No sabes qué elegir? Escríbenos para una recomendación personalizada.</p>
+                <a href="https://wa.me/523334795014" class="btn">Chatear por WhatsApp</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="about">
+        <div class="container scroll-reveal">
+            <p>"Nuestra misión es brindarte un cuidado esencial con ingredientes naturales y fragancias que inspiran confianza."</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p style="font-family:'Playfair Display'; font-size:1.6rem; margin-bottom:12px; font-weight: 700;">Essentials Soap</p>
+            <p style="font-size:0.75rem; letter-spacing:4px; opacity:0.5; text-transform:uppercase;">2024</p>
+        
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => { document.getElementById('hero-content').classList.add('active'); }, 100);
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('reveal');
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.scroll-reveal, .card, .card-sm, .section-header, .cta-glass').forEach(el => observer.observe(el));
+
+        window.addEventListener('scroll', () => {
+            const scroll = window.pageYOffset;
+            document.querySelector('.glow-1').style.transform = `translateY(${scroll * 0.1}px)`;
+            document.querySelector('.glow-2').style.transform = `translateY(-${scroll * 0.1}px)`;
+        });
+    </script>
+</body>
+</html>
