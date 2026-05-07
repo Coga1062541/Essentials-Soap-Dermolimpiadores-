@@ -195,7 +195,6 @@ letter-spacing:2px;
 <div class="card-sm"><h4>212 VIP Black</h4><p>Misterioso y oscuro.</p></div>
 <div class="card-sm"><h4>Uomo</h4><p>Café y cuero elegante.</p></div>
 <div class="card-sm"><h4>Invictus Victory</h4><p>Dulce e intenso.</p></div>
-<div class="card-sm"><h4>Hugo Boss</h4><p>Fresco y limpio.</p></div>
 <div class="card-sm"><h4>Acqua di Gio</h4><p>Notas marinas refrescantes.</p></div>
 <div class="card-sm"><h4>Bleu de Chanel</h4><p>Elegante y versátil.</p></div>
 <div class="card-sm"><h4>Sauvage</h4><p>Limpio, masculino y dominante.</p></div>
@@ -207,7 +206,6 @@ letter-spacing:2px;
 
 <div class="card-sm"><h4>CH Carolina Herrera</h4><p>Floral elegante.</p></div>
 <div class="card-sm"><h4>Ariana Grande Cloud</h4><p>Dulce y cremoso.</p></div>
-<div class="card-sm"><h4>Paris Hilton</h4><p>Frutal juvenil.</p></div>
 <div class="card-sm"><h4>Olympéa</h4><p>Vainilla salada sensual.</p></div>
 <div class="card-sm"><h4>Attrape-Rêves</h4><p>Dulce sofisticado.</p></div>
 
