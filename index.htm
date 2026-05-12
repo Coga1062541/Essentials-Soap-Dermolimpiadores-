@@ -1,576 +1,793 @@
-
+<!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Essentials Soap | Cuidado Esencial</title>
-    <div class="hero-links">
-    <a href="#jabones" class="btn">Jabones Dermolimpiadores</a>
-    <a href="#complementos" class="btn">Complementos</a>
-    <a href="#decants" class="btn">Fragancias</a>
-</div>
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-    <style>
-      @media (max-width: 768px) { 
-    .container {
-        padding: 0 18px;
-    }
-
-    .hero {
-        height: auto;
-        padding: 120px 0 60px;
-    }
-
-    .hero h1 {
-        font-size: 2.5rem;
-        line-height: 1.1;
-    }
-
-    .hero p.tagline {
-        letter-spacing: 3px;
-        font-size: 0.65rem;
-    }
-
-    .hero p {
-        font-size: 0.95rem !important;
-    }
-
-    .section-header h2 {
-        font-size: 2rem;
-    }
-
-    .grid {
-        grid-template-columns: 1fr;
-        gap: 25px;
-    }
-
-    .card {
-        padding: 30px;
-    }
-
-    .card h3 {
-        font-size: 1.5rem;
-    }
-
-    .card .price {
-        font-size: 1.2rem;
-    }
-
-    .grid-decants {
-        grid-template-columns: 1fr;
-    }
-
-    .card-sm {
-        padding: 25px;
-    }
-
-    .card-sm h4 {
-        font-size: 1.1rem;
-    }
-
-    .card-sm p {
-        font-size: 0.8rem;
-    }
-
-    .cta-glass {
-        padding: 60px 25px;
-        border-radius: 30px;
-    }
-
-    .cta-glass h2 {
-        font-size: 2rem !important;
-    }
-
-    footer p:first-child {
-        font-size: 1.3rem;
-    }
-}
-        :root {
-            --white: #ffffff;
-            --cream: #fbf9f7;
-            --beige: #f2ede4;
-            --black: #1a1a1a;
-            --olive: #6b705c;
-            --olive-light: #a5a58d;
-            
-            /* Liquid Glass Evolution: Más sólido y profundo */
-            --glass-bg: rgba(255, 255, 255, 0.92); /* Incrementada opacidad para legibilidad */
-            --glass-border: rgba(255, 255, 255, 0.8);
-            --glass-blur: blur(50px) saturate(180%); /* Desenfoque más fuerte */
-            
-            --btn-dark-glass: rgba(26, 26, 26, 0.95); /* Fondo oscuro para botones */
-            --btn-blur: blur(20px);
-            
-            --shadow-apple: 0 20px 40px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
-            --shadow-hover: 0 30px 60px rgba(0,0,0,0.12);
-            --transition-apple: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--white);
-            color: var(--black);
-            line-height: 1.6;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* --- BACKGROUND ATMOSPHERE --- */
-        .bg-glows {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-            background: linear-gradient(to bottom, #ffffff, #fcfaf8);
-        }
-
-        .glow-1 { position: absolute; top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(107, 112, 92, 0.12) 0%, transparent 70%); animation: drift 20s infinite alternate; }
-        .glow-2 { position: absolute; bottom: 10%; right: -5%; width: 40vw; height: 40vw; background: radial-gradient(circle, rgba(212, 163, 115, 0.15) 0%, transparent 70%); animation: drift 25s infinite alternate-reverse; }
-
-        @keyframes drift {
-            from { transform: translate(0, 0) scale(1); }
-            to { transform: translate(5%, 5%) scale(1.1); }
-        }
-
-        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; letter-spacing: -0.01em; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 25px; }
-
-        /* --- LIQUID GLASS NAV --- */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            z-index: 1000;
-            border-bottom: 1px solid rgba(0,0,0,0.03);
-            padding: 18px 0;
-            transition: var(--transition-apple);
-        }
-
-        nav .container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.3rem; font-weight: 600; text-decoration: none; color: var(--black); letter-spacing: -0.5px; }
-
-        /* --- HERO --- */
-        .hero {
-            height: 95vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            padding-top: 80px;
-        }
-
-        .hero-content { opacity: 0; transform: translateY(40px); transition: var(--transition-apple); z-index: 2; }
-        .hero-content.active { opacity: 1; transform: translateY(0); }
-        .hero h1 { font-size: clamp(3.5rem, 12vw, 6rem); margin-bottom: 10px; font-weight: 700; line-height: 1; }
-        .hero p.tagline { letter-spacing: 6px; text-transform: uppercase; color: var(--olive); font-size: 0.75rem; font-weight: 600; margin-bottom: 35px; opacity: 0.8; }
-
-        /* --- BUTTONS --- */
-        .btn {
-            display: inline-block;
-            padding: 18px 45px;
-            background-color: var(--black);
-            color: var(--white);
-            text-decoration: none;
-            border-radius: 100px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            letter-spacing: 1.5px;
-            transition: var(--transition-apple);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-
-        .btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 30px rgba(0,0,0,0.2); background-color: #000; }
-.hero-links {
-    display: flex;
-    justify-content: center;
-    gap: 18px;
-    flex-wrap: wrap;
-    margin-top: 10px;
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Essentials Soap | Cuidado Esencial</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#f9f5ef;
+  --white:#ffffff;
+  --sage:#6b7f63;
+  --sage-mid:#8fa384;
+  --sage-light:#c4d4bc;
+  --gold:#b8965a;
+  --gold-light:#d4b87a;
+  --dark:#1a1a18;
+  --mid:#4a4843;
+  --light:#9a9690;
+  --glass:rgba(255,255,255,0.72);
+  --glass-border:rgba(255,255,255,0.5);
 }
 
-.hero-links .btn {
-    padding: 16px 28px;
-    font-size: 0.72rem;
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden}
+
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--cream)}
+::-webkit-scrollbar-thumb{background:var(--sage-light);border-radius:99px}
+
+/* ══ NAV ══ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 3rem;
+  background:rgba(249,245,239,0.75);
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  border-bottom:1px solid rgba(180,170,155,0.25);
+  transition:padding .4s ease;
 }
-        /* BOTÓN WHATSAPP MEJORADO */
-        .btn-wa {
-            display: inline-block;
-            background: var(--btn-dark-glass);
-            backdrop-filter: var(--btn-blur);
-            -webkit-backdrop-filter: var(--btn-blur);
-            color: var(--white);
-            padding: 14px 24px;
-            border-radius: 100px;
-            text-decoration: none;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            transition: var(--transition-apple);
-            margin-top: auto;
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.35rem;font-weight:300;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--dark);text-decoration:none;
+}
+.nav-logo span{color:var(--sage)}
+.nav-links{display:flex;gap:2rem}
+.nav-links a{
+  font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--mid);text-decoration:none;font-weight:400;
+  transition:color .25s;position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-3px;left:0;right:0;
+  height:1px;background:var(--sage);transform:scaleX(0);
+  transform-origin:left;transition:transform .3s ease;
+}
+.nav-links a:hover{color:var(--sage)}
+.nav-links a:hover::after{transform:scaleX(1)}
+.nav-social{display:flex;gap:.8rem}
+.nav-social a{
+  display:flex;align-items:center;justify-content:center;
+  width:32px;height:32px;border-radius:50%;
+  background:var(--glass);backdrop-filter:blur(8px);
+  border:1px solid var(--glass-border);
+  color:var(--mid);text-decoration:none;
+  transition:all .25s;
+}
+.nav-social a:hover{background:var(--sage);border-color:var(--sage);color:#fff;transform:scale(1.08)}
 
-        .btn-wa:hover, .btn-wa:active { 
-            background: #000; 
-            color: var(--white); 
-            transform: translateY(-3px); 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-            border-color: rgba(255,255,255,0.2);
-        }
+/* ══ HERO ══ */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:9rem 2rem 5rem;
+  position:relative;overflow:hidden;
+}
+.orb{
+  position:absolute;border-radius:50%;pointer-events:none;
+}
+.orb-1{
+  width:900px;height:900px;
+  background:radial-gradient(circle,rgba(139,163,132,0.28) 0%,transparent 70%);
+  top:-15%;left:-20%;
+  animation:orbDrift 18s ease-in-out infinite alternate;
+}
+.orb-2{
+  width:700px;height:700px;
+  background:radial-gradient(circle,rgba(184,150,90,0.18) 0%,transparent 70%);
+  bottom:-10%;right:-10%;
+  animation:orbDrift 22s ease-in-out infinite alternate-reverse;
+}
+.orb-3{
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(196,212,188,0.2) 0%,transparent 70%);
+  top:40%;left:30%;
+  animation:orbDrift 15s ease-in-out infinite alternate;
+}
+@keyframes orbDrift{
+  from{transform:translate(0,0) scale(1)}
+  to{transform:translate(60px,40px) scale(1.1)}
+}
 
-        /* --- CARDS & GRIDS --- */
-        section { padding: 120px 0; position: relative; }
-        .section-header { text-align: center; margin-bottom: 70px; opacity: 0; transform: translateY(30px); transition: var(--transition-apple); }
-        .section-header.reveal { opacity: 1; transform: translateY(0); }
-        .section-header h2 { font-size: 2.8rem; margin-bottom: 10px; }
-        .section-header p { font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; color: var(--olive-light); }
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:.7rem;
+  font-size:.65rem;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--gold);
+  background:rgba(184,150,90,0.1);
+  border:1px solid rgba(184,150,90,0.3);
+  padding:.45rem 1.2rem;border-radius:99px;
+  margin-bottom:2rem;
+  opacity:0;transform:translateY(20px);
+  animation:revealUp .8s cubic-bezier(.16,1,.3,1) .2s forwards;
+}
+.hero-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(4.5rem,10vw,10rem);
+  font-weight:300;line-height:.92;letter-spacing:-.01em;
+  color:var(--dark);margin-bottom:1.6rem;
+  opacity:0;transform:translateY(30px);
+  animation:revealUp .9s cubic-bezier(.16,1,.3,1) .35s forwards;
+}
+.hero-title em{font-style:italic;color:var(--sage);display:block}
+.hero-sub{
+  font-size:.97rem;line-height:1.9;color:var(--light);
+  max-width:460px;margin:0 auto 3.5rem;font-weight:300;
+  opacity:0;transform:translateY(20px);
+  animation:revealUp .8s cubic-bezier(.16,1,.3,1) .55s forwards;
+}
+.hero-pills{
+  display:flex;gap:.9rem;flex-wrap:wrap;justify-content:center;
+  opacity:0;transform:translateY(20px);
+  animation:revealUp .8s cubic-bezier(.16,1,.3,1) .75s forwards;
+}
+.pill{
+  display:inline-flex;align-items:center;gap:.55rem;
+  padding:.78rem 1.7rem;border-radius:99px;
+  text-decoration:none;font-size:.76rem;letter-spacing:.1em;
+  text-transform:uppercase;font-weight:400;
+  transition:all .38s cubic-bezier(.16,1,.3,1);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+}
+.pill-primary{
+  background:var(--dark);color:#fff;
+  border:1px solid var(--dark);
+  box-shadow:0 4px 24px rgba(26,26,24,.2);
+}
+.pill-primary:hover{
+  background:var(--sage);border-color:var(--sage);
+  transform:translateY(-3px) scale(1.04);
+  box-shadow:0 14px 40px rgba(107,127,99,.35);
+}
+.pill-glass{
+  background:var(--glass);color:var(--dark);
+  border:1px solid var(--glass-border);
+  box-shadow:0 4px 16px rgba(0,0,0,.07);
+}
+.pill-glass:hover{
+  background:rgba(255,255,255,0.95);
+  transform:translateY(-3px) scale(1.04);
+  box-shadow:0 14px 35px rgba(0,0,0,.12);
+  color:var(--sage);
+}
+.pill-icon{font-size:1rem}
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; }
+.scroll-hint{
+  position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  opacity:0;animation:revealUp .6s ease 1.3s forwards;
+}
+.scroll-hint span{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--light)}
+.scroll-line{
+  width:1px;height:38px;
+  background:linear-gradient(to bottom,var(--sage-light),transparent);
+  animation:scrollPulse 2.2s ease-in-out infinite;
+}
+@keyframes scrollPulse{
+  0%,100%{opacity:.4;transform:scaleY(.6);transform-origin:top}
+  50%{opacity:1;transform:scaleY(1)}
+}
+@keyframes revealUp{
+  to{opacity:1;transform:translateY(0)}
+}
 
-        .card {
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            padding: 45px;
-            border-radius: 35px;
-            border: 1px solid var(--glass-border);
-            display: flex;
-            flex-direction: column;
-            transition: var(--transition-apple);
-            opacity: 0;
-            transform: translateY(50px);
-            box-shadow: var(--shadow-apple);
-        }
+/* ══ SHARED ══ */
+.section-badge{
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold);
+  background:rgba(184,150,90,0.1);border:1px solid rgba(184,150,90,0.25);
+  padding:.4rem 1rem;border-radius:99px;
+}
+.section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.2rem,5vw,4rem);font-weight:300;line-height:1.1;
+  color:var(--dark);
+}
+.section-title em{font-style:italic;color:var(--sage)}
+.section-sub{font-size:.85rem;color:var(--light);margin-top:.6rem;font-weight:300}
+.section-header-wrap{text-align:center;margin-bottom:5rem}
 
-        .card.reveal { opacity: 1; transform: translateY(0); }
-        .card:hover { transform: translateY(-12px); box-shadow: var(--shadow-hover); border-color: var(--white); }
-        .card h3 { font-size: 1.8rem; margin-bottom: 8px; }
-        .card .weight { font-size: 0.75rem; color: var(--olive); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 15px; display: block; opacity: 0.8; }
-        .card .price { font-size: 1.4rem; color: var(--black); font-weight: 500; margin-bottom: 30px; display: block; }
+.reveal{
+  opacity:0;transform:translateY(40px);
+  transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);
+}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.08s}.d2{transition-delay:.18s}.d3{transition-delay:.28s}
+.d4{transition-delay:.38s}.d5{transition-delay:.48s}
 
-        /* --- FRAGRANCE CARDS --- */
-        .grid-decants { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+/* ══ JABONES ══ */
+#jabones{
+  padding:8rem 3rem;
+  background:linear-gradient(180deg,var(--cream) 0%,#f0ebe0 100%);
+}
+.jabones-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:1.2rem;max-width:1100px;margin:0 auto;
+}
+.jabon-card{
+  background:var(--glass);
+  backdrop-filter:blur(20px) saturate(160%);
+  -webkit-backdrop-filter:blur(20px) saturate(160%);
+  border:1px solid var(--glass-border);
+  border-radius:24px;padding:2rem 2rem 1.8rem;
+  transition:all .48s cubic-bezier(.16,1,.3,1);
+  position:relative;overflow:hidden;
+}
+.jabon-card::before{
+  content:'';position:absolute;
+  top:-70px;right:-70px;width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle,rgba(107,127,99,.12),transparent 70%);
+  pointer-events:none;transition:transform .6s ease;
+}
+.jabon-card:hover::before{transform:scale(1.5)}
+.jabon-card:hover{
+  transform:translateY(-9px) scale(1.015);
+  box-shadow:0 28px 65px rgba(0,0,0,.1),0 0 0 1px rgba(255,255,255,.65);
+  background:rgba(255,255,255,.9);
+}
+.jabon-header{
+  display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.4rem
+}
+.jabon-orb{
+  width:52px;height:52px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:1.5rem;
+  background:linear-gradient(135deg,rgba(196,212,188,.5),rgba(255,255,255,.8));
+  border:1px solid rgba(196,212,188,.4);
+}
+.jabon-badge{
+  font-size:.59rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--sage);background:rgba(107,127,99,.1);
+  border:1px solid rgba(107,127,99,.2);
+  padding:.3rem .75rem;border-radius:99px;margin-top:.2rem;
+}
+.jabon-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.55rem;font-weight:400;color:var(--dark);margin-bottom:.5rem;
+}
+.jabon-desc{
+  font-size:.82rem;line-height:1.82;color:var(--light);
+  font-weight:300;margin-bottom:1.6rem;
+}
+.jabon-footer{display:flex;align-items:center;justify-content:space-between}
+.jabon-price{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.8rem;font-weight:300;color:var(--dark);line-height:1;
+}
+.jabon-price small{
+  display:block;font-family:'Inter',sans-serif;
+  font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--light);margin-top:.2rem;
+}
+.btn-pill-wa{
+  display:inline-flex;align-items:center;gap:.45rem;
+  padding:.6rem 1.3rem;border-radius:99px;
+  background:var(--dark);color:#fff;
+  font-size:.69rem;letter-spacing:.12em;text-transform:uppercase;
+  text-decoration:none;border:1px solid var(--dark);
+  transition:all .32s cubic-bezier(.16,1,.3,1);
+}
+.btn-pill-wa:hover{
+  background:var(--sage);border-color:var(--sage);
+  transform:scale(1.06);
+  box-shadow:0 8px 24px rgba(107,127,99,.3);
+}
 
-        .card-sm {
-            padding: 35px;
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            border-radius: 30px;
-            border: 1px solid var(--glass-border);
-            display: flex;
-            flex-direction: column;
-            transition: var(--transition-apple);
-            opacity: 0;
-            transform: scale(0.95);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-        }
+/* ══ COMPLEMENTOS ══ */
+#complementos{
+  padding:8rem 3rem;
+  background:var(--dark);position:relative;overflow:hidden;
+}
+.comp-orb-1{
+  width:600px;height:600px;
+  background:radial-gradient(circle,rgba(107,127,99,.25),transparent 70%);
+  top:-20%;left:-10%;
+}
+.comp-orb-2{
+  width:500px;height:500px;
+  background:radial-gradient(circle,rgba(184,150,90,.15),transparent 70%);
+  bottom:-15%;right:-5%;
+}
+.comp-header .section-badge{
+  background:rgba(184,150,90,.15);border-color:rgba(184,150,90,.3);color:var(--gold-light)
+}
+.comp-header .section-title{color:rgba(255,255,255,.92)}
+.comp-header .section-title em{color:var(--sage-light)}
+.comp-header .section-sub{color:rgba(255,255,255,.3)}
+.comp-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:1.2rem;max-width:780px;margin:0 auto;
+  position:relative;z-index:1;
+}
+.comp-card{
+  background:rgba(255,255,255,.06);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:24px;padding:2.5rem;
+  transition:all .45s cubic-bezier(.16,1,.3,1);
+}
+.comp-card:hover{
+  background:rgba(255,255,255,.11);
+  transform:translateY(-9px);
+  border-color:rgba(255,255,255,.2);
+  box-shadow:0 32px 75px rgba(0,0,0,.38);
+}
+.comp-emoji{font-size:2.2rem;display:block;margin-bottom:1.4rem}
+.comp-vol{
+  font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold-light);margin-bottom:.4rem;
+}
+.comp-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.65rem;font-weight:300;color:rgba(255,255,255,.9);margin-bottom:.7rem;
+}
+.comp-desc{
+  font-size:.83rem;line-height:1.88;color:rgba(255,255,255,.38);
+  font-weight:300;margin-bottom:2rem;
+}
+.comp-footer{display:flex;justify-content:space-between;align-items:center}
+.comp-price{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.2rem;font-weight:300;color:var(--gold-light);
+}
+.btn-pill-inv{
+  display:inline-flex;align-items:center;gap:.45rem;
+  padding:.6rem 1.3rem;border-radius:99px;
+  border:1px solid rgba(255,255,255,.22);color:rgba(255,255,255,.72);
+  font-size:.69rem;letter-spacing:.12em;text-transform:uppercase;
+  text-decoration:none;
+  transition:all .32s cubic-bezier(.16,1,.3,1);
+}
+.btn-pill-inv:hover{
+  background:var(--gold);border-color:var(--gold);color:var(--dark);
+  transform:scale(1.06);
+}
 
-        .card-sm.reveal { opacity: 1; transform: scale(1); }
-        .card-sm:hover { transform: translateY(-8px); background: #fff; box-shadow: var(--shadow-hover); }
-        .card-sm h4 { font-size: 1.3rem; margin-bottom: 8px; color: var(--black); }
-        .card-sm p { font-size: 0.85rem; color: #555; margin-bottom: 25px; line-height: 1.5; }
+/* ══ FRAGANCIAS ══ */
+#fragancias{padding:8rem 3rem;background:var(--cream)}
 
-        .decant-category { margin-top: 60px; margin-bottom: 35px; font-size: 0.75rem; letter-spacing: 5px; text-transform: uppercase; color: var(--olive); border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 15px; font-weight: 600; }
+.frag-price-pill{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:var(--gold);color:#fff;
+  font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+  padding:.5rem 1.4rem;border-radius:99px;
+  margin-bottom:2rem;
+  box-shadow:0 6px 22px rgba(184,150,90,.38);
+}
+.frag-tabs-wrap{display:flex;flex-direction:column;align-items:center;margin-bottom:3.5rem}
+.frag-tabs{
+  display:inline-flex;
+  background:rgba(0,0,0,.05);
+  border-radius:99px;padding:5px;
+  border:1px solid rgba(0,0,0,.06);
+}
+.frag-tab{
+  padding:.6rem 1.8rem;border-radius:99px;border:none;
+  font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;cursor:pointer;
+  background:transparent;color:var(--light);
+  transition:all .32s cubic-bezier(.16,1,.3,1);
+}
+.frag-tab.active{
+  background:var(--dark);color:#fff;
+  box-shadow:0 4px 16px rgba(0,0,0,.2);
+}
+.frag-panel{display:none}
+.frag-panel.active{display:block}
+.frag-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));
+  gap:1rem;max-width:1100px;margin:0 auto;
+}
+.frag-card{
+  background:var(--glass);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--glass-border);
+  border-radius:20px;padding:1.6rem;
+  transition:all .42s cubic-bezier(.16,1,.3,1);
+  position:relative;overflow:hidden;
+}
+.frag-card::after{
+  content:'';position:absolute;inset:0;border-radius:20px;
+  background:linear-gradient(135deg,rgba(255,255,255,.28),transparent);
+  pointer-events:none;
+}
+.frag-card:hover{
+  transform:translateY(-7px) scale(1.02);
+  background:var(--dark);
+  border-color:rgba(255,255,255,.1);
+  box-shadow:0 22px 55px rgba(0,0,0,.16);
+}
+.frag-card:hover .frag-name{color:rgba(255,255,255,.9)}
+.frag-card:hover .frag-desc{color:rgba(255,255,255,.42)}
+.frag-card:hover .frag-btn{border-color:rgba(255,255,255,.25);color:rgba(255,255,255,.65)}
+.frag-card:hover .frag-btn:hover{background:var(--gold);border-color:var(--gold);color:#fff}
+.frag-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;font-weight:400;color:var(--dark);
+  margin-bottom:.4rem;transition:color .38s;
+}
+.frag-desc{
+  font-size:.78rem;line-height:1.72;color:var(--light);
+  margin-bottom:1.1rem;font-weight:300;transition:color .38s;
+}
+.frag-btn{
+  display:inline-flex;align-items:center;gap:.35rem;
+  padding:.4rem 1rem;border-radius:99px;
+  border:1px solid rgba(0,0,0,.1);color:var(--mid);
+  font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;
+  text-decoration:none;position:relative;z-index:1;
+  transition:all .3s cubic-bezier(.16,1,.3,1);
+}
+.frag-btn:hover{background:var(--sage);border-color:var(--sage);color:#fff}
 
-        /* --- ABOUT & CTA --- */
-        .cta-glass { 
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur); 
-            border-radius: 50px; 
-            padding: 100px 50px; 
-            text-align: center; 
-            border: 1px solid var(--glass-border); 
-            box-shadow: var(--shadow-apple);
-        }
+/* ══ BANNER ══ */
+.banner{
+  padding:7rem 3rem;text-align:center;
+  background:linear-gradient(135deg,#f2ede4 0%,#e6dfd3 100%);
+  position:relative;overflow:hidden;
+}
+.banner::before{
+  content:'ESSENTIALS';position:absolute;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  font-family:'Cormorant Garamond',serif;font-size:18vw;font-weight:300;
+  color:rgba(107,127,99,.05);letter-spacing:.3em;white-space:nowrap;
+  pointer-events:none;
+}
+.banner-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,4.5vw,3.8rem);font-weight:300;
+  color:var(--dark);margin-bottom:1rem;
+}
+.banner-title em{font-style:italic;color:var(--sage)}
+.banner p{
+  font-size:.9rem;color:var(--light);max-width:420px;margin:0 auto 2.5rem;
+  line-height:1.9;font-weight:300;
+}
+.btn-wa-main{
+  display:inline-flex;align-items:center;gap:.6rem;
+  padding:.9rem 2.2rem;border-radius:99px;
+  background:#25d366;color:#fff;text-decoration:none;
+  font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;
+  box-shadow:0 8px 32px rgba(37,211,102,.38);
+  transition:all .38s cubic-bezier(.16,1,.3,1);
+}
+.btn-wa-main:hover{
+  background:#1da851;transform:translateY(-4px) scale(1.04);
+  box-shadow:0 18px 50px rgba(37,211,102,.42);
+}
 
-        .about { background: var(--black); color: var(--white); text-align: center; padding: 140px 20px; position: relative; }
-        .about p { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 4vw, 2.6rem); max-width: 900px; margin: 0 auto; font-style: italic; line-height: 1.3; opacity: 0.9; }
+/* ══ FOOTER ══ */
+footer{
+  background:var(--dark);padding:3rem;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:1.5rem;
+}
+.footer-brand{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.2rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.85);font-weight:300;
+}
+.footer-brand span{color:var(--sage-light)}
+.footer-tag{font-size:.65rem;color:rgba(255,255,255,.28);letter-spacing:.1em;margin-top:.2rem}
+.footer-links{display:flex;gap:1.2rem}
+.footer-links a{
+  color:rgba(255,255,255,.32);font-size:.7rem;text-decoration:none;
+  letter-spacing:.12em;text-transform:uppercase;transition:color .25s;
+}
+.footer-links a:hover{color:var(--gold-light)}
+footer p{font-size:.7rem;color:rgba(255,255,255,.2)}
 
-        footer { padding: 80px 0; text-align: center; border-top: 1px solid var(--beige); background: var(--white); }
+/* ══ WA FLOAT ══ */
+.wa-float{
+  position:fixed;bottom:2rem;right:2rem;z-index:800;
+  width:54px;height:54px;border-radius:50%;
+  background:#25d366;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  text-decoration:none;
+  box-shadow:0 6px 24px rgba(37,211,102,.5);
+  transition:all .3s cubic-bezier(.16,1,.3,1);
+  animation:waPulse 3s ease-in-out infinite;
+}
+.wa-float:hover{transform:scale(1.12);box-shadow:0 12px 40px rgba(37,211,102,.65)}
+@keyframes waPulse{
+  0%,100%{box-shadow:0 6px 24px rgba(37,211,102,.5)}
+  50%{box-shadow:0 6px 36px rgba(37,211,102,.75),0 0 0 10px rgba(37,211,102,.08)}
+}
 
-        @media (max-width: 768px) { 
-            .grid-decants { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 3.5rem; }
-        }
-    </style>
+/* ══ RESPONSIVE ══ */
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem}
+  .nav-links{display:none}
+  .hero{padding:8rem 1.5rem 4rem}
+  #jabones,#complementos,#fragancias{padding:6rem 1.5rem}
+  .jabones-grid{grid-template-columns:1fr 1fr}
+  .banner{padding:5rem 1.5rem}
+  footer{flex-direction:column;align-items:flex-start;padding:2.5rem 1.5rem}
+}
+@media(max-width:580px){
+  .hero-pills{flex-direction:column;align-items:center}
+  .jabones-grid{grid-template-columns:1fr}
+  .frag-grid{grid-template-columns:1fr}
+}
+</style>
 </head>
 <body>
 
-    <div class="bg-glows">
-        <div class="glow-1"></div>
-        <div class="glow-2"></div>
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Essentials <span>Soap</span></a>
+  <div class="nav-links">
+    <a href="#jabones">Jabones</a>
+    <a href="#complementos">Complementos</a>
+    <a href="#fragancias">Fragancias</a>
+  </div>
+  <div class="nav-social">
+    <a href="https://instagram.com/essentials_.soap" target="_blank" aria-label="Instagram">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    </a>
+    <a href="https://wa.me/523334795014" target="_blank" aria-label="WhatsApp">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.527 5.845L.057 23.886a.5.5 0 0 0 .619.612l6.16-1.456A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.804 9.804 0 0 1-5.006-1.371l-.358-.214-3.716.878.925-3.618-.234-.371A9.807 9.807 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="hero-eyebrow">✦ Pureza en cada detalle</div>
+  <h1 class="hero-title">Essentials<br/><em>Soap</em></h1>
+  <p class="hero-sub">Dermolimpiadores artesanales con ingredientes naturales y una selección exclusiva de fragancias de nicho.</p>
+
+  <div class="hero-pills">
+    <a href="#jabones" class="pill pill-primary">
+      <span class="pill-icon">🧼</span> Jabones Dermolimpiadores
+    </a>
+    <a href="#complementos" class="pill pill-glass">
+      <span class="pill-icon">✨</span> Complementos
+    </a>
+    <a href="#fragancias" class="pill pill-glass">
+      <span class="pill-icon">🌿</span> Fragancias
+    </a>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Explorar</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- JABONES -->
+<section id="jabones">
+  <div class="section-header-wrap reveal">
+    <div class="section-badge">✦ Artesanía &amp; Bienestar</div>
+    <h2 class="section-title">Jabones <em>Dermolimpiadores</em></h2>
+    <p class="section-sub">100% naturales · Cont. neto 100g · $30 MXN c/u</p>
+  </div>
+  <div class="jabones-grid">
+    <div class="jabon-card reveal d1">
+      <div class="jabon-header">
+        <div class="jabon-orb">🖤</div>
+        <span class="jabon-badge">Purificante</span>
+      </div>
+      <div class="jabon-name">Carbón Activado</div>
+      <div class="jabon-desc">Limpieza profunda que elimina impurezas y toxinas del rostro y cuerpo.</div>
+      <div class="jabon-footer">
+        <div class="jabon-price">$30 <small>MXN · 100g</small></div>
+        <a class="btn-pill-wa" href="https://wa.me/523334795014?text=Hola,%20quiero%20Jabón%20de%20Carbón" target="_blank">💬 Pedir</a>
+      </div>
     </div>
+    <div class="jabon-card reveal d2">
+      <div class="jabon-header">
+        <div class="jabon-orb">🥥</div>
+        <span class="jabon-badge">Exfoliante</span>
+      </div>
+      <div class="jabon-name">Coco y Arroz</div>
+      <div class="jabon-desc">Exfoliación suave que ilumina y suaviza la piel instantáneamente.</div>
+      <div class="jabon-footer">
+        <div class="jabon-price">$30 <small>MXN · 100g</small></div>
+        <a class="btn-pill-wa" href="https://wa.me/523334795014?text=Hola,%20quiero%20Jabón%20de%20Coco%20y%20Arroz" target="_blank">💬 Pedir</a>
+      </div>
+    </div>
+    <div class="jabon-card reveal d3">
+      <div class="jabon-header">
+        <div class="jabon-orb">🐌</div>
+        <span class="jabon-badge">Regenerador</span>
+      </div>
+      <div class="jabon-name">Baba de Caracol</div>
+      <div class="jabon-desc">Ayuda a regenerar y mejorar la textura de la dermis dañada.</div>
+      <div class="jabon-footer">
+        <div class="jabon-price">$30 <small>MXN · 100g</small></div>
+        <a class="btn-pill-wa" href="https://wa.me/523334795014?text=Hola,%20quiero%20Jabón%20de%20Baba%20de%20Caracol" target="_blank">💬 Pedir</a>
+      </div>
+    </div>
+    <div class="jabon-card reveal d1">
+      <div class="jabon-header">
+        <div class="jabon-orb">🥛</div>
+        <span class="jabon-badge">Nutritivo</span>
+      </div>
+      <div class="jabon-name">Leche de Burra</div>
+      <div class="jabon-desc">Nutrición intensa para pieles maduras que buscan elasticidad.</div>
+      <div class="jabon-footer">
+        <div class="jabon-price">$30 <small>MXN · 100g</small></div>
+        <a class="btn-pill-wa" href="https://wa.me/523334795014?text=Hola,%20quiero%20Jabón%20de%20Leche%20de%20Burra" target="_blank">💬 Pedir</a>
+      </div>
+    </div>
+    <div class="jabon-card reveal d2">
+      <div class="jabon-header">
+        <div class="jabon-orb">🌾</div>
+        <span class="jabon-badge">Control Sebáceo</span>
+      </div>
+      <div class="jabon-name">Avena y Bioazufre</div>
+      <div class="jabon-desc">Ideal para piel con tendencia grasa o imperfecciones persistentes.</div>
+      <div class="jabon-footer">
+        <div class="jabon-price">$30 <small>MXN · 100g</small></div>
+        <a class="btn-pill-wa" href="https://wa.me/523334795014?text=Hola,%20quiero%20Jabón%20de%20Avena" target="_blank">💬 Pedir</a>
+      </div>
+    </div>
+    <div class="jabon-card reveal d3">
+      <div class="jabon-header">
+        <div class="jabon-orb">🌿</div>
+        <span class="jabon-badge">Renovador</span>
+      </div>
+      <div class="jabon-name">Tepezcohuite</div>
+      <div class="jabon-desc">Potente regenerador natural para una piel sana y renovada.</div>
+      <div class="jabon-footer">
+        <div class="jabon-price">$30 <small>MXN · 100g</small></div>
+        <a class="btn-pill-wa" href="https://wa.me/523334795014?text=Hola,%20quiero%20Jabón%20de%20Tepezcohuite" target="_blank">💬 Pedir</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <nav id="navbar">
-        <div class="container">
-            <a href="#" class="logo">Essentials Soap</a>
-            <div class="nav-social">
-                <a href="https://instagram.com/essentials_.soap" style="color:var(--black); margin-left:15px; font-size:1.2rem; opacity: 0.7;"><i class="fa-brands fa-instagram"></i></a>
-                <a href="https://wa.me/523334795014" style="color:var(--black); margin-left:15px; font-size:1.2rem; opacity: 0.7;"><i class="fa-brands fa-whatsapp"></i></a>
-            </div>
-        </div>
-    </nav>
+<!-- COMPLEMENTOS -->
+<section id="complementos">
+  <div class="orb comp-orb-1" style="position:absolute;border-radius:50%;pointer-events:none"></div>
+  <div class="orb comp-orb-2" style="position:absolute;border-radius:50%;pointer-events:none"></div>
+  <div class="section-header-wrap comp-header reveal" style="text-align:center;margin-bottom:5rem;position:relative;z-index:1">
+    <div class="section-badge" style="background:rgba(184,150,90,.15);border-color:rgba(184,150,90,.3);color:var(--gold-light)">✦ El Ritual Completo</div>
+    <h2 class="section-title" style="color:rgba(255,255,255,.92)">Complementos <em style="color:var(--sage-light)">Naturales</em></h2>
+    <p class="section-sub" style="color:rgba(255,255,255,.3)">Potencia tu rutina de cuidado diario</p>
+  </div>
+  <div class="comp-grid">
+    <div class="comp-card reveal d1">
+      <span class="comp-emoji">🧴</span>
+      <div class="comp-vol">250 ML</div>
+      <div class="comp-name">Pasta de Coco y Arroz</div>
+      <div class="comp-desc">Jabón corporal cremoso. Limpieza con ligera exfoliación diaria para una piel suave y luminosa.</div>
+      <div class="comp-footer">
+        <div class="comp-price">$40</div>
+        <a class="btn-pill-inv" href="https://wa.me/523334795014?text=Hola,%20quiero%20Pasta%20de%20Coco%20y%20Arroz" target="_blank">💬 Pedir</a>
+      </div>
+    </div>
+    <div class="comp-card reveal d2">
+      <span class="comp-emoji">✨</span>
+      <div class="comp-vol">150 ML</div>
+      <div class="comp-name">Crema Baba de Caracol</div>
+      <div class="comp-desc">Hidratación profunda diseñada para mantener una piel joven, firme y luminosa cada día.</div>
+      <div class="comp-footer">
+        <div class="comp-price">$60</div>
+        <a class="btn-pill-inv" href="https://wa.me/523334795014?text=Hola,%20quiero%20Crema%20de%20Baba%20de%20Caracol" target="_blank">💬 Pedir</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <header class="hero">
-        <div class="container">
-            <div class="hero-content" id="hero-content">
-                <p class="tagline">Pureza en cada detalle</p>
-                <h1>Essentials Soap</h1>
-                <p style="color: #555; margin-bottom: 45px; font-size: 1.1rem; max-width: 600px; margin-left: auto; margin-right: auto;">Cuidado dermolimpiador natural y una selección exclusiva de fragancias de nicho.</p>
-                <a href="#jabones" class="btn">Explorar Colección</a>
-            </div>
-        </div>
-    </header>
+<!-- FRAGANCIAS -->
+<section id="fragancias">
+  <div class="section-header-wrap reveal" style="text-align:center;margin-bottom:2rem">
+    <div class="section-badge">✦ Colección Premium</div>
+    <h2 class="section-title">Catálogo de <em>Fragancias</em></h2>
+    <p class="section-sub">Decants Inspired Premium · 10 ml</p>
+  </div>
+  <div class="frag-tabs-wrap reveal">
+    <span class="frag-price-pill">💛 $50 MXN cada una</span>
+    <div class="frag-tabs">
+      <button class="frag-tab active" onclick="switchTab('masc',this)">♂ Masculino</button>
+      <button class="frag-tab" onclick="switchTab('fem',this)">♀ Femenino</button>
+    </div>
+  </div>
 
-    <!-- JABONES -->
-    <section id="jabones">
-        <div class="container">
-            <div class="section-header scroll-reveal">
-                <h2>Jabones Naturales</h2>
-                <p>Artesanía & Bienestar</p>
-            </div>
-            <div class="grid">
-                <div class="card scroll-reveal">
-                    <div>
-                        <h3>Carbón activado</h3>
-                        <span class="weight">Cont. Neto 100g</span>
-                        <p style="color:#555; margin-bottom:20px;">Limpieza profunda que elimina impurezas y toxinas del rostro y cuerpo.</p>
-                    </div>
-                    <span class="price">$30 MXN</span>
-                    <a href="https://wa.me/523334795014?text=Hola,%20quiero%20Jabón%20de%20Carbón" class="btn-wa">Pedir por WhatsApp</a>
-                </div>
-                <div class="card scroll-reveal">
-                    <div>
-                        <h3>Coco y arroz</h3>
-                        <span class="weight">Cont. Neto 100g</span>
-                        <p style="color:#555; margin-bottom:20px;">Exfoliación suave que ilumina y suaviza la piel instantáneamente.</p>
-                    </div>
-                    <span class="price">$30 MXN</span>
-                    <a href="https://wa.me/523334795014?text=Hola,%20quiero%20Jabón%20de%20Coco%20y%20Arroz" class="btn-wa">Pedir por WhatsApp</a>
-                </div>
-                <div class="card scroll-reveal">
-                    <div>
-                        <h3>Baba de caracol</h3>
-                        <span class="weight">Cont. Neto 100g</span>
-                        <p style="color:#555; margin-bottom:20px;">Ayuda a regenerar y mejorar la textura de la dermis dañada.</p>
-                    </div>
-                    <span class="price">$30 MXN</span>
-                    <a href="https://wa.me/523334795014?text=Hola,%20quiero%20Jabón%20de%20Baba%20de%20Caracol" class="btn-wa">Pedir por WhatsApp</a>
-                </div>
-                <div class="card scroll-reveal">
-                    <div>
-                        <h3>Leche de burra</h3>
-                        <span class="weight">Cont. Neto 100g</span>
-                        <p style="color:#555; margin-bottom:20px;">Nutrición intensa para pieles maduras que buscan elasticidad.</p>
-                    </div>
-                    <span class="price">$30 MXN</span>
-                    <a href="https://wa.me/523334795014?text=Hola,%20quiero%20Jabón%20de%20Leche%20de%20Burra" class="btn-wa">Pedir por WhatsApp</a>
-                </div>
-                <div class="card scroll-reveal">
-                    <div>
-                        <h3>Avena y bioazufre</h3>
-                        <span class="weight">Cont. Neto 100g</span>
-                        <p style="color:#555; margin-bottom:20px;">Ideal para piel con tendencia grasa o imperfecciones persistentes.</p>
-                    </div>
-                    <span class="price">$30 MXN</span>
-                    <a href="https://wa.me/523334795014?text=Hola,%20quiero%20Jabón%20de%20Avena" class="btn-wa">Pedir por WhatsApp</a>
-                </div>
-                <div class="card scroll-reveal">
-                    <div>
-                        <h3>Tepezcohuite</h3>
-                        <span class="weight">Cont. Neto 100g</span>
-                        <p style="color:#555; margin-bottom:20px;">Potente regenerador natural para una piel sana y renovada.</p>
-                    </div>
-                    <span class="price">$30 MXN</span>
-                    <a href="https://wa.me/523334795014?text=Hola,%20quiero%20Jabón%20de%20Tepezcohuite" class="btn-wa">Pedir por WhatsApp</a>
-                </div>
-            </div>
-        </div>
-    </section>
+  <div class="frag-panel active" id="panel-masc">
+    <div class="frag-grid">
+      <div class="frag-card reveal d1"><div class="frag-name">Le Labo Santal 33</div><div class="frag-desc">Aroma amaderado icónico: sándalo, cuero y cardamomo.</div><a class="frag-btn" href="https://wa.me/523334795014?text=Pedido:%20Santal33" target="_blank">Pedir →</a></div>
+      <div class="frag-card reveal d2"><div class="frag-name">Versace Eros Flame</div><div class="frag-desc">Cítrico y especiado: mandarina, pimienta negra y romero.</div><a class="frag-btn" href="https://wa.me/523334795014?text=Pedido:%20ErosFlame" target="_blank">Pedir →</a></div>
+      <div class="frag-card reveal d3"><div class="frag-name">Nautica Voyage</div><div class="frag-desc">Fresco acuático: manzana verde, loto y cedro.</div><a class="frag-btn" href="https://wa.me/523334795014?text=Pedido:%20Nautica%20Voyage" target="_blank">Pedir →</a></div>
+      <div class="frag-card reveal d1"><div class="frag-name">JPG Le Male</div><div class="frag-desc">Sensual y magnético: lavanda fresca, menta y vainilla.</div><a class="frag-btn" href="https://wa.me/523334795014?text=Pedido:%20LeMale" target="_blank">Pedir →</a></div>
+      <div class="frag-card reveal d2"><div class="frag-name">212 VIP Black</div><div class="frag-desc">Enigmático y audaz: absenta y almizcle oscuro.</div><a class="frag-btn" href="https://wa.me/523334795014?text=Pedido:%20212VIPBlack" target="_blank">Pedir →</a></div>
+      <div class="frag-card reveal d3"><div class="frag-name">Valentino BIR Uomo</div><div class="frag-desc">Elegancia italiana: café, chocolate y cuero.</div><a class="frag-btn" href="https://wa.me/523334795014?text=Pedido:%20Uomo" target="_blank">Pedir →</a></div>
+      <div class="frag-card reveal d1"><div class="frag-name">Invictus Victory</div><div class="frag-desc">Fresco y oriental: incienso y vainilla.</div><a class="frag-btn" href="https://wa.me/523334795014?text=Pedido:%20Invictus" target="_blank">Pedir →</a></div>
+      <div class="frag-card reveal d2"><div class="frag-name">Hugo Boss</div><div class="frag-desc">Clásico fresco: manzana verde y notas herbales masculinas.</div><a class="frag-btn" href="https://wa.me/523334795014?text=Pedido:%20HugoBoss" target="_blank">Pedir →</a></div>
+      <div class="frag-card reveal d3"><div class="frag-name">Acqua di Gio</div><div class="frag-desc">El rey de la frescura: notas marinas, bergamota y flores.</div><a class="frag-btn" href="https://wa.me/523334795014?text=Pedido:%20Acqua" target="_blank">Pedir →</a></div>
+      <div class="frag-card reveal d1"><div class="frag-name">Bleu de Chanel</div><div class="frag-desc">Sofisticación atemporal: cedro y cítricos vibrantes.</div><a class="frag-btn" href="https://wa.me/523334795014?text=Pedido:%20Bleu" target="_blank">Pedir →</a></div>
+      <div class="frag-card reveal d2"><div class="frag-name">Dior Sauvage</div><div class="frag-desc">Noble y salvaje: bergamota de Calabria y ambroxan.</div><a class="frag-btn" href="https://wa.me/523334795014?text=Pedido:%20Sauvage" target="_blank">Pedir →</a></div>
+    </div>
+  </div>
+  <div class="frag-panel" id="panel-fem">
+    <div class="frag-grid">
+      <div class="frag-card reveal d1"><div class="frag-name">212 Carolina Herrera</div><div class="frag-desc">Elegancia clásica: cítricos y rosa búlgara.</div><a class="frag-btn" href="https://wa.me/523334795014?text=Pedido:%20CH" target="_blank">Pedir →</a></div>
+      <div class="frag-card reveal d2"><div class="frag-name">Ariana Grande Cloud</div><div class="frag-desc">Aroma soñador: lavanda, coco, praliné y pera dulce.</div><a class="frag-btn" href="https://wa.me/523334795014?text=Pedido:%20Cloud" target="_blank">Pedir →</a></div>
+      <div class="frag-card reveal d3"><div class="frag-name">Paris Hilton</div><div class="frag-desc">Vibrante y chic: mezcla frutal de manzana y melón.</div><a class="frag-btn" href="https://wa.me/523334795014?text=Pedido:%20ParisHilton" target="_blank">Pedir →</a></div>
+      <div class="frag-card reveal d1"><div class="frag-name">Olympéa</div><div class="frag-desc">Diosa moderna: vainilla salada irresistible y jazmín.</div><a class="frag-btn" href="https://wa.me/523334795014?text=Pedido:%20Olympea" target="_blank">Pedir →</a></div>
+      <div class="frag-card reveal d2"><div class="frag-name">Attrape-Rêves LV</div><div class="frag-desc">Mágico: explosión de cacao, peonía y lichi fresco.</div><a class="frag-btn" href="https://wa.me/523334795014?text=Pedido:%20Attrape" target="_blank">Pedir →</a></div>
+    </div>
+  </div>
+</section>
 
-    <!-- COMPLEMENTOS -->
-    <section id="complementos">
-        <div class="container">
-            <div class="section-header scroll-reveal">
-                <h2>Complementos</h2>
-                <p>El Ritual Completo</p>
-            </div>
-            <div class="grid">
-                <div class="card scroll-reveal">
-                    <div>
-                        <h3>Pasta de coco y arroz</h3>
-                        <span class="weight">250 ML</span>
-                        <p style="color:#555; margin-bottom:20px;">Jabón corporal cremoso. Limpieza con ligera exfoliación diaria.</p>
-                    </div>
-                    <span class="price">$40 MXN</span>
-                    <a href="https://wa.me/523334795014?text=Hola,%20quiero%20Pasta%20de%20Coco%20y%20Arroz" class="btn-wa">Pedir por WhatsApp</a>
-                </div>
-                <div class="card scroll-reveal">
-                    <div>
-                        <h3>Crema de baba de caracol</h3>
-                        <span class="weight">150 ML</span>
-                        <p style="color:#555; margin-bottom:20px;">Hidratación profunda diseñada para mantener una piel joven.</p>
-                    </div>
-                    <span class="price">$60 MXN</span>
-                    <a href="https://wa.me/523334795014?text=Hola,%20quiero%20Crema%20de%20Baba%20de%20Caracol" class="btn-wa">Pedir por WhatsApp</a>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- CTA BANNER -->
+<div class="banner">
+  <h3 class="banner-title reveal">¿No sabes qué <em>elegir?</em></h3>
+  <p class="reveal d1">Escríbenos y te damos una recomendación personalizada según tu tipo de piel y preferencias.</p>
+  <a href="https://wa.me/523334795014" target="_blank" class="btn-wa-main reveal d2">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.527 5.845L.057 23.886a.5.5 0 0 0 .619.612l6.16-1.456A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.804 9.804 0 0 1-5.006-1.371l-.358-.214-3.716.878.925-3.618-.234-.371A9.807 9.807 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+    Chatear por WhatsApp
+  </a>
+</div>
 
-    <!-- DECANTS -->
-    <section id="decants">
-        <div class="container">
-            <div class="section-header scroll-reveal">
-                <h2>Catálogo de Fragancias</h2>
-                <p>Decants Inspired Premium Fragances 10ml — $50 MXN</p>
-            </div>
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">Essentials <span>Soap</span></div>
+    <div class="footer-tag">Cuidado esencial · Natural · Artesanal</div>
+  </div>
+  <div class="footer-links">
+    <a href="https://instagram.com/essentials_.soap" target="_blank">Instagram</a>
+    <a href="https://wa.me/523334795014" target="_blank">WhatsApp</a>
+  </div>
+  <p>© 2024 Essentials Soap</p>
+</footer>
 
-            <h3 class="decant-category scroll-reveal">Masculino</h3>
-            <div class="grid-decants">
-                <div class="card-sm scroll-reveal">
-                    <h4>Le Labo Santal 33</h4>
-                    <p>Aroma amaderado icónico: sándalo, cuero y cardamomo.</p>
-                    <a href="https://wa.me/523334795014?text=Pedido:%20Santal33" class="btn-wa">Pedir por WhatsApp</a>
-                </div>
+<!-- WA FLOAT -->
+<a href="https://wa.me/523334795014" class="wa-float" target="_blank" aria-label="WhatsApp">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.527 5.845L.057 23.886a.5.5 0 0 0 .619.612l6.16-1.456A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.804 9.804 0 0 1-5.006-1.371l-.358-.214-3.716.878.925-3.618-.234-.371A9.807 9.807 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+</a>
 
-                <div class="card-sm scroll-reveal">
-                    <h4>Versace Eros Flame</h4>
-                    <p>Cítrico y especiado: mandarina, pimienta negra y romero.</p>
-                    <a href="https://wa.me/523334795014?text=Pedido:%20ErosFlame" class="btn-wa">Pedir por WhatsApp</a>
-                </div>
-                <div class="card-sm scroll-reveal">
-                    <h4>JPG Le Male</h4>
-                    <p>lavanda fresca, menta y vainilla dulce.</p>
-                    <a href="https://wa.me/523334795014?text=Pedido:%20LeMale" class="btn-wa">Pedir por WhatsApp</a>
-                </div>
+<script>
+// Scroll Reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-                <div class="card-sm scroll-reveal">
-                    <h4>212 VIP Black</h4>
-                    <p>Enigmático y audaz: notas de absenta y almizcle oscuro.</p>
-                    <a href="https://wa.me/523334795014?text=Pedido:%20212VIPBlack" class="btn-wa">Pedir por WhatsApp</a>
-                </div>
+// Tabs
+function switchTab(tab, btn) {
+  document.querySelectorAll('.frag-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.frag-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  const panel = document.getElementById('panel-' + tab);
+  panel.classList.add('active');
+  panel.querySelectorAll('.reveal').forEach(el => {
+    el.classList.remove('visible');
+    setTimeout(() => observer.observe(el), 60);
+  });
+}
 
-                <div class="card-sm scroll-reveal">
-                    <h4>Valentino BIR Uomo</h4>
-                    <p>Elegancia italiana: notas de café, chocolate y cuero.</p>
-                    <a href="https://wa.me/523334795014?text=Pedido:%20Uomo" class="btn-wa">Pedir por WhatsApp</a>
-                </div>
-
-                <div class="card-sm scroll-reveal">
-                    <h4>Invictus Victory</h4>
-                    <p>Fresco y oriental: combinación de incienso y vainilla.</p>
-                    <a href="https://wa.me/523334795014?text=Pedido:%20Invictus" class="btn-wa">Pedir por WhatsApp</a>
-                </div>
-
-                <div class="card-sm scroll-reveal">
-                    <h4>Acqua di Gio</h4>
-                    <p>El rey de la frescura: notas marinas, bergamota y flores.</p>
-                    <a href="https://wa.me/523334795014?text=Pedido:%20Acqua" class="btn-wa">Pedir por WhatsApp</a>
-                </div>
-
-                <div class="card-sm scroll-reveal">
-                    <h4>Bleu de Chanel</h4>
-                    <p>Sofisticación atemporal: cedro y cítricos vibrantes.</p>
-                    <a href="https://wa.me/523334795014?text=Pedido:%20Bleu" class="btn-wa">Pedir por WhatsApp</a>
-                </div>
-
-                <div class="card-sm scroll-reveal">
-                    <h4>Dior Sauvage</h4>
-                    <p>Noble y salvaje:Salida de lavanda, bergamota de Calabria y ambroxan.</p>
-                    <a href="https://wa.me/523334795014?text=Pedido:%20Sauvage" class="btn-wa">Pedir por WhatsApp</a>
-                </div>
-            </div>
-
-            <h3 class="decant-category scroll-reveal">Femenino</h3>
-            <div class="grid-decants">
-                <div class="card-sm scroll-reveal">
-                    <h4>212 Carolina Herrera</h4>
-                    <p>Elegancia clásica: notas de cítricos y rosa búlgara.</p>
-                    <a href="https://wa.me/523334795014?text=Pedido:%20CH" class="btn-wa">Pedir por WhatsApp</a>
-                </div>
-              
-  <div class="card-sm scroll-reveal">
-                    <h4>Ariana Grande Cloud</h4>
-                    <p>Aroma soñador: lavanda, coco, praliné y pera dulce.</p>
-                    <a href="https://wa.me/523334795014?text=Pedido:%20Cloud" class="btn-wa">Pedir por WhatsApp</a>
-                </div>
-
-                <div class="card-sm scroll-reveal">
-                    <h4>Olympéa</h4>
-                    <p>Diosa moderna: vainilla salada irresistible y jazmín.</p>
-                    <a href="https://wa.me/523334795014?text=Pedido:%20Olympea" class="btn-wa">Pedir por WhatsApp</a>
-                </div>
-                <div class="card-sm scroll-reveal">
-                    <h4>Attrape-Rêves Louis Vuitton</h4>
-                    <p>Mágico: explosión de cacao, peonía y lichi fresco.</p>
-                    <a href="https://wa.me/523334795014?text=Pedido:%20Attrape" class="btn-wa">Pedir por WhatsApp</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACTO CTA -->
-    <section>
-        <div class="container">
-            <div class="cta-glass scroll-reveal">
-                <h2 style="font-size: 3rem;">Encuentra tu esencia</h2>
-                <p style="margin-bottom:40px; color:#444; max-width: 600px; margin-left: auto; margin-right: auto;">¿No sabes qué elegir? Escríbenos para una recomendación personalizada.</p>
-                <a href="https://wa.me/523334795014" class="btn">Chatear por WhatsApp</a>
-            </div>
-        </div>
-    </section>
-
-    <section class="about">
-        <div class="container scroll-reveal">
-            <p>"Nuestra misión es brindarte un cuidado esencial con ingredientes naturales y fragancias que inspiran confianza."</p>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p style="font-family:'Playfair Display'; font-size:1.6rem; margin-bottom:12px; font-weight: 700;">Essentials Soap</p>
-            <p style="font-size:0.75rem; letter-spacing:4px; opacity:0.5; text-transform:uppercase;">2024</p>
-        
-
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => { document.getElementById('hero-content').classList.add('active'); }, 100);
-        });
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('reveal');
-            });
-        }, { threshold: 0.15 });
-
-        document.querySelectorAll('.scroll-reveal, .card, .card-sm, .section-header, .cta-glass').forEach(el => observer.observe(el));
-
-        window.addEventListener('scroll', () => {
-            const scroll = window.pageYOffset;
-            document.querySelector('.glow-1').style.transform = `translateY(${scroll * 0.1}px)`;
-            document.querySelector('.glow-2').style.transform = `translateY(-${scroll * 0.1}px)`;
-        });
-    </script>
+// Nav shrink
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').style.padding =
+    window.scrollY > 60 ? '.7rem 3rem' : '1rem 3rem';
+}, { passive: true });
+</script>
 </body>
 </html>
