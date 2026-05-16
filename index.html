@@ -53,6 +53,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:cen
 @keyframes sp{0%,100%{opacity:.4;transform:scaleY(.6);transform-origin:top}50%{opacity:1;transform:scaleY(1)}}
 @keyframes ru{to{opacity:1;transform:translateY(0)}}
 
+/* Stats — sin números engañosos */
+.hero-stats{display:flex;gap:2.5rem;justify-content:center;padding-top:2rem;border-top:1px solid rgba(0,0,0,.08);position:relative;z-index:1}
+.stat-n{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;color:var(--sage);line-height:1}
+.stat-l{font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;color:var(--sub);margin-top:.15rem}
+
+/* TRUST */
+.trust{padding:1.4rem 3rem;background:var(--dark);display:flex;align-items:center;justify-content:center;gap:2.5rem;flex-wrap:wrap}
+.ti{display:flex;align-items:center;gap:.5rem;color:rgba(255,255,255,.48);font-size:.64rem;letter-spacing:.13em;text-transform:uppercase}
+.tsep{width:1px;height:16px;background:rgba(255,255,255,.1)}
+
 /* SHARED */
 .sec-badge{display:inline-flex;align-items:center;gap:.6rem;font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);background:rgba(184,150,90,.1);border:1px solid rgba(184,150,90,.25);padding:.4rem 1rem;border-radius:99px}
 .sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,4rem);font-weight:300;line-height:1.1;color:var(--dark)}
@@ -216,7 +226,25 @@ footer p{font-size:.7rem;color:rgba(255,255,255,.18)}
     <a href="#complementos" class="pill pg"><span>✨</span> Complementos</a>
     <a href="#fragancias" class="pill pg"><span>🌷</span> Fragancias</a>
   </div>
+  <div class="hero-stats">
+    <div><div class="stat-n">6</div><div class="stat-l">Jabones naturales</div></div>
+    <div><div class="stat-n">100%</div><div class="stat-l">Natural</div></div>
+    <div><div class="stat-n">13</div><div class="stat-l">Fragancias premium</div></div>
+    <div><div class="stat-n">2</div><div class="stat-l">Complementos</div></div>
+  </div>
 </section>
+
+  
+<!-- TRUST -->
+<div class="trust">
+  <div class="ti">🌱 Ingredientes naturales</div>
+  <div class="tsep"></div>
+  <div class="ti">🧪 Formulación artesanal</div>
+  <div class="tsep"></div>
+  <div class="ti">✈️ Envío disponible</div>
+  <div class="tsep"></div>
+  <div class="ti">💬 Pedidos por WhatsApp</div>
+</div>
 
 <section id="jabones">
   <div class="sec-hdr reveal">
