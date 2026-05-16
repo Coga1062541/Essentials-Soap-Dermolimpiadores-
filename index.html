@@ -54,47 +54,38 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:cen
 @keyframes ru{to{opacity:1;transform:translateY(0)}}
 
 .hero-stats{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:.8rem;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  gap:1.6rem;
 
   width:calc(100% - 2rem);
-  max-width:320px;
+  max-width:340px;
 
-  margin:2.2rem auto 0;
+  margin:2.4rem auto 0;
+  padding-top:1.6rem;
+
+  border-top:1px solid rgba(0,0,0,.08);
 }
 
 .hero-stats > div{
-  padding:.9rem .7rem;
-
-  background:rgba(255,255,255,.45);
-  border:1px solid rgba(255,255,255,.55);
-
-  border-radius:22px;
-
-  backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
-
-  box-shadow:
-    0 8px 20px rgba(0,0,0,.04),
-    inset 0 1px 0 rgba(255,255,255,.7);
-
+  flex:1;
   text-align:center;
 }
 
 .stat-n{
   font-family:'Cormorant Garamond',serif;
-  font-size:1.9rem;
+  font-size:2rem;
   font-weight:300;
   color:var(--sage);
   line-height:1;
-  margin-bottom:.2rem;
+  margin-bottom:.25rem;
 }
 
 .stat-l{
-  font-size:.56rem;
-  line-height:1.35;
-  letter-spacing:.12em;
+  font-size:.55rem;
+  line-height:1.45;
+  letter-spacing:.13em;
   text-transform:uppercase;
   color:var(--sub);
 }
