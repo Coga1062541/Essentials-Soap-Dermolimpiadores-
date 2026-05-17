@@ -26,8 +26,8 @@ body {
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--cream)}::-webkit-scrollbar-thumb{background:var(--sage-light);border-radius:99px}
 
 /* ==========================================================================
-   ESTILOS COMPLETOS DEL FONDO MESH GRADIENT (CON ANIMACIÓN ACTIVA)
-   ========================================================================== */
+   EFECTO APPLE MUSIC LIQUIDO (ANIMACIÓN PREMIUM)
+   ========================================================================= */
 .mesh-bg-container {
   position: fixed;
   top: 0;
@@ -37,54 +37,92 @@ body {
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
+  background: var(--cream);
   transform: translate3d(0, 0, 0);
-  will-change: transform;
+  backface-visibility: hidden;
 }
+
 .mesh-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(50px) !important; 
-  opacity: 0.65 !important;       
-  mix-blend-mode: normal; 
-}
-.blob-1 {
-  width: 850px; 
-  height: 850px;
-  background: #b2aa8e !important; 
-  top: -15%;
-  left: -15%;
-  animation: floatBlob1 30s ease-in-out infinite alternate;
-}
-.blob-2 {
-  width: 750px;
-  height: 750px;
-  background: #c9bf93 !important; 
-  bottom: -10%;
-  right: -10%;
-  animation: floatBlob2 35s ease-in-out infinite alternate-reverse;
-}
-.blob-3 {
-  width: 650px;
-  height: 650px;
-  background: #aab8a2 !important; 
-  top: 25%;
-  left: 15%;
-  animation: floatBlob3 25s ease-in-out infinite alternate;
+  filter: blur(140px) saturate(150%); 
+  opacity: 0.75;       
+  mix-blend-mode: multiply;
+  will-change: transform;
 }
 
-@keyframes floatBlob1 {
-  0% { transform: translate(0, 0) scale(1) translate3d(0,0,0); }
-  50% { transform: translate(110px, 70px) scale(1.15) translate3d(0,0,0); }
-  100% { transform: translate(-50px, 120px) scale(0.95) translate3d(0,0,0); }
+/* Blob 1 - Tono Oro */
+.blob-1 {
+  width: 90vw;
+  height: 90vw;
+  background: #c9bf93;
+  top: -20%;
+  left: -20%;
+  animation: appleLiquid1 25s ease-in-out infinite alternate;
 }
-@keyframes floatBlob2 {
-  0% { transform: translate(0, 0) scale(1) translate3d(0,0,0); }
-  50% { transform: translate(-120px, -60px) scale(0.9) translate3d(0,0,0); }
-  100% { transform: translate(60px, 80px) scale(1.2) translate3d(0,0,0); }
+
+/* Blob 2 - Tono Sage Oscuro */
+.blob-2 {
+  width: 100vw;
+  height: 100vw;
+  background: #b2aa8e;
+  bottom: -30%;
+  right: -20%;
+  animation: appleLiquid2 30s ease-in-out infinite alternate-reverse;
 }
-@keyframes floatBlob3 {
-  0% { transform: translate(0, 0) scale(0.95) translate3d(0,0,0); }
-  100% { transform: translate(90px, -80px) scale(1.15) translate3d(0,0,0); }
+
+/* Blob 3 - Tono Verde Oliva Suave */
+.blob-3 {
+  width: 85vw;
+  height: 85vw;
+  background: #aab8a2;
+  top: 20%;
+  left: 10%;
+  animation: appleLiquid3 22s ease-in-out infinite alternate;
+}
+
+@keyframes appleLiquid1 {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  33% {
+    transform: translate(15vw, 10vh) scale(1.1) rotate(45deg);
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  }
+  66% {
+    transform: translate(-10vw, 20vh) scale(0.9) rotate(90deg);
+  }
+  100% {
+    transform: translate(5vw, -5vh) scale(1.05) rotate(135deg);
+    border-radius: 60% 40% 30% 70% / 50% 30% 70% 50%;
+  }
+}
+
+@keyframes appleLiquid2 {
+  0% {
+    transform: translate(0, 0) scale(1.05) rotate(0deg);
+  }
+  50% {
+    transform: translate(-20vw, -15vh) scale(0.85) rotate(-90deg);
+    border-radius: 50% 40% 60% 40% / 40% 60% 40% 60%;
+  }
+  100% {
+    transform: translate(10vw, -5vh) scale(1.15) rotate(-180deg);
+  }
+}
+
+@keyframes appleLiquid3 {
+  0% {
+    transform: translate(0, 0) scale(0.9) rotate(0deg);
+    border-radius: 40% 60% 50% 50% / 50% 40% 60% 50%;
+  }
+  50% {
+    transform: translate(25vw, -10vh) scale(1.1) rotate(120deg);
+  }
+  100% {
+    transform: translate(-5vw, -20vh) scale(1) rotate(240deg);
+    border-radius: 60% 40% 60% 40% / 40% 50% 50% 60%;
+  }
 }
 
 /* NAV */
