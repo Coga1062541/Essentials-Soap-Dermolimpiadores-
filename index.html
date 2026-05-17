@@ -26,7 +26,7 @@ body {
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--cream)}::-webkit-scrollbar-thumb{background:var(--sage-light);border-radius:99px}
 
 /* ==========================================================================
-   EFECTO APPLE MUSIC LIQUIDO (COLORES DOMINANTES - CORREGIDO)
+   EFECTO APPLE MUSIC ULTRA-OPTIMIZADO (60 FPS PARA MÓVILES)
    ========================================================================= */
 .mesh-bg-container {
   position: fixed;
@@ -38,88 +38,91 @@ body {
   pointer-events: none;
   overflow: hidden;
   background: var(--cream);
+  /* Forzar aceleración por hardware */
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
-  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .mesh-blob {
   position: absolute;
   border-radius: 50%;
-  /* Un blur enorme para que se mezclen sin dejar parches blancos */
-  filter: blur(160px) saturate(160%); 
-  -webkit-filter: blur(160px) saturate(160%);
-  opacity: 0.85;       
+  /* Blur optimizado + Saturación */
+  filter: blur(70px) saturate(140%); 
+  -webkit-filter: blur(70px) saturate(140%);
+  opacity: 0.88;       
+  /* El secreto: un scale inicial alto procesado por GPU */
+  -webkit-transform: scale(1.8) translate3d(0,0,0);
+  transform: scale(1.8) translate3d(0,0,0);
   will-change: transform;
 }
 
-/* Blob 1 - Tono Oro (¡Más grande!) */
+/* Blob 1 - Tono Oro */
 .blob-1 {
-  width: 150vw;
-  height: 150vw;
+  width: 75vw;
+  height: 75vw;
   background: #c9bf93;
-  top: -30%;
-  left: -40%;
-  -webkit-animation: appleLiquid1 24s ease-in-out infinite alternate;
-  animation: appleLiquid1 24s ease-in-out infinite alternate;
+  top: -15%;
+  left: -20%;
+  -webkit-animation: appleLiquid1 28s linear infinite alternate;
+  animation: appleLiquid1 28s linear infinite alternate;
 }
 
-/* Blob 2 - Tono Sage Oscuro (¡Más grande!) */
+/* Blob 2 - Tono Sage Oscuro */
 .blob-2 {
-  width: 160vw;
-  height: 160vw;
+  width: 80vw;
+  height: 80vw;
   background: #b2aa8e;
-  bottom: -40%;
-  right: -30%;
-  -webkit-animation: appleLiquid2 28s ease-in-out infinite alternate-reverse;
-  animation: appleLiquid2 28s ease-in-out infinite alternate-reverse;
+  bottom: -20%;
+  right: -15%;
+  -webkit-animation: appleLiquid2 34s linear infinite alternate-reverse;
+  animation: appleLiquid2 34s linear infinite alternate-reverse;
 }
 
-/* Blob 3 - Tono Verde Oliva Suave (¡Más al centro y gigante!) */
+/* Blob 3 - Tono Verde Oliva Suave */
 .blob-3 {
-  width: 140vw;
-  height: 140vw;
+  width: 70vw;
+  height: 70vw;
   background: #aab8a2;
-  top: 10%;
-  left: -10%;
-  -webkit-animation: appleLiquid3 22s ease-in-out infinite alternate;
-  animation: appleLiquid3 22s ease-in-out infinite alternate;
+  top: 25%;
+  left: -5%;
+  -webkit-animation: appleLiquid3 26s linear infinite alternate;
+  animation: appleLiquid3 26s linear infinite alternate;
 }
 
-/* Movimiento amplio para que los colores viajen por toda la pantalla */
+/* Animaciones ultra ligeras usando solo transformaciones de GPU (translate + rotate + scale) */
 @-webkit-keyframes appleLiquid1 {
-  0% { -webkit-transform: translate(0, 0) scale(1) rotate(0deg); transform: translate(0, 0) scale(1) rotate(0deg); }
-  33% { -webkit-transform: translate(20vw, 15vh) scale(1.1) rotate(45deg); transform: translate(20vw, 15vh) scale(1.1) rotate(45deg); border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
-  66% { -webkit-transform: translate(-15vw, 25vh) scale(0.9) rotate(90deg); transform: translate(-15vw, 25vh) scale(0.9) rotate(90deg); }
-  100% { -webkit-transform: translate(10vw, -10vh) scale(1.05) rotate(135deg); transform: translate(10vw, -10vh) scale(1.05) rotate(135deg); border-radius: 60% 40% 30% 70% / 50% 30% 70% 50%; }
+  0% { -webkit-transform: scale(1.8) translate(0, 0) rotate(0deg); }
+  50% { -webkit-transform: scale(1.95) translate(15vw, 10vh) rotate(90deg); }
+  100% { -webkit-transform: scale(1.7) translate(-5vw, 15vh) rotate(180deg); }
 }
 @keyframes appleLiquid1 {
-  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-  33% { transform: translate(20vw, 15vh) scale(1.1) rotate(45deg); border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
-  66% { transform: translate(-15vw, 25vh) scale(0.9) rotate(90deg); }
-  100% { transform: translate(10vw, -10vh) scale(1.05) rotate(135deg); border-radius: 60% 40% 30% 70% / 50% 30% 70% 50%; }
+  0% { transform: scale(1.8) translate(0, 0) rotate(0deg); }
+  50% { transform: scale(1.95) translate(15vw, 10vh) rotate(90deg); }
+  100% { transform: scale(1.7) translate(-5vw, 15vh) rotate(180deg); }
 }
 
 @-webkit-keyframes appleLiquid2 {
-  0% { -webkit-transform: translate(0, 0) scale(1.05) rotate(0deg); transform: translate(0, 0) scale(1.05) rotate(0deg); }
-  50% { -webkit-transform: translate(-25vw, -20vh) scale(0.85) rotate(-90deg); transform: translate(-25vw, -20vh) scale(0.85) rotate(-90deg); border-radius: 50% 40% 60% 40% / 40% 60% 40% 60%; }
-  100% { -webkit-transform: translate(15vw, -10vh) scale(1.15) rotate(-180deg); transform: translate(15vw, -10vh) scale(1.15) rotate(-180deg); }
+  0% { -webkit-transform: scale(1.7) translate(0, 0) rotate(0deg); }
+  50% { -webkit-transform: scale(1.9) translate(-15vw, -10vh) rotate(-90deg); }
+  100% { -webkit-transform: scale(1.8) translate(5vw, -5vh) rotate(-180deg); }
 }
 @keyframes appleLiquid2 {
-  0% { transform: translate(0, 0) scale(1.05) rotate(0deg); }
-  50% { transform: translate(-25vw, -20vh) scale(0.85) rotate(-90deg); border-radius: 50% 40% 60% 40% / 40% 60% 40% 60%; }
-  100% { transform: translate(15vw, -10vh) scale(1.15) rotate(-180deg); }
+  0% { transform: scale(1.7) translate(0, 0) rotate(0deg); }
+  50% { transform: scale(1.9) translate(-15vw, -10vh) rotate(-90deg); }
+  100% { transform: scale(1.8) translate(5vw, -5vh) rotate(-180deg); }
 }
 
 @-webkit-keyframes appleLiquid3 {
-  0% { -webkit-transform: translate(0, 0) scale(0.9) rotate(0deg); transform: translate(0, 0) scale(0.9) rotate(0deg); border-radius: 40% 60% 50% 50% / 50% 40% 60% 50%; }
-  50% { -webkit-transform: translate(30vw, -15vh) scale(1.1) rotate(120deg); transform: translate(30vw, -15vh) scale(1.1) rotate(120deg); }
-  100% { -webkit-transform: translate(-10vw, -25vh) scale(1) rotate(240deg); transform: translate(-10vw, -25vh) scale(1) rotate(240deg); border-radius: 60% 40% 60% 40% / 40% 50% 50% 60%; }
+  0% { -webkit-transform: scale(1.9) translate(0, 0) rotate(0deg); }
+  50% { -webkit-transform: scale(1.7) translate(20vw, -10vh) rotate(120deg); }
+  100% { -webkit-transform: scale(1.85) translate(-10vw, -5vh) rotate(240deg); }
 }
 @keyframes appleLiquid3 {
-  0% { transform: translate(0, 0) scale(0.9) rotate(0deg); border-radius: 40% 60% 50% 50% / 50% 40% 60% 50%; }
-  50% { transform: translate(30vw, -15vh) scale(1.1) rotate(120deg); }
-  100% { transform: translate(-10vw, -25vh) scale(1) rotate(240deg); border-radius: 60% 40% 60% 40% / 40% 50% 50% 60%; }
+  0% { transform: scale(1.9) translate(0, 0) rotate(0deg); }
+  50% { transform: scale(1.7) translate(20vw, -10vh) rotate(120deg); }
+  100% { transform: scale(1.85) translate(-10vw, -5vh) rotate(240deg); }
 }
 
 /* NAV */
