@@ -26,7 +26,7 @@ body {
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--cream)}::-webkit-scrollbar-thumb{background:var(--sage-light);border-radius:99px}
 
 /* ==========================================================================
-   EFECTO APPLE MUSIC LIQUIDO (ANIMACIÓN PREMIUM)
+   EFECTO APPLE MUSIC LIQUIDO (COLORES DOMINANTES - CORREGIDO)
    ========================================================================= */
 .mesh-bg-container {
   position: fixed;
@@ -38,91 +38,88 @@ body {
   pointer-events: none;
   overflow: hidden;
   background: var(--cream);
+  -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
+  will-change: transform;
 }
 
 .mesh-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(140px) saturate(150%); 
-  opacity: 0.75;       
-  mix-blend-mode: multiply;
+  /* Un blur enorme para que se mezclen sin dejar parches blancos */
+  filter: blur(160px) saturate(160%); 
+  -webkit-filter: blur(160px) saturate(160%);
+  opacity: 0.85;       
   will-change: transform;
 }
 
-/* Blob 1 - Tono Oro */
+/* Blob 1 - Tono Oro (¡Más grande!) */
 .blob-1 {
-  width: 90vw;
-  height: 90vw;
+  width: 150vw;
+  height: 150vw;
   background: #c9bf93;
-  top: -20%;
-  left: -20%;
-  animation: appleLiquid1 25s ease-in-out infinite alternate;
+  top: -30%;
+  left: -40%;
+  -webkit-animation: appleLiquid1 24s ease-in-out infinite alternate;
+  animation: appleLiquid1 24s ease-in-out infinite alternate;
 }
 
-/* Blob 2 - Tono Sage Oscuro */
+/* Blob 2 - Tono Sage Oscuro (¡Más grande!) */
 .blob-2 {
-  width: 100vw;
-  height: 100vw;
+  width: 160vw;
+  height: 160vw;
   background: #b2aa8e;
-  bottom: -30%;
-  right: -20%;
-  animation: appleLiquid2 30s ease-in-out infinite alternate-reverse;
+  bottom: -40%;
+  right: -30%;
+  -webkit-animation: appleLiquid2 28s ease-in-out infinite alternate-reverse;
+  animation: appleLiquid2 28s ease-in-out infinite alternate-reverse;
 }
 
-/* Blob 3 - Tono Verde Oliva Suave */
+/* Blob 3 - Tono Verde Oliva Suave (¡Más al centro y gigante!) */
 .blob-3 {
-  width: 85vw;
-  height: 85vw;
+  width: 140vw;
+  height: 140vw;
   background: #aab8a2;
-  top: 20%;
-  left: 10%;
+  top: 10%;
+  left: -10%;
+  -webkit-animation: appleLiquid3 22s ease-in-out infinite alternate;
   animation: appleLiquid3 22s ease-in-out infinite alternate;
 }
 
+/* Movimiento amplio para que los colores viajen por toda la pantalla */
+@-webkit-keyframes appleLiquid1 {
+  0% { -webkit-transform: translate(0, 0) scale(1) rotate(0deg); transform: translate(0, 0) scale(1) rotate(0deg); }
+  33% { -webkit-transform: translate(20vw, 15vh) scale(1.1) rotate(45deg); transform: translate(20vw, 15vh) scale(1.1) rotate(45deg); border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+  66% { -webkit-transform: translate(-15vw, 25vh) scale(0.9) rotate(90deg); transform: translate(-15vw, 25vh) scale(0.9) rotate(90deg); }
+  100% { -webkit-transform: translate(10vw, -10vh) scale(1.05) rotate(135deg); transform: translate(10vw, -10vh) scale(1.05) rotate(135deg); border-radius: 60% 40% 30% 70% / 50% 30% 70% 50%; }
+}
 @keyframes appleLiquid1 {
-  0% {
-    transform: translate(0, 0) scale(1) rotate(0deg);
-  }
-  33% {
-    transform: translate(15vw, 10vh) scale(1.1) rotate(45deg);
-    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-  }
-  66% {
-    transform: translate(-10vw, 20vh) scale(0.9) rotate(90deg);
-  }
-  100% {
-    transform: translate(5vw, -5vh) scale(1.05) rotate(135deg);
-    border-radius: 60% 40% 30% 70% / 50% 30% 70% 50%;
-  }
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  33% { transform: translate(20vw, 15vh) scale(1.1) rotate(45deg); border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+  66% { transform: translate(-15vw, 25vh) scale(0.9) rotate(90deg); }
+  100% { transform: translate(10vw, -10vh) scale(1.05) rotate(135deg); border-radius: 60% 40% 30% 70% / 50% 30% 70% 50%; }
 }
 
+@-webkit-keyframes appleLiquid2 {
+  0% { -webkit-transform: translate(0, 0) scale(1.05) rotate(0deg); transform: translate(0, 0) scale(1.05) rotate(0deg); }
+  50% { -webkit-transform: translate(-25vw, -20vh) scale(0.85) rotate(-90deg); transform: translate(-25vw, -20vh) scale(0.85) rotate(-90deg); border-radius: 50% 40% 60% 40% / 40% 60% 40% 60%; }
+  100% { -webkit-transform: translate(15vw, -10vh) scale(1.15) rotate(-180deg); transform: translate(15vw, -10vh) scale(1.15) rotate(-180deg); }
+}
 @keyframes appleLiquid2 {
-  0% {
-    transform: translate(0, 0) scale(1.05) rotate(0deg);
-  }
-  50% {
-    transform: translate(-20vw, -15vh) scale(0.85) rotate(-90deg);
-    border-radius: 50% 40% 60% 40% / 40% 60% 40% 60%;
-  }
-  100% {
-    transform: translate(10vw, -5vh) scale(1.15) rotate(-180deg);
-  }
+  0% { transform: translate(0, 0) scale(1.05) rotate(0deg); }
+  50% { transform: translate(-25vw, -20vh) scale(0.85) rotate(-90deg); border-radius: 50% 40% 60% 40% / 40% 60% 40% 60%; }
+  100% { transform: translate(15vw, -10vh) scale(1.15) rotate(-180deg); }
 }
 
+@-webkit-keyframes appleLiquid3 {
+  0% { -webkit-transform: translate(0, 0) scale(0.9) rotate(0deg); transform: translate(0, 0) scale(0.9) rotate(0deg); border-radius: 40% 60% 50% 50% / 50% 40% 60% 50%; }
+  50% { -webkit-transform: translate(30vw, -15vh) scale(1.1) rotate(120deg); transform: translate(30vw, -15vh) scale(1.1) rotate(120deg); }
+  100% { -webkit-transform: translate(-10vw, -25vh) scale(1) rotate(240deg); transform: translate(-10vw, -25vh) scale(1) rotate(240deg); border-radius: 60% 40% 60% 40% / 40% 50% 50% 60%; }
+}
 @keyframes appleLiquid3 {
-  0% {
-    transform: translate(0, 0) scale(0.9) rotate(0deg);
-    border-radius: 40% 60% 50% 50% / 50% 40% 60% 50%;
-  }
-  50% {
-    transform: translate(25vw, -10vh) scale(1.1) rotate(120deg);
-  }
-  100% {
-    transform: translate(-5vw, -20vh) scale(1) rotate(240deg);
-    border-radius: 60% 40% 60% 40% / 40% 50% 50% 60%;
-  }
+  0% { transform: translate(0, 0) scale(0.9) rotate(0deg); border-radius: 40% 60% 50% 50% / 50% 40% 60% 50%; }
+  50% { transform: translate(30vw, -15vh) scale(1.1) rotate(120deg); }
+  100% { transform: translate(-10vw, -25vh) scale(1) rotate(240deg); border-radius: 60% 40% 60% 40% / 40% 50% 50% 60%; }
 }
 
 /* NAV */
@@ -155,7 +152,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:cen
 @keyframes sp{0%,100%{opacity:.4;transform:scaleY(.6);transform-origin:top}50%{opacity:1;transform:scaleY(1)}}
 @keyframes ru{to{opacity:1;transform:translateY(0)}}
 
-/* HERO STATS REPARADOS */
+/* HERO STATS */
 .hero-stats {
   display: flex !important;
   flex-direction: row !important;
