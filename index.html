@@ -11,12 +11,13 @@
   --cream:#f9f5ef;--sage:#6b7f63;--sage-light:#c4d4bc;
   --gold:#b8965a;--gold-light:#d4b87a;--dark:#1a1a18;
   --mid:#4a4843;--light:#9a9690;
+  --sub:#4a4843; /* Agregada para que no falle el texto de los stats */
   --glass:rgba(255,255,255,0.72);--gb:rgba(255,255,255,0.5);
   --best:#c47b2b;
 }
 html{scroll-behavior:smooth}
 
-/* Ajuste sutil al fondo base para forzar el contraste con las manchas del mesh */
+/* Ajuste de fondo base para alto contraste */
 body{font-family:'Inter',sans-serif;background:#ded9cc;color:var(--dark);overflow-x:hidden}
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--cream)}::-webkit-scrollbar-thumb{background:var(--sage-light);border-radius:99px}
 
@@ -36,8 +37,8 @@ body{font-family:'Inter',sans-serif;background:#ded9cc;color:var(--dark);overflo
 .mesh-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(40px) !important; /* Mantiene los bordes líquidos muy definidos */
-  opacity: 0.95 !important;       /* Máxima opacidad para dar fuerza visual */
+  filter: blur(40px) !important; /* Blur bajo para mantener formas líquidas */
+  opacity: 0.95 !important;       /* Opacidad alta para máxima fuerza */
   mix-blend-mode: darken; 
 }
 /* Mancha 1: Oliva Herbal Intenso */
