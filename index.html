@@ -26,7 +26,7 @@ body {
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--cream)}::-webkit-scrollbar-thumb{background:var(--sage-light);border-radius:99px}
 
 /* ==========================================================================
-   FONDO ULTRA-BLUR REEQUILIBRADO (ESTILO APPLE MUSIC)
+   FONDO ULTRA-BLUR OPTIMIZADO POR HARDWARE (GPU)
    ========================================================================= */
 .mesh-bg-container {
   position: fixed;
@@ -42,94 +42,100 @@ body {
   transform: translate3d(0, 0, 0);
 }
 
-/* Capa superior que genera el blur masivo y suaviza las transiciones */
+/* Capa de mezcla de color de alto rendimiento */
 .mesh-bg-container::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 3;
-  backdrop-filter: blur(140px) saturate(160%);
-  -webkit-backdrop-filter: blur(140px) saturate(160%);
+  backdrop-filter: blur(100px) saturate(150%);
+  -webkit-backdrop-filter: blur(100px) saturate(150%);
   pointer-events: none;
 }
 
 .mesh-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(90px); 
-  -webkit-filter: blur(90px);
+  filter: blur(100px); 
+  -webkit-filter: blur(100px);
   will-change: transform;
   z-index: 1;
 }
 
-/* Blob 1 - Tono Oro (Más brillante y con más presencia arriba) */
+/* Blob 1 - Tono Oro (Dominante arriba) */
 .blob-1 {
   width: 85vw;
   height: 85vw;
   background: #d6caa3; 
-  top: -10%;
+  top: -15%;
   left: -15%;
-  opacity: 0.9;
+  opacity: 0.85;
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
   -webkit-animation: appleLiquid1 34s linear infinite alternate;
   animation: appleLiquid1 34s linear infinite alternate;
 }
 
-/* Blob 2 - Tono Crema Oscuro / Transición */
+/* Blob 2 - Tono Crema Oscuro / Balance */
 .blob-2 {
   width: 90vw;
   height: 90vw;
   background: #bdae8c; 
-  bottom: -30%;
+  bottom: -35%;
   right: -25%;
-  opacity: 0.6;
+  opacity: 0.55;
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
   -webkit-animation: appleLiquid2 40s linear infinite alternate-reverse;
   animation: appleLiquid2 40s linear infinite alternate-reverse;
 }
 
-/* Blob 3 - Tono Verde Oliva (Movido abajo y más sutil para que no domine) */
+/* Blob 3 - Tono Verde Oliva (Sutil y abajo) */
 .blob-3 {
   width: 75vw;
   height: 75vw;
   background: #a3b59b; 
-  top: 40%; 
-  left: -30%;
-  opacity: 0.55; 
+  top: 45%; 
+  left: -25%;
+  opacity: 0.5; 
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
   -webkit-animation: appleLiquid3 32s linear infinite alternate;
   animation: appleLiquid3 32s linear infinite alternate;
 }
 
-/* Movimientos optimizados para evitar que los colores se encimen y se vuelvan un solo verde */
+/* Animaciones 100% optimizadas usando solo Transforms 3D (60fps suaves) */
 @-webkit-keyframes appleLiquid1 {
-  0% { -webkit-transform: scale(2.2) translate(0, 0) rotate(0deg); }
-  50% { -webkit-transform: scale(2.4) translate(8vw, -5vh) rotate(60deg); }
-  100% { -webkit-transform: scale(2.1) translate(-3vw, 5vh) rotate(120deg); }
+  0% { -webkit-transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
+  50% { -webkit-transform: translate3d(6vw, -4vh, 0) scale(1.1) rotate(60deg); }
+  100% { -webkit-transform: translate3d(-2vw, 4vh, 0) scale(0.95) rotate(120deg); }
 }
 @keyframes appleLiquid1 {
-  0% { transform: scale(2.2) translate(0, 0) rotate(0deg); }
-  50% { transform: scale(2.4) translate(8vw, -5vh) rotate(60deg); }
-  100% { transform: scale(2.1) translate(-3vw, 5vh) rotate(120deg); }
+  0% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate3d(6vw, -4vh, 0) scale(1.1) rotate(60deg); }
+  100% { transform: translate3d(-2vw, 4vh, 0) scale(0.95) rotate(120deg); }
 }
 
 @-webkit-keyframes appleLiquid2 {
-  0% { -webkit-transform: scale(2.1) translate(0, 0) rotate(0deg); }
-  50% { -webkit-transform: scale(2.3) translate(-5vw, -10vh) rotate(-60deg); }
-  100% { -webkit-transform: scale(2.2) translate(5vw, -2vh) rotate(-120deg); }
+  0% { -webkit-transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
+  50% { -webkit-transform: translate3d(-4vw, -6vh, 0) scale(1.08) rotate(-60deg); }
+  100% { -webkit-transform: translate3d(4vw, -2vh, 0) scale(0.97) rotate(-120deg); }
 }
 @keyframes appleLiquid2 {
-  0% { transform: scale(2.1) translate(0, 0) rotate(0deg); }
-  50% { transform: scale(2.3) translate(-5vw, -10vh) rotate(-60deg); }
-  100% { transform: scale(2.2) translate(5vw, -2vh) rotate(-120deg); }
+  0% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate3d(-4vw, -6vh, 0) scale(1.08) rotate(-60deg); }
+  100% { transform: translate3d(4vw, -2vh, 0) scale(0.97) rotate(-120deg); }
 }
 
 @-webkit-keyframes appleLiquid3 {
-  0% { -webkit-transform: scale(2.3) translate(0, 0) rotate(0deg); }
-  50% { -webkit-transform: scale(2.1) translate(10vw, 12vh) rotate(90deg); }
-  100% { -webkit-transform: scale(2.25) translate(-5vw, 4vh) rotate(180deg); }
+  0% { -webkit-transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
+  50% { -webkit-transform: translate3d(6vw, 8vh, 0) scale(0.93) rotate(90deg); }
+  100% { -webkit-transform: translate3d(-4vw, 3vh, 0) scale(1.04) rotate(180deg); }
 }
 @keyframes appleLiquid3 {
-  0% { transform: scale(2.3) translate(0, 0) rotate(0deg); }
-  50% { transform: scale(2.1) translate(10vw, 12vh) rotate(90deg); }
-  100% { transform: scale(2.25) translate(-5vw, 4vh) rotate(180deg); }
+  0% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate3d(6vw, 8vh, 0) scale(0.93) rotate(90deg); }
+  100% { transform: translate3d(-4vw, 3vh, 0) scale(1.04) rotate(180deg); }
 }
 
 /* NAV */
@@ -146,7 +152,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:cen
 
 /* HERO */
 .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:9rem 2rem 5rem;position:relative;overflow:hidden}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:.7rem;font-size:.65rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);background:rgba(184,150,90,.1);border:1px solid rgba(184,150,90,.3);padding:.45rem 1.2rem;border-radius:99px;margin-bottom:2rem;opacity:0;transform:translateY(20px);animation:ru .8s cubic-bezier(.16,1,.3,1) .2s forwards}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.7rem;font-size:.65rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);background:rgba(184,150,90,.1);border:1px solid rgba(184,150,90,.3);padding Club: .45rem 1.2rem;border-radius:99px;margin-bottom:2rem;opacity:0;transform:translateY(20px);animation:ru .8s cubic-bezier(.16,1,.3,1) .2s forwards}
 .hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(4.5rem,10vw,10rem);font-weight:300;line-height:.92;color:var(--dark);margin-bottom:1.6rem;opacity:0;transform:translateY(30px);animation:ru .9s cubic-bezier(.16,1,.3,1) .35s forwards}
 .hero-title em{font-style:italic;color:var(--sage);display:block}
 .hero-sub{font-size:.97rem;line-height:1.9;color:var(--light);max-width:460px;margin:0 auto 3.5rem;font-weight:300;opacity:0;transform:translateY(20px);animation:ru .8s cubic-bezier(.16,1,.3,1) .55s forwards}
@@ -315,6 +321,7 @@ footer p{font-size:.7rem;color:rgba(255,255,255,.18)}
 @media(max-width:900px){nav{padding:1rem 1.5rem}.nav-links{display:none}.hero{padding:8rem 1.5rem 4rem}#jabones,#complementos,#fragancias{padding:5.5rem 1.2rem}.jabones-grid{grid-template-columns:1fr}.fgrid{grid-template-columns:repeat(2,1fr)}.banner{padding:5rem 1.5rem}footer{flex-direction:column;align-items:flex-start;padding:2.5rem 1.5rem}}
 @media(max-width:480px){.fgrid{grid-template-columns:1fr}.hero-pills{flex-direction:column;align-items:center}.jcard-img{width:90px;min-width:90px;height:140px}.jcard-img img{width:72px;height:120px}}
 </style>
+
 </head>
 <body>
 
