@@ -26,7 +26,7 @@ body {
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--cream)}::-webkit-scrollbar-thumb{background:var(--sage-light);border-radius:99px}
 
 /* ==========================================================================
-   FONDO ULTRA-BLUR (ESTILO APPLE MUSIC DEGRADADO MASIVO)
+   FONDO ULTRA-BLUR REEQUILIBRADO (ESTILO APPLE MUSIC)
    ========================================================================= */
 .mesh-bg-container {
   position: fixed;
@@ -42,7 +42,7 @@ body {
   transform: translate3d(0, 0, 0);
 }
 
-/* El secreto: Una capa encima con un blur gigante que funde todo el fondo */
+/* Capa superior que genera el blur masivo y suaviza las transiciones */
 .mesh-bg-container::before {
   content: "";
   position: absolute;
@@ -56,82 +56,80 @@ body {
 .mesh-blob {
   position: absolute;
   border-radius: 50%;
-  /* Doble capa de blur combinada */
   filter: blur(90px); 
   -webkit-filter: blur(90px);
-  opacity: 0.75;       
-  /* Escalado por hardware masivo para llenar toda la pantalla */
-  -webkit-transform: scale(2.2) translate3d(0,0,0);
-  transform: scale(2.2) translate3d(0,0,0);
   will-change: transform;
   z-index: 1;
 }
 
-/* Blob 1 - Tono Oro (Más grande y centrado) */
+/* Blob 1 - Tono Oro (Más brillante y con más presencia arriba) */
 .blob-1 {
-  width: 90vw;
-  height: 90vw;
-  background: #c9bf93;
-  top: -20%;
-  left: -25%;
-  -webkit-animation: appleLiquid1 32s linear infinite alternate;
-  animation: appleLiquid1 32s linear infinite alternate;
-}
-
-/* Blob 2 - Tono Sage Oscuro */
-.blob-2 {
-  width: 95vw;
-  height: 95vw;
-  background: #b2aa8e;
-  bottom: -25%;
-  right: -20%;
-  -webkit-animation: appleLiquid2 38s linear infinite alternate-reverse;
-  animation: appleLiquid2 38s linear infinite alternate-reverse;
-}
-
-/* Blob 3 - Tono Verde Oliva Suave */
-.blob-3 {
   width: 85vw;
   height: 85vw;
-  background: #aab8a2;
-  top: 20%;
-  left: -10%;
-  -webkit-animation: appleLiquid3 30s linear infinite alternate;
-  animation: appleLiquid3 30s linear infinite alternate;
+  background: #d6caa3; 
+  top: -10%;
+  left: -15%;
+  opacity: 0.9;
+  -webkit-animation: appleLiquid1 34s linear infinite alternate;
+  animation: appleLiquid1 34s linear infinite alternate;
 }
 
-/* Movimientos optimizados y lentos para simular líquido real */
+/* Blob 2 - Tono Crema Oscuro / Transición */
+.blob-2 {
+  width: 90vw;
+  height: 90vw;
+  background: #bdae8c; 
+  bottom: -30%;
+  right: -25%;
+  opacity: 0.6;
+  -webkit-animation: appleLiquid2 40s linear infinite alternate-reverse;
+  animation: appleLiquid2 40s linear infinite alternate-reverse;
+}
+
+/* Blob 3 - Tono Verde Oliva (Movido abajo y más sutil para que no domine) */
+.blob-3 {
+  width: 75vw;
+  height: 75vw;
+  background: #a3b59b; 
+  top: 40%; 
+  left: -30%;
+  opacity: 0.55; 
+  -webkit-animation: appleLiquid3 32s linear infinite alternate;
+  animation: appleLiquid3 32s linear infinite alternate;
+}
+
+/* Movimientos optimizados para evitar que los colores se encimen y se vuelvan un solo verde */
 @-webkit-keyframes appleLiquid1 {
   0% { -webkit-transform: scale(2.2) translate(0, 0) rotate(0deg); }
-  50% { -webkit-transform: scale(2.4) translate(10vw, 8vh) rotate(90deg); }
-  100% { -webkit-transform: scale(2.1) translate(-5vw, 12vh) rotate(180deg); }
+  50% { -webkit-transform: scale(2.4) translate(8vw, -5vh) rotate(60deg); }
+  100% { -webkit-transform: scale(2.1) translate(-3vw, 5vh) rotate(120deg); }
 }
 @keyframes appleLiquid1 {
   0% { transform: scale(2.2) translate(0, 0) rotate(0deg); }
-  50% { transform: scale(2.4) translate(10vw, 8vh) rotate(90deg); }
-  100% { transform: scale(2.1) translate(-5vw, 12vh) rotate(180deg); }
+  50% { transform: scale(2.4) translate(8vw, -5vh) rotate(60deg); }
+  100% { transform: scale(2.1) translate(-3vw, 5vh) rotate(120deg); }
 }
 
 @-webkit-keyframes appleLiquid2 {
   0% { -webkit-transform: scale(2.1) translate(0, 0) rotate(0deg); }
-  50% { -webkit-transform: scale(2.35) translate(-10vw, -8vh) rotate(-90deg); }
-  100% { -webkit-transform: scale(2.2) translate(8vw, -4vh) rotate(-180deg); }
+  50% { -webkit-transform: scale(2.3) translate(-5vw, -10vh) rotate(-60deg); }
+  100% { -webkit-transform: scale(2.2) translate(5vw, -2vh) rotate(-120deg); }
 }
 @keyframes appleLiquid2 {
   0% { transform: scale(2.1) translate(0, 0) rotate(0deg); }
-  50% { transform: scale(2.35) translate(-10vw, -8vh) rotate(-90deg); }
-  100% { transform: scale(2.2) translate(8vw, -4vh) rotate(-180deg); }
+  50% { transform: scale(2.3) translate(-5vw, -10vh) rotate(-60deg); }
+  100% { transform: scale(2.2) translate(5vw, -2vh) rotate(-120deg); }
 }
 
 @-webkit-keyframes appleLiquid3 {
   0% { -webkit-transform: scale(2.3) translate(0, 0) rotate(0deg); }
-  50% { -webkit-transform: scale(2.1) translate(12vw, -8vh) rotate(120deg); }
-  100% { -webkit-transform: scale(2.25) translate(-8vw, -4vh) rotate(240deg); }
+  50% { -webkit-transform: scale(2.1) translate(10vw, 12vh) rotate(90deg); }
+  100% { -webkit-transform: scale(2.25) translate(-5vw, 4vh) rotate(180deg); }
 }
 @keyframes appleLiquid3 {
   0% { transform: scale(2.3) translate(0, 0) rotate(0deg); }
-  50% { transform: scale(2.1) translate(12vw, -8vh) rotate(120deg); }
-  100% { transform: scale(2.25) translate(-8vw, -4vh) rotate(240deg); }
+  50% { transform: scale(2.1) translate(10vw, 12vh) rotate(90deg); }
+  100% { transform: scale(2.25) translate(-5vw, 4vh) rotate(180deg); }
 }
 
 /* NAV */
@@ -317,6 +315,7 @@ footer p{font-size:.7rem;color:rgba(255,255,255,.18)}
 @media(max-width:900px){nav{padding:1rem 1.5rem}.nav-links{display:none}.hero{padding:8rem 1.5rem 4rem}#jabones,#complementos,#fragancias{padding:5.5rem 1.2rem}.jabones-grid{grid-template-columns:1fr}.fgrid{grid-template-columns:repeat(2,1fr)}.banner{padding:5rem 1.5rem}footer{flex-direction:column;align-items:flex-start;padding:2.5rem 1.5rem}}
 @media(max-width:480px){.fgrid{grid-template-columns:1fr}.hero-pills{flex-direction:column;align-items:center}.jcard-img{width:90px;min-width:90px;height:140px}.jcard-img img{width:72px;height:120px}}
 </style>
+
 </head>
 <body>
 
