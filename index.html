@@ -26,7 +26,7 @@ body {
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--cream)}::-webkit-scrollbar-thumb{background:var(--sage-light);border-radius:99px}
 
 /* ==========================================================================
-   EFECTO APPLE MUSIC ULTRA-OPTIMIZADO (60 FPS PARA MÓVILES)
+   FONDO ULTRA-BLUR (ESTILO APPLE MUSIC DEGRADADO MASIVO)
    ========================================================================= */
 .mesh-bg-container {
   position: fixed;
@@ -38,91 +38,100 @@ body {
   pointer-events: none;
   overflow: hidden;
   background: var(--cream);
-  /* Forzar aceleración por hardware */
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+}
+
+/* El secreto: Una capa encima con un blur gigante que funde todo el fondo */
+.mesh-bg-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  backdrop-filter: blur(140px) saturate(160%);
+  -webkit-backdrop-filter: blur(140px) saturate(160%);
+  pointer-events: none;
 }
 
 .mesh-blob {
   position: absolute;
   border-radius: 50%;
-  /* Blur optimizado + Saturación */
-  filter: blur(70px) saturate(140%); 
-  -webkit-filter: blur(70px) saturate(140%);
-  opacity: 0.88;       
-  /* El secreto: un scale inicial alto procesado por GPU */
-  -webkit-transform: scale(1.8) translate3d(0,0,0);
-  transform: scale(1.8) translate3d(0,0,0);
+  /* Doble capa de blur combinada */
+  filter: blur(90px); 
+  -webkit-filter: blur(90px);
+  opacity: 0.75;       
+  /* Escalado por hardware masivo para llenar toda la pantalla */
+  -webkit-transform: scale(2.2) translate3d(0,0,0);
+  transform: scale(2.2) translate3d(0,0,0);
   will-change: transform;
+  z-index: 1;
 }
 
-/* Blob 1 - Tono Oro */
+/* Blob 1 - Tono Oro (Más grande y centrado) */
 .blob-1 {
-  width: 75vw;
-  height: 75vw;
+  width: 90vw;
+  height: 90vw;
   background: #c9bf93;
-  top: -15%;
-  left: -20%;
-  -webkit-animation: appleLiquid1 28s linear infinite alternate;
-  animation: appleLiquid1 28s linear infinite alternate;
+  top: -20%;
+  left: -25%;
+  -webkit-animation: appleLiquid1 32s linear infinite alternate;
+  animation: appleLiquid1 32s linear infinite alternate;
 }
 
 /* Blob 2 - Tono Sage Oscuro */
 .blob-2 {
-  width: 80vw;
-  height: 80vw;
+  width: 95vw;
+  height: 95vw;
   background: #b2aa8e;
-  bottom: -20%;
-  right: -15%;
-  -webkit-animation: appleLiquid2 34s linear infinite alternate-reverse;
-  animation: appleLiquid2 34s linear infinite alternate-reverse;
+  bottom: -25%;
+  right: -20%;
+  -webkit-animation: appleLiquid2 38s linear infinite alternate-reverse;
+  animation: appleLiquid2 38s linear infinite alternate-reverse;
 }
 
 /* Blob 3 - Tono Verde Oliva Suave */
 .blob-3 {
-  width: 70vw;
-  height: 70vw;
+  width: 85vw;
+  height: 85vw;
   background: #aab8a2;
-  top: 25%;
-  left: -5%;
-  -webkit-animation: appleLiquid3 26s linear infinite alternate;
-  animation: appleLiquid3 26s linear infinite alternate;
+  top: 20%;
+  left: -10%;
+  -webkit-animation: appleLiquid3 30s linear infinite alternate;
+  animation: appleLiquid3 30s linear infinite alternate;
 }
 
-/* Animaciones ultra ligeras usando solo transformaciones de GPU (translate + rotate + scale) */
+/* Movimientos optimizados y lentos para simular líquido real */
 @-webkit-keyframes appleLiquid1 {
-  0% { -webkit-transform: scale(1.8) translate(0, 0) rotate(0deg); }
-  50% { -webkit-transform: scale(1.95) translate(15vw, 10vh) rotate(90deg); }
-  100% { -webkit-transform: scale(1.7) translate(-5vw, 15vh) rotate(180deg); }
+  0% { -webkit-transform: scale(2.2) translate(0, 0) rotate(0deg); }
+  50% { -webkit-transform: scale(2.4) translate(10vw, 8vh) rotate(90deg); }
+  100% { -webkit-transform: scale(2.1) translate(-5vw, 12vh) rotate(180deg); }
 }
 @keyframes appleLiquid1 {
-  0% { transform: scale(1.8) translate(0, 0) rotate(0deg); }
-  50% { transform: scale(1.95) translate(15vw, 10vh) rotate(90deg); }
-  100% { transform: scale(1.7) translate(-5vw, 15vh) rotate(180deg); }
+  0% { transform: scale(2.2) translate(0, 0) rotate(0deg); }
+  50% { transform: scale(2.4) translate(10vw, 8vh) rotate(90deg); }
+  100% { transform: scale(2.1) translate(-5vw, 12vh) rotate(180deg); }
 }
 
 @-webkit-keyframes appleLiquid2 {
-  0% { -webkit-transform: scale(1.7) translate(0, 0) rotate(0deg); }
-  50% { -webkit-transform: scale(1.9) translate(-15vw, -10vh) rotate(-90deg); }
-  100% { -webkit-transform: scale(1.8) translate(5vw, -5vh) rotate(-180deg); }
+  0% { -webkit-transform: scale(2.1) translate(0, 0) rotate(0deg); }
+  50% { -webkit-transform: scale(2.35) translate(-10vw, -8vh) rotate(-90deg); }
+  100% { -webkit-transform: scale(2.2) translate(8vw, -4vh) rotate(-180deg); }
 }
 @keyframes appleLiquid2 {
-  0% { transform: scale(1.7) translate(0, 0) rotate(0deg); }
-  50% { transform: scale(1.9) translate(-15vw, -10vh) rotate(-90deg); }
-  100% { transform: scale(1.8) translate(5vw, -5vh) rotate(-180deg); }
+  0% { transform: scale(2.1) translate(0, 0) rotate(0deg); }
+  50% { transform: scale(2.35) translate(-10vw, -8vh) rotate(-90deg); }
+  100% { transform: scale(2.2) translate(8vw, -4vh) rotate(-180deg); }
 }
 
 @-webkit-keyframes appleLiquid3 {
-  0% { -webkit-transform: scale(1.9) translate(0, 0) rotate(0deg); }
-  50% { -webkit-transform: scale(1.7) translate(20vw, -10vh) rotate(120deg); }
-  100% { -webkit-transform: scale(1.85) translate(-10vw, -5vh) rotate(240deg); }
+  0% { -webkit-transform: scale(2.3) translate(0, 0) rotate(0deg); }
+  50% { -webkit-transform: scale(2.1) translate(12vw, -8vh) rotate(120deg); }
+  100% { -webkit-transform: scale(2.25) translate(-8vw, -4vh) rotate(240deg); }
 }
 @keyframes appleLiquid3 {
-  0% { transform: scale(1.9) translate(0, 0) rotate(0deg); }
-  50% { transform: scale(1.7) translate(20vw, -10vh) rotate(120deg); }
-  100% { transform: scale(1.85) translate(-10vw, -5vh) rotate(240deg); }
+  0% { transform: scale(2.3) translate(0, 0) rotate(0deg); }
+  50% { transform: scale(2.1) translate(12vw, -8vh) rotate(120deg); }
+  100% { transform: scale(2.25) translate(-8vw, -4vh) rotate(240deg); }
 }
 
 /* NAV */
