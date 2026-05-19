@@ -200,6 +200,86 @@ body {
   100% { transform: translate3d(-3vw, -4vh, 0); }
 }
 @-webkit-keyframes appleLiquid2 {
+/* ==========================================================================
+   FONDO ULTRA-BLUR RE-OPTIMIZADO (CERO LAG, ESTILO APPLE MUSIC)
+   ========================================================================= */
+.mesh-bg-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1; /* Enviado detrás de todo para que no interfiera con los clics */
+  pointer-events: none; /* Los clics pasan directamente a tus botones */
+  overflow: hidden;
+  background: var(--cream);
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+}
+
+/* El desenfoque se hace individualmente en los blobs por hardware, eliminando el lag del backdrop-filter */
+.mesh-bg-container::before {
+  display: none; 
+}
+
+.mesh-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px); 
+  -webkit-filter: blur(90px);
+  will-change: transform; /* Forza el renderizado por GPU */
+  z-index: 1;
+  opacity: 0.55;
+}
+
+/* Blob 1 - Tono Oro */
+.blob-1 {
+  width: 75vw;
+  height: 75vw;
+  background: #d6caa3; 
+  top: -10%;
+  left: -10%;
+  animation: appleLiquid1 25s ease-in-out infinite alternate;
+  -webkit-animation: appleLiquid1 25s ease-in-out infinite alternate;
+}
+
+/* Blob 2 - Tono Crema Oscuro */
+.blob-2 {
+  width: 85vw;
+  height: 85vw;
+  background: #bdae8c; 
+  bottom: -20%;
+  right: -15%;
+  animation: appleLiquid2 28s ease-in-out infinite alternate-reverse;
+  -webkit-animation: appleLiquid2 28s ease-in-out infinite alternate-reverse;
+}
+
+/* Blob 3 - Tono Verde Oliva */
+.blob-3 {
+  width: 70vw;
+  height: 70vw;
+  background: #a3b59b; 
+  top: 35%; 
+  left: -15%;
+  animation: appleLiquid3 22s ease-in-out infinite alternate;
+  -webkit-animation: appleLiquid3 22s ease-in-out infinite alternate;
+}
+
+/* Animaciones puras de posición X/Y ultra-fluidas */
+@keyframes appleLiquid1 {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(4vw, -3vh, 0); }
+}
+@-webkit-keyframes appleLiquid1 {
+  0% { -webkit-transform: translate3d(0, 0, 0); }
+  100% { -webkit-transform: translate3d(4vw, -3vh, 0); }
+}
+
+@keyframes appleLiquid2 {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-3vw, -4vh, 0); }
+}
+@-webkit-keyframes appleLiquid2 {
   0% { -webkit-transform: translate3d(0, 0, 0); }
   100% { -webkit-transform: translate3d(-3vw, -4vh, 0); }
 }
@@ -211,6 +291,85 @@ body {
 @-webkit-keyframes appleLiquid3 {
   0% { -webkit-transform: translate3d(0, 0, 0); }
   100% { -webkit-transform: translate3d(4vw, 4vh, 0); }
+}
+
+
+/* ==========================================================================
+   SECCIÓN FAQs: CÁPSULAS DE CRISTAL ELÁSTICAS
+   ========================================================================= */
+.faq-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.faq-item {
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--gb);
+  border-radius: 20px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.faq-item:hover {
+  background: rgba(255, 255, 255, 0.92);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.04);
+}
+
+.faq-trigger {
+  width: 100%;
+  padding: 1.4rem 1.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.faq-question {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--dark);
+  letter-spacing: -0.01em;
+}
+
+.faq-icon {
+  color: var(--sage);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+  margin-left: 1rem;
+}
+
+.faq-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.faq-inner {
+  padding: 0 1.8rem 1.6rem 1.8rem;
+  font-size: 0.85rem;
+  line-height: 1.75;
+  color: var(--mid);
+  font-weight: 300;
+}
+
+.faq-item.active {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(107, 127, 99, 0.25);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+}
+
+.faq-item.active .faq-icon {
+  transform: rotate(45deg); /* Cambia la cruz elegante por un tache de cierre */
+  color: var(--gold);
 }
 
 /* ==========================================================================
@@ -861,31 +1020,54 @@ footer p{font-size:.7rem;color:rgba(255,255,255,.18)}
 
 <script>
   // CONTROL DE CORREDERA FLUIDA PARA CÁPSULAS DE CRISTAL
-document.querySelectorAll('.faq-trigger').forEach(trigger => {
-  trigger.addEventListener('click', () => {
-    const item = trigger.parentElement;
-    const content = item.querySelector('.faq-content');
-    
-    // Si ya está abierto, lo cerramos
-    if (item.classList.contains('is-open')) {
-      content.style.maxHeight = '0';
-      content.style.opacity = '0';
-      item.classList.remove('is-open');
-    } else {
-      // Cerramos cualquier otra cápsula abierta para mantener orden
-      document.querySelectorAll('.faq-item.is-open').forEach(openItem => {
-        openItem.querySelector('.faq-content').style.maxHeight = '0';
-        openItem.querySelector('.faq-content').style.opacity = '0';
-        openItem.classList.remove('is-open');
+do// ==========================================================================
+  // LÓGICA DE PESTAÑAS (CATÁLOGO DE FRAGANCIAS)
+  // ==========================================================================
+  document.querySelectorAll('.ftab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Limpiar clases activas en todas las pestañas y paneles
+      document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.fpanel').forEach(p => p.classList.remove('active'));
+      
+      // Activar la pestaña seleccionada
+      tab.classList.add('active');
+      
+      // Mostrar el panel de productos correcto
+      const targetId = tab.getAttribute('data-target');
+      const targetPanel = document.getElementById(targetId);
+      if (targetPanel) {
+        targetPanel.classList.add('active');
+      }
+    });
+  });
+
+  // ==========================================================================
+  // LÓGICA DE APERTURA ELÁSTICA (CÁPSULAS DE FAQs)
+  // ==========================================================================
+  document.querySelectorAll('.faq-trigger').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const item = trigger.closest('.faq-item');
+      const content = item.querySelector('.faq-content');
+      const isActive = item.classList.contains('active');
+      
+      // Efecto Acordeón Premium: Cierra cualquier otra FAQ abierta
+      document.querySelectorAll('.faq-item').forEach(otherItem => {
+        if (otherItem !== item) {
+          otherItem.classList.remove('active');
+          otherItem.querySelector('.faq-content').style.maxHeight = null;
+        }
       });
       
-      // Abrimos la actual calculando su altura real en pixeles de forma fluida
-      item.classList.add('is-open');
-      content.style.maxHeight = content.scrollHeight + 'px';
-      content.style.opacity = '1';
-    }
+      // Abrir o cerrar suavemente leyendo la altura en pixeles del texto
+      if (isActive) {
+        item.classList.remove('active');
+        content.style.maxHeight = null;
+      } else {
+        item.classList.add('active');
+        content.style.maxHeight = content.scrollHeight + "px";
+      }
+    });
   });
-});
 
 const obs=new IntersectionObserver((e)=>{e.forEach(i=>{if(i.isIntersecting){i.target.classList.add('visible');obs.unobserve(i.target)}})},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
