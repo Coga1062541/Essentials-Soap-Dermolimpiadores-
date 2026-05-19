@@ -491,6 +491,16 @@ footer p{font-size:.7rem;color:rgba(255,255,255,.18)}
   background: linear-gradient(90deg, var(--gold) 0%, var(--sage) 100%);
   transition: width 0.1s ease-out;
 }
+
+  /* Cambia el puntero por una manita cuando esté sobre elementos interactivos */
+button, .bento-card, .faq-item, a {
+  cursor: pointer !important;
+}
+
+/* Un leve cambio de opacidad al presionar (click) para que se sienta táctil */
+button:active, .bento-card:active {
+  transform: scale(0.98);
+}
 </style>
 </head>
 <body>
