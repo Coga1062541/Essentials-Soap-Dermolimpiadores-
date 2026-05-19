@@ -18,10 +18,15 @@
 html{scroll-behavior:smooth}
 
 body {
-  font-family: 'Inter', sans-serif;
-  background: var(--cream) !important;
-  color: var(--dark);
-  overflow-x: hidden;
+  background: linear-gradient(-45deg, #f5f7f4, #e8ebe6, #fbfcfb, #eef1ec);
+  background-size: 400% 400%;
+  animation: gradientBg 15s ease infinite;
+}
+
+@keyframes gradientBg {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--cream)}::-webkit-scrollbar-thumb{background:var(--sage-light);border-radius:99px}
 
@@ -73,9 +78,18 @@ body {
 }
 .bento-card:hover {
   transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.92);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(180, 160, 120, 0.6); /* Destello sutil oro/olivo en el borde */
+  box-shadow: 0 20px 40px rgba(0,0,0,0.06), 0 0 20px rgba(180, 160, 120, 0.15);
 }
+
+.faq-item:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(107, 127, 99, 0.4); /* Resalta el verde sabio de tu marca */
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.05);
+}
+
 /* Animación de scroll suave para las secciones */
 .reveal {
   opacity: 0;
@@ -474,6 +488,28 @@ footer p{font-size:.7rem;color:rgba(255,255,255,.18)}
   color: var(--dark);
   position: relative;
   display: inline-block;
+}
+
+  /* Cambios dinámicos cuando la cápsula de FAQ está activa */
+.faq-item.active .faq-question {
+  color: var(--dark);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+.faq-item.active .faq-arrow {
+  color: var(--dark);
+  text-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+/* Animación de scroll suave para las secciones */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 </style>
 </head>
