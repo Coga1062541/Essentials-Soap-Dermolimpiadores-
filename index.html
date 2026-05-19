@@ -25,6 +25,94 @@ body {
 }
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--cream)}::-webkit-scrollbar-thumb{background:var(--sage-light);border-radius:99px}
 
+  /* ==========================================================================
+   ADICIONES PREMIUM: BENTO GRID, FAQS Y DESTELLO DE BOTONES (ESSENTIALS SOAP)
+   ========================================================================= */
+#bento-ingredients {
+  padding: 6rem 3rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+.bento-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 180px;
+  gap: 1.2rem;
+  margin-top: 2rem;
+}
+.bento-card {
+  background: var(--glass);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid var(--gb);
+  border-radius: 24px;
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.4s cubic-bezier(.16,1,.3,1);
+}
+.bento-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+}
+.bento-main { grid-column: span 2; grid-row: span 2; }
+.bento-mid { grid-column: span 2; grid-row: span 1; }
+.bento-small { grid-column: span 1; grid-row: span 1; }
+.bento-tag {
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+.bento-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 300;
+  margin-bottom: 0.8rem;
+}
+.bento-card h4 { font-size: 0.9rem; font-weight: 600; color: var(--dark); margin-top: 0.5rem; }
+.bento-card p { font-size: 0.8rem; color: var(--light); line-height: 1.6; font-weight: 300; }
+.bento-visual { position: absolute; bottom: -10px; right: 10px; font-size: 6rem; opacity: 0.15; }
+.bento-icon { font-size: 1.5rem; }
+
+/* Efecto Destello en Botones */
+.btn-buy, .btn-wa, .btn-inv { position: relative; overflow: hidden; }
+.btn-buy::before, .btn-wa::before, .btn-inv::before {
+  content: ''; position: absolute; top: 0; left: -150%; width: 50%; height: 100%;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-25deg);
+}
+.btn-buy:hover::before, .btn-wa:hover::before, .btn-inv:hover::before { animation: shineEffect 0.75s ease; }
+@keyframes shineEffect { 100% { left: 150%; } }
+
+/* FAQs */
+#faqs { padding: 6rem 3rem; max-width: 750px; margin: 0 auto; position: relative; z-index: 2; }
+.faq-wrapper { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.faq-item { border-bottom: 1px solid rgba(0, 0, 0, 0.08); }
+.faq-item details { padding: 1.2rem 0; }
+.faq-item summary {
+  list-style: none; display: flex; justify-content: space-between; align-items: center;
+  font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; color: var(--dark); cursor: pointer; user-select: none;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-arrow { font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--sage); transition: transform 0.3s ease; }
+.faq-item details[open] .faq-arrow { transform: rotate(90deg); }
+.faq-content p { font-size: 0.85rem; line-height: 1.8; color: var(--light); font-weight: 300; padding-top: 0.8rem; }
+
+@media(max-width:900px) {
+  .bento-container { grid-template-columns: 1fr; grid-auto-rows: auto; }
+  .bento-main, .bento-mid, .bento-small { grid-column: span 1; grid-row: span 1; }
+}
+
 /* ==========================================================================
    FONDO ULTRA-BLUR REEQUILIBRADO (ESTILO APPLE MUSIC)
    ========================================================================= */
@@ -353,7 +441,46 @@ footer p{font-size:.7rem;color:rgba(255,255,255,.18)}
     <div><div class="stat-n">2</div><div class="stat-l">Complementos</div></div>
   </div>
 </section>
- 
+
+    <section id="bento-ingredients" class="reveal">
+    <div class="sec-hdr">
+      <div class="sec-badge">✦ Cuidado Esencial Esmerado</div>
+      <h2 class="sec-title">Calidad Real <em>Lotes Artesanales</em></h2>
+      <p class="sec-sub">Fórmulas botánicas limpias, concebidas con dedicación para el bienestar de tu piel.</p>
+    </div>
+
+    <div class="bento-container">
+      <div class="bento-card bento-main">
+        <div class="bento-content">
+          <span class="bento-tag">Elaboración en Frío</span>
+          <h3>Glicerina Natural Conservada</h3>
+          <p>Al curar nuestros jabones artesanalmente, la glicerina natural se mantiene intacta en la barra, asegurando una humectación profunda que no reseca ni estira la piel.</p>
+        </div>
+        <div class="bento-visual">🧼</div>
+      </div>
+
+      <div class="bento-card bento-mid">
+        <div class="bento-content">
+          <span class="bento-tag">Texturas Honestas</span>
+          <h3>Aceites de Origen Vegetal</h3>
+          <p>Base pura enriquecida con nutrientes botánicos que limpian con suavidad, respetando la barrera cutánea de tu cuerpo.</p>
+        </div>
+      </div>
+
+      <div class="bento-card bento-small">
+        <div class="bento-icon">🌿</div>
+        <h4>Fórmulas Limpias</h4>
+        <p>Libre de parabenos y sulfatos comerciales.</p>
+      </div>
+
+      <div class="bento-card bento-small">
+        <div class="bento-icon">✨</div>
+        <h4>Hecho a Mano</h4>
+        <p>Vertidos uno a uno con cuidado minucioso.</p>
+      </div>
+    </div>
+  </section>
+
 <section id="jabones">
   <div class="sec-hdr reveal">
     <div class="sec-badge">✦ Artesanía &amp; Bienestar</div>
@@ -579,6 +706,42 @@ footer p{font-size:.7rem;color:rgba(255,255,255,.18)}
         <div class="fbody"><div class="ftop"><div class="fname">Attrape-Rêves LV</div><span class='ftag'>🔥 Top</span></div><div class="fdesc">Cacao, peonía y lichi. Mágico e irresistible.</div><a class="fbtn g" href="https://wa.me/523334795014?text=Pedido:%20Attrape%20Reves" target="_blank">Pedir →</a></div>
       </div></div></div>
 </section>
+
+    <section id="faqs" class="reveal">
+    <div class="sec-hdr">
+      <div class="sec-badge">✦ Despeja tus dudas</div>
+      <h2 class="sec-title">Preguntas <em>Frecuentes</em></h2>
+    </div>
+    
+    <div class="faq-wrapper">
+      <div class="faq-item">
+        <details>
+          <summary>¿Qué beneficios tienen los jabones artesanales? <span class="faq-arrow">→</span></summary>
+          <div class="faq-content">
+            <p>A diferencia de los industriales, nuestros jabones conservan sus componentes naturales y aceites esenciales. Esto aporta una hidratación superior, evita irritaciones y cuida tu piel de manera verdaderamente consciente.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="faq-item">
+        <details>
+          <summary>¿Cómo debo almacenar mi barra para que dure más? <span class="faq-arrow">→</span></summary>
+          <div class="faq-content">
+            <p>Te recomendamos usar una jabonera que permita filtrar el agua por completo y dejar secar la barra entre usos. Al no contener endurecedores sintéticos artificiales, mantenerlo seco alargará muchísimo su vida útil.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="faq-item">
+        <details>
+          <summary>¿Tienen aromas artificiales potentes? <span class="faq-arrow">→</span></summary>
+          <div class="faq-content">
+            <p>No, nuestras barras están pensadas para una experiencia olfativa botánica, sutil y elegante, utilizando extractos y esencias equilibradas que no resulten agresivas para tu piel ni para el olfato.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
 
 <div class="banner">
   <div class="orb bo1"></div><div class="orb bo2"></div>
