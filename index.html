@@ -475,9 +475,29 @@ footer p{font-size:.7rem;color:rgba(255,255,255,.18)}
   position: relative;
   display: inline-block;
 }
+  /* Línea de progreso premium al inicio de la pantalla */
+.progress-bar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: transparent;
+  z-index: 9999;
+}
+#progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--sage) 100%);
+  transition: width 0.1s ease-out;
+}
 </style>
 </head>
 <body>
+
+  <div class="progress-bar-container">
+  <div id="progress-bar"></div>
+</div>
 
   <div class="mesh-bg-container">
     <div class="mesh-blob blob-1"></div>
@@ -895,7 +915,15 @@ window.addEventListener('scroll',()=>{document.querySelector('nav').style.paddin
     });
   }
   window.addEventListener('scroll', checkReveal);
-  window.addEventListener('load', checkReveal); // Ejecuta al cargar por si ya están en pantalla
+  window.addEventListener('load', checkReveal);
+
+    // Lógica de la barra de progreso
+  window.addEventListener('scroll', () => {
+    const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    document.getElementById('progress-bar').style.width = scrolled + '%';
+  });
 </script>
 </body>
 </html>
