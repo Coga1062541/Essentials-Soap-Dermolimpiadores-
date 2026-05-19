@@ -76,9 +76,17 @@ body {
   background: rgba(255, 255, 255, 0.92);
   box-shadow: 0 20px 40px rgba(0,0,0,0.04);
 }
-.bento-main { grid-column: span 2; grid-row: span 2; }
-.bento-mid { grid-column: span 2; grid-row: span 1; }
-.bento-small { grid-column: span 1; grid-row: span 1; }
+/* Animación de scroll suave para las secciones */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .bento-tag {
   font-size: 0.55rem;
   letter-spacing: 0.15em;
@@ -460,8 +468,14 @@ footer p{font-size:.7rem;color:rgba(255,255,255,.18)}
 
 @media(max-width:900px){nav{padding:1rem 1.5rem}.nav-links{display:none}.hero{padding:8rem 1.5rem 4rem}#jabones,#complementos,#fragancias{padding:5.5rem 1.2rem}.jabones-grid{grid-template-columns:1fr}.fgrid{grid-template-columns:repeat(2,1fr)}.banner{padding:5rem 1.5rem}footer{flex-direction:column;align-items:flex-start;padding:2.5rem 1.5rem}}
 @media(max-width:480px){.fgrid{grid-template-columns:1fr}.hero-pills{flex-direction:column;align-items:center}.jcard-img{width:90px;min-width:90px;height:140px}.jcard-img img{width:72px;height:120px}}
+.sec-title em {
+  font-style: italic;
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--dark);
+  position: relative;
+  display: inline-block;
+}
 </style>
-
 </head>
 <body>
 
@@ -868,6 +882,20 @@ window.addEventListener('scroll',()=>{document.querySelector('nav').style.paddin
       }
     });
   });
+
+    // SCRIPT DE REVELADO CON EL SCROLL
+  const reveals = document.querySelectorAll('.reveal');
+  function checkReveal() {
+    reveals.forEach(reveal => {
+      const windowHeight = window.innerHeight;
+      const revealTop = reveal.getBoundingClientRect().top;
+      if (revealTop < windowHeight - 100) {
+        reveal.classList.add('active');
+      }
+    });
+  }
+  window.addEventListener('scroll', checkReveal);
+  window.addEventListener('load', checkReveal); // Ejecuta al cargar por si ya están en pantalla
 </script>
 </body>
 </html>
