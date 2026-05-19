@@ -25,100 +25,6 @@ body {
 }
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--cream)}::-webkit-scrollbar-thumb{background:var(--sage-light);border-radius:99px}
 
-  /* ==========================================================================
-   FONDO ULTRA-BLUR RE-OPTIMIZADO (CERO LAG)
-   ========================================================================= */
-.mesh-bg-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-  background: var(--cream);
-  transform: translate3d(0, 0, 0);
-  -webkit-transform: translate3d(0, 0, 0);
-}
-
-/* El blur se queda estático aquí, lo que ahorra un 90% de uso de procesador */
-.mesh-bg-container::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  backdrop-filter: blur(80px) saturate(140%);
-  -webkit-backdrop-filter: blur(80px) saturate(140%);
-  pointer-events: none;
-}
-
-.mesh-blob {
-  position: absolute;
-  border-radius: 50%;
-  will-change: transform;
-  z-index: 1;
-  opacity: 0.6;
-}
-
-.blob-1 {
-  width: 70vw;
-  height: 70vw;
-  background: #d6caa3; 
-  top: -10%;
-  left: -10%;
-  animation: appleLiquid1 25s ease-in-out infinite alternate;
-  -webkit-animation: appleLiquid1 25s ease-in-out infinite alternate;
-}
-
-.blob-2 {
-  width: 80vw;
-  height: 80vw;
-  background: #bdae8c; 
-  bottom: -20%;
-  right: -15%;
-  animation: appleLiquid2 28s ease-in-out infinite alternate-reverse;
-  -webkit-animation: appleLiquid2 28s ease-in-out infinite alternate-reverse;
-}
-
-.blob-3 {
-  width: 65vw;
-  height: 65vw;
-  background: #a3b59b; 
-  top: 35%; 
-  left: -15%;
-  animation: appleLiquid3 22s ease-in-out infinite alternate;
-  -webkit-animation: appleLiquid3 22s ease-in-out infinite alternate;
-}
-
-/* Animaciones basadas puramente en posición X/Y optimizadas para GPU */
-@keyframes appleLiquid1 {
-  0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(4vw, -3vh, 0); }
-}
-@-webkit-keyframes appleLiquid1 {
-  0% { -webkit-transform: translate3d(0, 0, 0); }
-  100% { -webkit-transform: translate3d(4vw, -3vh, 0); }
-}
-
-@keyframes appleLiquid2 {
-  0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(-3vw, -4vh, 0); }
-}
-@-webkit-keyframes appleLiquid2 {
-  0% { -webkit-transform: translate3d(0, 0, 0); }
-  100% { -webkit-transform: translate3d(-3vw, -4vh, 0); }
-}
-
-@keyframes appleLiquid3 {
-  0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(4vw, 4vh, 0); }
-}
-@-webkit-keyframes appleLiquid3 {
-  0% { -webkit-transform: translate3d(0, 0, 0); }
-  100% { -webkit-transform: translate3d(4vw, 4vh, 0); }
-}
-
 /* ==========================================================================
    FONDO ULTRA-BLUR REEQUILIBRADO (ESTILO APPLE MUSIC)
    ========================================================================= */
@@ -409,6 +315,7 @@ footer p{font-size:.7rem;color:rgba(255,255,255,.18)}
 @media(max-width:900px){nav{padding:1rem 1.5rem}.nav-links{display:none}.hero{padding:8rem 1.5rem 4rem}#jabones,#complementos,#fragancias{padding:5.5rem 1.2rem}.jabones-grid{grid-template-columns:1fr}.fgrid{grid-template-columns:repeat(2,1fr)}.banner{padding:5rem 1.5rem}footer{flex-direction:column;align-items:flex-start;padding:2.5rem 1.5rem}}
 @media(max-width:480px){.fgrid{grid-template-columns:1fr}.hero-pills{flex-direction:column;align-items:center}.jcard-img{width:90px;min-width:90px;height:140px}.jcard-img img{width:72px;height:120px}}
 </style>
+
 </head>
 <body>
 
@@ -446,39 +353,7 @@ footer p{font-size:.7rem;color:rgba(255,255,255,.18)}
     <div><div class="stat-n">2</div><div class="stat-l">Complementos</div></div>
   </div>
 </section>
-
-    <section id="bento-ingredients" class="reveal">
-    <div class="sec-hdr">
-      <div class="sec-badge">✦ Cuidado Esencial Esmerado</div>
-      <h2 class="sec-title">Calidad Real <em>Lotes Artesanales</em></h2>
-      <p class="sec-sub">Fórmulas botánicas limpias, concebidas con dedicación para el bienestar de tu piel.</p>
-    </div>
-
-    <div class="bento-container">
-      <div class="bento-card bento-main">
-        <div class="bento-content">
-          <span class="bento-tag">Elaboración en Frío</span>
-          <h3>Glicerina Natural Conservada</h3>
-          <p>Al curar nuestros jabones artesanalmente, la glicerina natural se mantiene intacta en la barra, asegurando una humectación profunda que no reseca ni estira la piel.</p>
-        </div>
-        <div class="bento-visual">🧼</div>
-      </div>
-
-      <div class="bento-card bento-mid">
-        <div class="bento-content">
-          <span class="bento-tag">Texturas Honestas</span>
-          <h3>Aceites de Origen Vegetal</h3>
-          <p>Base pura enriquecida con nutrientes botánicos que limpian con suavidad, respetando la barrera cutánea de tu cuerpo.</p>
-        </div>
-      </div>
-
-      <div class="bento-card bento-small">
-        <div class="bento-icon">🌿</div>
-        <h4>Fórmulas Limpias</h4>
-        <p>Libre de parabenos y sulfatos comerciales.</p>
-      </div>
-  </section>
-  
+ 
 <section id="jabones">
   <div class="sec-hdr reveal">
     <div class="sec-badge">✦ Artesanía &amp; Bienestar</div>
@@ -714,42 +589,6 @@ footer p{font-size:.7rem;color:rgba(255,255,255,.18)}
     Chatear por WhatsApp
   </a>
 </div>
-
-      <section id="faqs" class="reveal">
-    <div class="sec-hdr">
-      <div class="sec-badge">✦ Despeja tus dudas</div>
-      <h2 class="sec-title">Preguntas <em>Frecuentes</em></h2>
-    </div>
-    
-    <div class="faq-wrapper">
-      <div class="faq-item">
-        <details>
-          <summary>¿Qué beneficios tienen los jabones Dermolimpiadores? <span class="faq-arrow">→</span></summary>
-          <div class="faq-content">
-            <p>A diferencia de los industriales, nuestros jabones conservan sus componentes naturales y aceites esenciales. Esto aporta una hidratación superior, evita irritaciones y cuida tu piel de manera verdaderamente consciente.</p>
-          </div>
-        </details>
-      </div>
-
-      <div class="faq-item">
-        <details>
-          <summary>¿Cómo debo almacenar mi barra para que dure más? <span class="faq-arrow">→</span></summary>
-          <div class="faq-content">
-            <p>Te recomendamos usar una jabonera que permita filtrar el agua por completo y dejar secar la barra entre usos. Al no contener endurecedores sintéticos artificiales, mantenerlo seco alargará muchísimo su vida útil.</p>
-          </div>
-        </details>
-      </div>
-
-      <div class="faq-item">
-        <details>
-          <summary>¿Tienen aromas artificiales potentes? <span class="faq-arrow">→</span></summary>
-          <div class="faq-content">
-            <p>No, nuestras barras están pensadas para una experiencia olfativa botánica, sutil y elegante, utilizando extractos y esencias equilibradas que no resulten agresivas para tu piel ni para el olfato.</p>
-          </div>
-        </details>
-      </div>
-    </div>
-  </section>
 
 <footer>
   <div><div class="fb">Essentials <span>Soap</span></div><div class="ft">Cuidado esencial · Natural · Artesanal</div></div>
