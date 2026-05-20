@@ -180,7 +180,7 @@ body {
 }
   
 /* ==========================================================================
-   FONDO PREMIUM: DEFINICIÓN Y CONTRASTE (CÓDIGO PURO)
+   FONDO ESENTIALS SOAP - INTENSO, DEFINIDO Y PREMIUM
    ========================================================================= */
 .mesh-bg-container {
   position: fixed;
@@ -191,76 +191,77 @@ body {
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
-  /* Fondo base sólido, sin transparencia lavada */
-  background: #fdfcf9;
+  /* Fondo base mate, sobrio y elegante */
+  background: #f7f5f2;
 }
 
-/* Capa de contraste extremo para definir las formas */
+/* La clave: Menos desenfoque y más contraste de luz real */
 .mesh-bg-container::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 3;
-  /* El contraste y la saturación aquí son los que le dan el look 'cara' */
-  backdrop-filter: blur(60px) contrast(2.5) saturate(1.5);
-  -webkit-backdrop-filter: blur(60px) contrast(2.5) saturate(1.5);
+  /* Blur controlado para que la luz sea firme, no gaseosa */
+  backdrop-filter: blur(100px);
+  -webkit-backdrop-filter: blur(100px);
   pointer-events: none;
+  /* Degradado sutil para dar volumen al fondo */
+  background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 100%);
 }
 
 .mesh-blob {
   position: absolute;
   border-radius: 50%;
-  /* Blur bajo para que las formas sean bloques definidos de color */
-  filter: blur(40px);
+  /* Blur equilibrado: suficiente para fundir, poco para no perder la forma */
+  filter: blur(80px);
   will-change: transform;
   z-index: 1;
 }
 
-/* Blobs con colores sólidos y saturados para eliminar la palidez */
+/* Tus colores originales, pero con mayor opacidad para que tengan cuerpo */
 .blob-1 {
-  width: 60vw;
-  height: 60vw;
-  background: #c9b47e; /* Oro mate intenso */
+  width: 70vw;
+  height: 70vw;
+  background: #d6caa3; /* Oro original */
   top: -10%;
-  left: -10%;
+  left: -15%;
   opacity: 0.95;
-  animation: appleLiquid1 20s linear infinite alternate;
+  animation: appleLiquid1 34s linear infinite alternate;
 }
 
 .blob-2 {
-  width: 65vw;
-  height: 65vw;
-  background: #a3906a; /* Arena profundo */
-  bottom: -20%;
-  right: -15%;
+  width: 80vw;
+  height: 80vw;
+  background: #bdae8c; /* Crema original */
+  bottom: -30%;
+  right: -25%;
   opacity: 0.9;
-  animation: appleLiquid2 25s linear infinite alternate-reverse;
+  animation: appleLiquid2 40s linear infinite alternate-reverse;
 }
 
 .blob-3 {
-  width: 55vw;
-  height: 55vw;
-  background: #87947f; /* Verde oliva seco */
-  top: 30%; 
-  left: 35%;
+  width: 65vw;
+  height: 65vw;
+  background: #a3b59b; /* Verde oliva original */
+  top: 40%; 
+  left: -10%;
   opacity: 0.85; 
-  animation: appleLiquid3 18s linear infinite alternate;
+  animation: appleLiquid3 32s linear infinite alternate;
 }
 
-/* Animaciones más tensas para que se sienta activo y no 'flotante' */
+/* Animaciones más firmes */
 @keyframes appleLiquid1 {
-  0% { transform: scale(1.5) translate(0, 0); }
-  100% { transform: scale(1.8) translate(5vw, 5vh); }
+  0% { transform: scale(1.8) translate(0, 0); }
+  100% { transform: scale(2.0) translate(5vw, 5vh); }
 }
 @keyframes appleLiquid2 {
-  0% { transform: scale(1.6) translate(0, 0); }
-  100% { transform: scale(1.7) translate(-5vw, -5vh); }
+  0% { transform: scale(1.7) translate(0, 0); }
+  100% { transform: scale(1.9) translate(-5vw, -5vh); }
 }
 @keyframes appleLiquid3 {
-  0% { transform: scale(1.4) translate(0, 0); }
-  100% { transform: scale(1.6) translate(2vw, 8vh); }
+  0% { transform: scale(1.6) translate(0, 0); }
+  100% { transform: scale(1.8) translate(2vw, 5vh); }
 }
-
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(249,245,239,.85);backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);border-bottom:1px solid rgba(180,170,155,.25);transition:padding .4s}
