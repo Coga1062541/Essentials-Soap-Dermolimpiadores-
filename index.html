@@ -180,7 +180,7 @@ body {
 }
   
 /* ==========================================================================
-   FONDO ESENTIALS SOAP - INTENSO, DEFINIDO Y PREMIUM
+   FONDO ULTRA-BLUR REEQUILIBRADO (ESTILO APPLE MUSIC)
    ========================================================================= */
 .mesh-bg-container {
   position: fixed;
@@ -191,76 +191,99 @@ body {
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
-  /* Fondo base mate, sobrio y elegante */
-  background: #f7f5f2;
+  background: var(--cream);
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 
-/* La clave: Menos desenfoque y más contraste de luz real */
+/* Capa superior que genera el blur masivo y suaviza las transiciones */
 .mesh-bg-container::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 3;
-  /* Blur controlado para que la luz sea firme, no gaseosa */
-  backdrop-filter: blur(100px);
-  -webkit-backdrop-filter: blur(100px);
+  backdrop-filter: blur(140px) saturate(160%);
+  -webkit-backdrop-filter: blur(140px) saturate(160%);
   pointer-events: none;
-  /* Degradado sutil para dar volumen al fondo */
-  background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 100%);
 }
 
 .mesh-blob {
   position: absolute;
   border-radius: 50%;
-  /* Blur equilibrado: suficiente para fundir, poco para no perder la forma */
-  filter: blur(80px);
+  filter: blur(90px); 
+  -webkit-filter: blur(90px);
   will-change: transform;
   z-index: 1;
 }
 
-/* Tus colores originales, pero con mayor opacidad para que tengan cuerpo */
+/* Blob 1 - Tono Oro (Más brillante y con más presencia arriba) */
 .blob-1 {
-  width: 70vw;
-  height: 70vw;
-  background: #d6caa3; /* Oro original */
+  width: 85vw;
+  height: 85vw;
+  background: #d6caa3; 
   top: -10%;
   left: -15%;
-  opacity: 0.95;
+  opacity: 0.9;
+  -webkit-animation: appleLiquid1 34s linear infinite alternate;
   animation: appleLiquid1 34s linear infinite alternate;
 }
 
+/* Blob 2 - Tono Crema Oscuro / Transición */
 .blob-2 {
-  width: 80vw;
-  height: 80vw;
-  background: #bdae8c; /* Crema original */
+  width: 90vw;
+  height: 90vw;
+  background: #bdae8c; 
   bottom: -30%;
   right: -25%;
-  opacity: 0.9;
+  opacity: 0.6;
+  -webkit-animation: appleLiquid2 40s linear infinite alternate-reverse;
   animation: appleLiquid2 40s linear infinite alternate-reverse;
 }
 
+/* Blob 3 - Tono Verde Oliva (Movido abajo y más sutil para que no domine) */
 .blob-3 {
-  width: 65vw;
-  height: 65vw;
-  background: #a3b59b; /* Verde oliva original */
+  width: 75vw;
+  height: 75vw;
+  background: #a3b59b; 
   top: 40%; 
-  left: -10%;
-  opacity: 0.85; 
+  left: -30%;
+  opacity: 0.55; 
+  -webkit-animation: appleLiquid3 32s linear infinite alternate;
   animation: appleLiquid3 32s linear infinite alternate;
 }
 
-/* Animaciones más firmes */
+/* Movimientos optimizados para evitar que los colores se encimen y se vuelvan un solo verde */
+@-webkit-keyframes appleLiquid1 {
+  0% { -webkit-transform: scale(2.2) translate(0, 0) rotate(0deg); }
+  50% { -webkit-transform: scale(2.4) translate(8vw, -5vh) rotate(60deg); }
+  100% { -webkit-transform: scale(2.1) translate(-3vw, 5vh) rotate(120deg); }
+}
 @keyframes appleLiquid1 {
-  0% { transform: scale(1.8) translate(0, 0); }
-  100% { transform: scale(2.0) translate(5vw, 5vh); }
+  0% { transform: scale(2.2) translate(0, 0) rotate(0deg); }
+  50% { transform: scale(2.4) translate(8vw, -5vh) rotate(60deg); }
+  100% { transform: scale(2.1) translate(-3vw, 5vh) rotate(120deg); }
+}
+
+@-webkit-keyframes appleLiquid2 {
+  0% { -webkit-transform: scale(2.1) translate(0, 0) rotate(0deg); }
+  50% { -webkit-transform: scale(2.3) translate(-5vw, -10vh) rotate(-60deg); }
+  100% { -webkit-transform: scale(2.2) translate(5vw, -2vh) rotate(-120deg); }
 }
 @keyframes appleLiquid2 {
-  0% { transform: scale(1.7) translate(0, 0); }
-  100% { transform: scale(1.9) translate(-5vw, -5vh); }
+  0% { transform: scale(2.1) translate(0, 0) rotate(0deg); }
+  50% { transform: scale(2.3) translate(-5vw, -10vh) rotate(-60deg); }
+  100% { transform: scale(2.2) translate(5vw, -2vh) rotate(-120deg); }
+}
+
+@-webkit-keyframes appleLiquid3 {
+  0% { -webkit-transform: scale(2.3) translate(0, 0) rotate(0deg); }
+  50% { -webkit-transform: scale(2.1) translate(10vw, 12vh) rotate(90deg); }
+  100% { -webkit-transform: scale(2.25) translate(-5vw, 4vh) rotate(180deg); }
 }
 @keyframes appleLiquid3 {
-  0% { transform: scale(1.6) translate(0, 0); }
-  100% { transform: scale(1.8) translate(2vw, 5vh); }
+  0% { transform: scale(2.3) translate(0, 0) rotate(0deg); }
+  50% { transform: scale(2.1) translate(10vw, 12vh) rotate(90deg); }
+  100% { transform: scale(2.25) translate(-5vw, 4vh) rotate(180deg); }
 }
 
 /* NAV */
