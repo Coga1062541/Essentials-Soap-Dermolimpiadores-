@@ -501,6 +501,30 @@ button, .bento-card, .faq-item, a {
 button:active, .bento-card:active {
   transform: scale(0.98);
 }
+  
+  /* Textura sutil para quitar lo "plano" de la web */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Esto crea un efecto de grano de película/papel muy fino */
+  background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+  opacity: 0.04; /* Ajusta este número: 0.02 es muy sutil, 0.06 es más notorio */
+  pointer-events: none; /* Esto es clave: para que no bloquee los clics */
+  z-index: 9999; /* Para que quede encima de todo pero sin estorbar */
+}
+  .deco-circle {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(107, 127, 99, 0.05), transparent);
+  border-radius: 50%;
+  z-index: -1;
+  filter: blur(50px);
+}
 </style>
 </head>
 <body>
