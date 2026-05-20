@@ -180,7 +180,7 @@ body {
 }
   
 /* ==========================================================================
-   FONDO INTENSO Y DEFINIDO (ESTILO PREMIUM)
+   FONDO PREMIUM: DEFINICIÓN Y CONTRASTE (CÓDIGO PURO)
    ========================================================================= */
 .mesh-bg-container {
   position: fixed;
@@ -191,72 +191,76 @@ body {
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
-  background: #f7f5f2; /* Color base sólido */
+  /* Fondo base sólido, sin transparencia lavada */
+  background: #fdfcf9;
 }
 
-/* Capa de contraste: Esto quita lo "lavado" y le da definición a los colores */
+/* Capa de contraste extremo para definir las formas */
 .mesh-bg-container::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 3;
-  backdrop-filter: blur(80px) contrast(1.4) brightness(1.05);
-  -webkit-backdrop-filter: blur(80px) contrast(1.4) brightness(1.05);
+  /* El contraste y la saturación aquí son los que le dan el look 'cara' */
+  backdrop-filter: blur(60px) contrast(2.5) saturate(1.5);
+  -webkit-backdrop-filter: blur(60px) contrast(2.5) saturate(1.5);
   pointer-events: none;
 }
 
 .mesh-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(50px); /* Borde definido, no borroso */
+  /* Blur bajo para que las formas sean bloques definidos de color */
+  filter: blur(40px);
   will-change: transform;
   z-index: 1;
 }
 
-/* Colores más saturados y opacidad alta para que tengan "peso" */
+/* Blobs con colores sólidos y saturados para eliminar la palidez */
 .blob-1 {
-  width: 70vw;
-  height: 70vw;
-  background: #d4c295; /* Oro sólido */
+  width: 60vw;
+  height: 60vw;
+  background: #c9b47e; /* Oro mate intenso */
   top: -10%;
   left: -10%;
-  opacity: 0.9;
-  animation: appleLiquid1 30s linear infinite alternate;
+  opacity: 0.95;
+  animation: appleLiquid1 20s linear infinite alternate;
 }
 
 .blob-2 {
-  width: 75vw;
-  height: 75vw;
-  background: #b0a07d; /* Tono lino oscuro */
+  width: 65vw;
+  height: 65vw;
+  background: #a3906a; /* Arena profundo */
   bottom: -20%;
   right: -15%;
-  opacity: 0.85;
-  animation: appleLiquid2 35s linear infinite alternate-reverse;
+  opacity: 0.9;
+  animation: appleLiquid2 25s linear infinite alternate-reverse;
 }
 
 .blob-3 {
-  width: 60vw;
-  height: 60vw;
-  background: #96a88e; /* Verde oliva profundo */
+  width: 55vw;
+  height: 55vw;
+  background: #87947f; /* Verde oliva seco */
   top: 30%; 
-  left: 30%;
-  opacity: 0.8; 
-  animation: appleLiquid3 28s linear infinite alternate;
+  left: 35%;
+  opacity: 0.85; 
+  animation: appleLiquid3 18s linear infinite alternate;
 }
 
-/* Animaciones más fluidas */
+/* Animaciones más tensas para que se sienta activo y no 'flotante' */
 @keyframes appleLiquid1 {
-  0% { transform: scale(1.8) translate(0, 0); }
-  100% { transform: scale(2.2) translate(10vw, 5vh); }
+  0% { transform: scale(1.5) translate(0, 0); }
+  100% { transform: scale(1.8) translate(5vw, 5vh); }
 }
 @keyframes appleLiquid2 {
-  0% { transform: scale(1.9) translate(0, 0); }
-  100% { transform: scale(2.1) translate(-10vw, -5vh); }
+  0% { transform: scale(1.6) translate(0, 0); }
+  100% { transform: scale(1.7) translate(-5vw, -5vh); }
 }
 @keyframes appleLiquid3 {
-  0% { transform: scale(2.0) translate(0, 0); }
-  100% { transform: scale(1.8) translate(5vw, 10vh); }
+  0% { transform: scale(1.4) translate(0, 0); }
+  100% { transform: scale(1.6) translate(2vw, 8vh); }
 }
+
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(249,245,239,.85);backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);border-bottom:1px solid rgba(180,170,155,.25);transition:padding .4s}
