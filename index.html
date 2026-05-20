@@ -178,9 +178,9 @@ body {
   .bento-container { grid-template-columns: 1fr; grid-auto-rows: auto; }
   .bento-main, .bento-mid, .bento-small { grid-column: span 1; grid-row: span 1; }
 }
-
+  
 /* ==========================================================================
-   FONDO ULTRA-BLUR REEQUILIBRADO (ESTILO APPLE MUSIC)
+   FONDO INTENSO Y DEFINIDO (ESTILO PREMIUM)
    ========================================================================= */
 .mesh-bg-container {
   position: fixed;
@@ -191,99 +191,71 @@ body {
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
-  background: var(--cream);
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
+  background: #f7f5f2; /* Color base sólido */
 }
 
-/* Capa superior que genera el blur masivo y suaviza las transiciones */
+/* Capa de contraste: Esto quita lo "lavado" y le da definición a los colores */
 .mesh-bg-container::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 3;
-  backdrop-filter: blur(140px) saturate(160%);
-  -webkit-backdrop-filter: blur(140px) saturate(160%);
+  backdrop-filter: blur(80px) contrast(1.4) brightness(1.05);
+  -webkit-backdrop-filter: blur(80px) contrast(1.4) brightness(1.05);
   pointer-events: none;
 }
 
 .mesh-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(90px); 
-  -webkit-filter: blur(90px);
+  filter: blur(50px); /* Borde definido, no borroso */
   will-change: transform;
   z-index: 1;
 }
 
-/* Blob 1 - Tono Oro (Más brillante y con más presencia arriba) */
+/* Colores más saturados y opacidad alta para que tengan "peso" */
 .blob-1 {
-  width: 85vw;
-  height: 85vw;
-  background: #d6caa3; 
+  width: 70vw;
+  height: 70vw;
+  background: #d4c295; /* Oro sólido */
   top: -10%;
-  left: -15%;
+  left: -10%;
   opacity: 0.9;
-  -webkit-animation: appleLiquid1 34s linear infinite alternate;
-  animation: appleLiquid1 34s linear infinite alternate;
+  animation: appleLiquid1 30s linear infinite alternate;
 }
 
-/* Blob 2 - Tono Crema Oscuro / Transición */
 .blob-2 {
-  width: 90vw;
-  height: 90vw;
-  background: #bdae8c; 
-  bottom: -30%;
-  right: -25%;
-  opacity: 0.6;
-  -webkit-animation: appleLiquid2 40s linear infinite alternate-reverse;
-  animation: appleLiquid2 40s linear infinite alternate-reverse;
-}
-
-/* Blob 3 - Tono Verde Oliva (Movido abajo y más sutil para que no domine) */
-.blob-3 {
   width: 75vw;
   height: 75vw;
-  background: #a3b59b; 
-  top: 40%; 
-  left: -30%;
-  opacity: 0.55; 
-  -webkit-animation: appleLiquid3 32s linear infinite alternate;
-  animation: appleLiquid3 32s linear infinite alternate;
+  background: #b0a07d; /* Tono lino oscuro */
+  bottom: -20%;
+  right: -15%;
+  opacity: 0.85;
+  animation: appleLiquid2 35s linear infinite alternate-reverse;
 }
 
-/* Movimientos optimizados para evitar que los colores se encimen y se vuelvan un solo verde */
-@-webkit-keyframes appleLiquid1 {
-  0% { -webkit-transform: scale(2.2) translate(0, 0) rotate(0deg); }
-  50% { -webkit-transform: scale(2.4) translate(8vw, -5vh) rotate(60deg); }
-  100% { -webkit-transform: scale(2.1) translate(-3vw, 5vh) rotate(120deg); }
+.blob-3 {
+  width: 60vw;
+  height: 60vw;
+  background: #96a88e; /* Verde oliva profundo */
+  top: 30%; 
+  left: 30%;
+  opacity: 0.8; 
+  animation: appleLiquid3 28s linear infinite alternate;
 }
+
+/* Animaciones más fluidas */
 @keyframes appleLiquid1 {
-  0% { transform: scale(2.2) translate(0, 0) rotate(0deg); }
-  50% { transform: scale(2.4) translate(8vw, -5vh) rotate(60deg); }
-  100% { transform: scale(2.1) translate(-3vw, 5vh) rotate(120deg); }
-}
-
-@-webkit-keyframes appleLiquid2 {
-  0% { -webkit-transform: scale(2.1) translate(0, 0) rotate(0deg); }
-  50% { -webkit-transform: scale(2.3) translate(-5vw, -10vh) rotate(-60deg); }
-  100% { -webkit-transform: scale(2.2) translate(5vw, -2vh) rotate(-120deg); }
+  0% { transform: scale(1.8) translate(0, 0); }
+  100% { transform: scale(2.2) translate(10vw, 5vh); }
 }
 @keyframes appleLiquid2 {
-  0% { transform: scale(2.1) translate(0, 0) rotate(0deg); }
-  50% { transform: scale(2.3) translate(-5vw, -10vh) rotate(-60deg); }
-  100% { transform: scale(2.2) translate(5vw, -2vh) rotate(-120deg); }
-}
-
-@-webkit-keyframes appleLiquid3 {
-  0% { -webkit-transform: scale(2.3) translate(0, 0) rotate(0deg); }
-  50% { -webkit-transform: scale(2.1) translate(10vw, 12vh) rotate(90deg); }
-  100% { -webkit-transform: scale(2.25) translate(-5vw, 4vh) rotate(180deg); }
+  0% { transform: scale(1.9) translate(0, 0); }
+  100% { transform: scale(2.1) translate(-10vw, -5vh); }
 }
 @keyframes appleLiquid3 {
-  0% { transform: scale(2.3) translate(0, 0) rotate(0deg); }
-  50% { transform: scale(2.1) translate(10vw, 12vh) rotate(90deg); }
-  100% { transform: scale(2.25) translate(-5vw, 4vh) rotate(180deg); }
+  0% { transform: scale(2.0) translate(0, 0); }
+  100% { transform: scale(1.8) translate(5vw, 10vh); }
 }
 
 /* NAV */
