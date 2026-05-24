@@ -125,16 +125,24 @@
     position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
     padding: 1.2rem 2rem;
     display: flex; justify-content: space-between; align-items: center;
-    transition: var(--transition-smooth);
-    background: transparent;
-    backdrop-filter: blur(0px);
-    -webkit-backdrop-filter: blur(0px);
+    transition: background 0.55s cubic-bezier(0.16, 1, 0.3, 1), 
+                backdrop-filter 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+                -webkit-backdrop-filter 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+                padding 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    background: rgba(250,249,246,0);
+    backdrop-filter: blur(0px) saturate(100%);
+    -webkit-backdrop-filter: blur(0px) saturate(100%);
+    box-shadow: 0 1px 0 rgba(0,0,0,0), 0 8px 32px rgba(0,0,0,0);
 }
-        .nav.scrolled {
-            background: rgba(250,249,246,0.88); backdrop-filter: blur(28px) saturate(150%);
-            box-shadow: 0 1px 0 rgba(0,0,0,0.05), 0 8px 32px rgba(0,0,0,0.04);
-            padding: 0.8rem 2rem;
-        }
+
+.nav.scrolled {
+    background: rgba(250,249,246,0.88);
+    backdrop-filter: blur(28px) saturate(150%);
+    -webkit-backdrop-filter: blur(28px) saturate(150%);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.05), 0 8px 32px rgba(0,0,0,0.04);
+    padding: 0.8rem 2rem;
+}
         .nav-logo {
             font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 600;
             letter-spacing: 0.1em; color: var(--soft-black); text-decoration: none;
