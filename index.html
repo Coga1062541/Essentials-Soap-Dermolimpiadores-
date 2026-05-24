@@ -299,8 +299,16 @@
         
         /* ===== PRODUCT CARDS ===== */
         .products-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 5.5rem 3.5rem;
-            contain: layout;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 7rem 5rem;
+    align-items: start;
+    padding-inline: 2rem;
+    contain: layout;
+}
+        .product-card {
+    margin-inline: auto;
+    max-width: 390px;
         }
         .product-card {
             background: rgba(255,255,255,0.78); border-radius: 28px; overflow: hidden;
