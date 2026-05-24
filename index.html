@@ -888,7 +888,7 @@
                 padding: 0 1rem;
             }
         }
-   /* ===== FAQ SECTION ===== */
+        /* ===== FAQ SECTION ===== */
 .faq-section { position: relative; padding: 6rem 1.5rem; overflow: hidden; }
 .faq-header { text-align: center; margin-bottom: 3.5rem; }
 .faq-label { display: inline-flex; align-items: center; gap: 0.7rem; margin-bottom: 1.1rem; }
@@ -898,15 +898,7 @@
 .faq-title em { font-style: italic; color: #8a7a5a; }
 .faq-subtitle { font-size: 0.875rem; color: #7a7060; max-width: 360px; margin: 0 auto; line-height: 1.7; }
 .faq-list { max-width: 660px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.85rem; }
-.faq-item {
-    position: relative; border-radius: 18px;
-    background: rgba(255,255,255,0.58);
-    border: 1px solid rgba(255,255,255,0.82);
-    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.9);
-    cursor: pointer; overflow: hidden;
-    transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease, background 0.3s ease, border-color 0.3s ease;
-}
+.faq-item { position: relative; border-radius: 18px; background: rgba(255,255,255,0.58); border: 1px solid rgba(255,255,255,0.82); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 4px 20px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.9); cursor: pointer; overflow: hidden; transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease, background 0.3s ease, border-color 0.3s ease; }
 .faq-item::before { content: ''; position: absolute; top: 0; left: 8%; right: 8%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,1) 40%, rgba(255,255,255,1) 60%, transparent); opacity: 0.8; }
 .faq-item::after { content: ''; position: absolute; top: 8%; bottom: 8%; left: 0; width: 1px; background: linear-gradient(180deg, transparent, rgba(255,255,255,0.7) 50%, transparent); }
 .faq-item.is-open { background: rgba(255,255,255,0.82); border-color: rgba(196,168,120,0.4); transform: translateY(-2px); box-shadow: 0 16px 48px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.95); }
@@ -926,8 +918,8 @@
 .faq-cta { text-align: center; margin-top: 3rem; }
 .faq-cta p { font-size: 0.78rem; color: #9a8a70; margin-bottom: 0.9rem; letter-spacing: 0.02em; }
 .faq-cta-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.8rem; border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; color: var(--soft-black); background: rgba(255,255,255,0.72); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(196,168,120,0.3); box-shadow: 0 6px 24px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.95); transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; }
-.faq-cta-btn:hover { background: var(--soft-black); color: var(--cream); transform: translateY(-2px); box-shadow: 0 14px 40px rgba(0,0,0,0.16); }   
-    </style>
+.faq-cta-btn:hover { background: var(--soft-black); color: var(--cream); transform: translateY(-2px); box-shadow: 0 14px 40px rgba(0,0,0,0.16); }
+</style>
 </head>
 <body>
         <!-- AMBIENT MESH BACKGROUND -->
@@ -2307,15 +2299,15 @@
                 }
             });
         });
-        <script>
-    document.querySelectorAll('.faq-item').forEach(item => {
-        item.addEventListener('click', () => {
-            const isOpen = item.classList.contains('is-open');
-            document.querySelectorAll('.faq-item.is-open').forEach(el => el.classList.remove('is-open'));
+    document.querySelectorAll('.faq-item').forEach(function(item) {
+        item.addEventListener('click', function() {
+            var isOpen = item.classList.contains('is-open');
+            document.querySelectorAll('.faq-item.is-open').forEach(function(el) {
+                el.classList.remove('is-open');
+            });
             if (!isOpen) item.classList.add('is-open');
         });
     });
-</script>
     </script>
 </body>
 </html>
