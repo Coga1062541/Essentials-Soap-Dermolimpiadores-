@@ -888,7 +888,7 @@
                 padding: 0 1rem;
             }
         }
-        /* ===== FAQ SECTION ===== */
+      /* ===== FAQ SECTION ===== */
 .faq-section {
     padding: 8rem 3rem 10rem;
     max-width: 900px;
@@ -934,25 +934,21 @@
     border: 1px solid rgba(255,255,255,0.85);
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
-    /* Optimizado: Transición más ligera usando 'transform' en vez de mover sombras pesadas solas */
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+    /* Transición simplificada para eliminar tirones bruscos */
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     cursor: pointer;
 }
-
-/* Efecto hover sutil sin alentar el navegador */
 .faq-capsule:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 40px rgba(0,0,0,0.08), 0 2px 8px rgba(122,139,110,0.08);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.08);
     border-color: rgba(122,139,110,0.2);
+    transform: translateY(-2px);
 }
-
-/* Estado Activo (Cuando se hace clic) */
 .faq-capsule.active {
-    transform: none;
-    box-shadow: 0 12px 48px rgba(0,0,0,0.1), 0 4px 16px rgba(122,139,110,0.12);
+    box-shadow: 0 12px 48px rgba(122,139,110,0.12);
     border-color: rgba(122,139,110,0.3);
     background: rgba(255,255,255,0.88);
+    transform: none;
 }
 
 .faq-question {
@@ -961,7 +957,7 @@
     justify-content: space-between;
     padding: 1.6rem 2rem;
     gap: 1.5rem;
-    user-select: none; /* Evita que se seleccione el texto al dar clics rápidos */
+    user-select: none;
 }
 .faq-question-text {
     font-family: 'Playfair Display', serif;
@@ -970,7 +966,6 @@
     color: var(--soft-black);
     line-height: 1.4;
     letter-spacing: -0.01em;
-    flex: 1;
 }
 .faq-arrow {
     width: 36px;
@@ -981,13 +976,14 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                background 0.3s ease;
 }
 .faq-arrow svg {
     width: 14px;
     height: 14px;
     stroke: var(--olive);
-    stroke-width: 2.5;
+    stroke-width: 2;
     fill: none;
     transition: stroke 0.3s ease;
 }
@@ -1002,31 +998,30 @@
     stroke: white;
 }
 
-/* ===== FAQ ANSWER (CERRADO POR DEFECTO) ===== */
+/* ===== FAQ ANSWER ===== */
 .faq-answer {
     max-height: 0;
     overflow: hidden;
     opacity: 0;
-    visibility: hidden; /* Evita que el contenido sea interactivo o se bucee estando cerrado */
-    /* Simplificado para evitar tirones en el renderizado */
     transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-                opacity 0.3s ease, 
-                visibility 0.3s ease;
+                opacity 0.3s ease;
 }
-
 .faq-answer-inner {
-    padding: 0 2rem 1.8rem;
+    padding: 0 2rem 0; /* El padding vertical inicia en cero para no romper el colapso */
     font-family: 'Inter', sans-serif;
     font-size: 0.9rem;
     line-height: 1.75;
     color: var(--warm-gray);
+    transition: padding 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ===== ESTADO DESPLEGADO ===== */
+/* Estado Desplegado */
 .faq-capsule.active .faq-answer {
-    max-height: 300px; /* Reducido a un tamaño más realista para evitar retrasos en la animación */
+    max-height: 250px; /* Altura máxima realista para evitar retrasos en el cierre */
     opacity: 1;
-    visibility: visible;
+}
+.faq-capsule.active .faq-answer-inner {
+    padding-bottom: 1.8rem; /* El espacio inferior regresa suavemente al abrirse */
 }
 
 /* ===== RESPONSIVE FAQ ===== */
@@ -1041,14 +1036,13 @@
         font-size: 1rem;
     }
     .faq-answer-inner {
-        padding: 0 1.5rem 1.5rem;
+        padding: 0 1.5rem 0;
+    }
+    .faq-capsule.active .faq-answer-inner {
+        padding-bottom: 1.5rem;
         font-size: 0.85rem;
     }
-    .faq-capsule.active .faq-answer {
-        max-height: 400px;
-    }
-}
- 
+}      
     </style>
 </head>
 <body>
@@ -1604,102 +1598,103 @@
                 </div>
         </div>
     </section>
-        <!-- FAQ / POR QUÉ ELEGIR ESSENTIALS SOAP -->
-    <section class="faq-section" id="faq">
-        <div class="section-header reveal">
-            <div class="section-label">Preguntas Frecuentes</div>
-            <h2 class="section-title">¿Por qué elegir <em>Essentials Soap?</em></h2>
+      
+    <!-- FAQ / POR QUÉ ELEGIR ESSENTIALS SOAP -->
+<section class="faq-section" id="faq">
+    <div class="section-header reveal">
+        <div class="section-label">Preguntas Frecuentes</div>
+        <h2 class="section-title">¿Por qué elegir <em>Essentials Soap?</em></h2>
+    </div>
+    <div class="faq-list">
+        
+        <div class="faq-capsule reveal" onclick="toggleFaq(this)">
+            <div class="faq-question">
+                <span class="faq-question-text">¿Son realmente naturales y buenos para la piel?</span>
+                <div class="faq-arrow">
+                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+                </div>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    Sí. Nuestros jabones están hechos con ingredientes 100% naturales: glicerina vegetal, aceites esenciales y mantecas naturales. Sin parabenos, sulfatos ni químicos agresivos. Ideales para todo tipo de piel, incluso sensible.
+                </div>
+            </div>
         </div>
-        <div class="faq-list">
-            
-            <div class="faq-capsule reveal" onclick="toggleFaq(this)">
-                <div class="faq-question">
-                    <span class="faq-question-text">¿Son realmente naturales y buenos para la piel?</span>
-                    <div class="faq-arrow">
-                        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-                    </div>
-                </div>
-                <div class="faq-answer">
-                    <div class="faq-answer-inner">
-                        Sí. Nuestros jabones están hechos con ingredientes 100% naturales: glicerina vegetal, aceites esenciales y mantecas naturales. Sin parabenos, sulfatos ni químicos agresivos. Ideales para todo tipo de piel, incluso sensible.
-                    </div>
+
+        <div class="faq-capsule reveal" onclick="toggleFaq(this)">
+            <div class="faq-question">
+                <span class="faq-question-text">¿Por qué elegir Essentials Soap?</span>
+                <div class="faq-arrow">
+                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
                 </div>
             </div>
-
-            <div class="faq-capsule reveal" onclick="toggleFaq(this)">
-                <div class="faq-question">
-                    <span class="faq-question-text">¿Por qué elegir Essentials Soap?</span>
-                    <div class="faq-arrow">
-                        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-                    </div>
-                </div>
-                <div class="faq-answer">
-                    <div class="faq-answer-inner">
-                        Porque ofrecemos calidad premium a precios accesibles. Jabones artesanales hechos en México con ingredientes naturales y fragancias inspiradas en las mejores casas del mundo.
-                    </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    Porque ofrecemos calidad premium a precios accesibles. Jabones artesanales hechos en México con ingredientes naturales y fragancias inspiradas en las mejores casas del mundo.
                 </div>
             </div>
-
-            <div class="faq-capsule reveal" onclick="toggleFaq(this)">
-                <div class="faq-question">
-                    <span class="faq-question-text">¿Las fragancias tienen buena duración?</span>
-                    <div class="faq-arrow">
-                        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-                    </div>
-                </div>
-                <div class="faq-answer">
-                    <div class="faq-answer-inner">
-                        Sí. Seleccionamos decants de alta concentración con duración promedio de 8-12 horas. Buena proyección y fijación gracias a su excelente calidad.
-                    </div>
-                </div>
-            </div>
-
-            <div class="faq-capsule reveal" onclick="toggleFaq(this)">
-                <div class="faq-question">
-                    <span class="faq-question-text">¿Es una marca realmente mexicana?</span>
-                    <div class="faq-arrow">
-                        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-                    </div>
-                </div>
-                <div class="faq-answer">
-                    <div class="faq-answer-inner">
-                        100% mexicana. Elaboramos nuestros jabones artesanalmente en Guadalajara en lotes pequeños para garantizar frescura y máxima calidad.
-                    </div>
-                </div>
-            </div>
-
-            <div class="faq-capsule reveal" onclick="toggleFaq(this)">
-                <div class="faq-question">
-                    <span class="faq-question-text">¿En qué se diferencian sus jabones?</span>
-                    <div class="faq-arrow">
-                        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-                    </div>
-                </div>
-                <div class="faq-answer">
-                    <div class="faq-answer-inner">
-                        No solo limpian, también hidratan. Gracias a su alta concentración de glicerina y aceites naturales, dejan la piel suave en lugar de reseca.
-                    </div>
-                </div>
-            </div>
-
-            <div class="faq-capsule reveal" onclick="toggleFaq(this)">
-                <div class="faq-question">
-                    <span class="faq-question-text">¿Cómo funciona el envío?</span>
-                    <div class="faq-arrow">
-                        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-                    </div>
-                </div>
-                <div class="faq-answer">
-                    <div class="faq-answer-inner">
-                        Pedidos por WhatsApp con pago seguro. Envío gratis en Guadalajara a partir de 4 jabones. Entrega personal coordinada por mensaje.
-                    </div>
-                </div>
-            </div>
-
         </div>
-    </section>
 
-        <!-- FOOTER -->
+        <div class="faq-capsule reveal" onclick="toggleFaq(this)">
+            <div class="faq-question">
+                <span class="faq-question-text">¿Las fragancias tienen buena duración?</span>
+                <div class="faq-arrow">
+                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+                </div>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    Sí. Seleccionamos decants de alta concentración con duración promedio de 8-12 horas. Buena proyección y fijación gracias a su excelente calidad.
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-capsule reveal" onclick="toggleFaq(this)">
+            <div class="faq-question">
+                <span class="faq-question-text">¿Es una marca realmente mexicana?</span>
+                <div class="faq-arrow">
+                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+                </div>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    100% mexicana. Elaboramos nuestros jabones artesanalmente en Guadalajara en lotes pequeños para garantizar frescura y máxima calidad.
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-capsule reveal" onclick="toggleFaq(this)">
+            <div class="faq-question">
+                <span class="faq-question-text">¿En qué se diferencian sus jabones?</span>
+                <div class="faq-arrow">
+                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+                </div>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    No solo limpian, también hidratan. Gracias a su alta concentración de glicerina y aceites naturales, dejan la piel suave en lugar de reseca.
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-capsule reveal" onclick="toggleFaq(this)">
+            <div class="faq-question">
+                <span class="faq-question-text">¿Cómo funciona el envío?</span>
+                <div class="faq-arrow">
+                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+                </div>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    Pedidos por WhatsApp con pago seguro. Envío gratis en Guadalajara a partir de 4 jabones. Entrega personal coordinada por mensaje.
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+            <!-- FOOTER -->
     <footer class="footer" id="contacto">
         <div class="footer-content">
             <div class="footer-brand">
