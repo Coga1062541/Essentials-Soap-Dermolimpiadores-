@@ -888,160 +888,45 @@
                 padding: 0 1rem;
             }
         }
-      
-    /* ===== FAQ SECTION ===== */
-.faq-section {
-    padding: 8rem 3rem 10rem;
-    max-width: 900px;
-    margin: 0 auto;
-    position: relative;
+   /* ===== FAQ SECTION ===== */
+.faq-section { position: relative; padding: 6rem 1.5rem; overflow: hidden; }
+.faq-header { text-align: center; margin-bottom: 3.5rem; }
+.faq-label { display: inline-flex; align-items: center; gap: 0.7rem; margin-bottom: 1.1rem; }
+.faq-label-line { width: 32px; height: 1px; background: rgba(196,168,120,0.55); }
+.faq-label span { font-family: 'Inter', sans-serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: #b09672; }
+.faq-title { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 400; color: var(--soft-black); margin: 0 0 0.9rem; line-height: 1.15; }
+.faq-title em { font-style: italic; color: #8a7a5a; }
+.faq-subtitle { font-size: 0.875rem; color: #7a7060; max-width: 360px; margin: 0 auto; line-height: 1.7; }
+.faq-list { max-width: 660px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.85rem; }
+.faq-item {
+    position: relative; border-radius: 18px;
+    background: rgba(255,255,255,0.58);
+    border: 1px solid rgba(255,255,255,0.82);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.9);
+    cursor: pointer; overflow: hidden;
+    transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease, background 0.3s ease, border-color 0.3s ease;
 }
-.faq-section .section-header {
-    text-align: center;
-    margin-bottom: 4rem;
-}
-.faq-section .section-label {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--olive);
-    margin-bottom: 1.4rem;
-}
-.faq-section .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 500;
-    color: var(--soft-black);
-    line-height: 1.2;
-}
-.faq-section .section-title em {
-    font-style: italic;
-    font-weight: 400;
-    color: var(--olive);
-}
-
-/* ===== FAQ CAPSULES ===== */
-.faq-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-.faq-capsule {
-    background: rgba(255,255,255,0.72);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255,255,255,0.85);
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
-    transition: box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-                border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    cursor: pointer;
-    opacity: 1 !important;
-    transform: none !important;
-}
-.faq-capsule:hover {
-    box-shadow: 0 8px 40px rgba(0,0,0,0.08), 0 2px 8px rgba(122,139,110,0.08);
-    border-color: rgba(122,139,110,0.2);
-}
-.faq-capsule.active {
-    box-shadow: 0 12px 48px rgba(0,0,0,0.1), 0 4px 16px rgba(122,139,110,0.12);
-    border-color: rgba(122,139,110,0.3);
-    background: rgba(255,255,255,0.88);
-}
-
-.faq-question {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.6rem 2rem;
-    gap: 1.5rem;
-}
-.faq-question-text {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.15rem;
-    font-weight: 500;
-    color: var(--soft-black);
-    line-height: 1.4;
-    letter-spacing: -0.01em;
-    flex: 1;
-}
-.faq-arrow {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: rgba(122,139,110,0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
-                background 0.3s ease;
-}
-.faq-arrow svg {
-    width: 14px;
-    height: 14px;
-    stroke: var(--olive);
-    stroke-width: 2.5;
-    fill: none;
-    transition: stroke 0.3s ease;
-}
-.faq-capsule:hover .faq-arrow {
-    background: rgba(122,139,110,0.2);
-}
-.faq-capsule.active .faq-arrow {
-    transform: rotate(90deg);
-    background: var(--olive);
-}
-.faq-capsule.active .faq-arrow svg {
-    stroke: white;
-}
-
-/* ===== FAQ ANSWER (CORREGIDO CON MAX-HEIGHT) ===== */
-.faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition: max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
-                opacity 0.4s ease 0.1s,
-                padding 0.4s ease;
-}
-.faq-answer-inner {
-    padding: 0 2rem 1.8rem;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
-    line-height: 1.75;
-    color: var(--warm-gray);
-    opacity: 1;
-    transform: none;
-}
-.faq-capsule.active .faq-answer {
-    max-height: 500px;
-    opacity: 1;
-}
-
-/* ===== RESPONSIVE FAQ ===== */
-@media (max-width: 768px) {
-    .faq-section {
-        padding: 4rem 1.5rem 6rem;
-    }
-    .faq-question {
-        padding: 1.3rem 1.5rem;
-    }
-    .faq-question-text {
-        font-size: 1rem;
-    }
-    .faq-answer-inner {
-        padding: 0 1.5rem 1.5rem;
-        font-size: 0.85rem;
-    }
-    .faq-capsule.active .faq-answer {
-        max-height: 600px;
-    }
-}
-
+.faq-item::before { content: ''; position: absolute; top: 0; left: 8%; right: 8%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,1) 40%, rgba(255,255,255,1) 60%, transparent); opacity: 0.8; }
+.faq-item::after { content: ''; position: absolute; top: 8%; bottom: 8%; left: 0; width: 1px; background: linear-gradient(180deg, transparent, rgba(255,255,255,0.7) 50%, transparent); }
+.faq-item.is-open { background: rgba(255,255,255,0.82); border-color: rgba(196,168,120,0.4); transform: translateY(-2px); box-shadow: 0 16px 48px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.95); }
+.faq-question { display: flex; align-items: center; padding: 1.2rem 1.4rem; gap: 1rem; }
+.faq-icon { font-family: serif; font-size: 0.6rem; color: #b09672; flex-shrink: 0; transition: color 0.3s ease; line-height: 1; }
+.faq-item.is-open .faq-icon { color: #c4a878; }
+.faq-question-text { flex: 1; font-family: 'Playfair Display', Georgia, serif; font-size: clamp(0.9rem, 2.2vw, 1rem); font-weight: 500; color: var(--soft-black); line-height: 1.4; }
+.faq-arrow { width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.75); border: 1px solid rgba(255,255,255,0.9); box-shadow: 0 2px 8px rgba(0,0,0,0.07), inset 0 1px 0 rgba(255,255,255,0.95); transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; }
+.faq-arrow svg { transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1); display: block; }
+.faq-item.is-open .faq-arrow { background: #1a1a1a; border-color: rgba(196,168,120,0.35); box-shadow: 0 4px 14px rgba(0,0,0,0.2); }
+.faq-item.is-open .faq-arrow svg { transform: rotate(90deg); }
+.faq-arrow-icon { stroke: #8a7a5a; transition: stroke 0.3s ease; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.faq-item.is-open .faq-arrow-icon { stroke: #f5f0e8; }
+.faq-body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1); }
+.faq-item.is-open .faq-body { max-height: 300px; }
+.faq-answer { padding: 0.8rem 1.4rem 1.3rem 2.7rem; border-top: 1px solid rgba(196,168,120,0.15); font-size: 0.875rem; color: #5a5248; line-height: 1.8; }
+.faq-cta { text-align: center; margin-top: 3rem; }
+.faq-cta p { font-size: 0.78rem; color: #9a8a70; margin-bottom: 0.9rem; letter-spacing: 0.02em; }
+.faq-cta-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.8rem; border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; color: var(--soft-black); background: rgba(255,255,255,0.72); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(196,168,120,0.3); box-shadow: 0 6px 24px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.95); transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; }
+.faq-cta-btn:hover { background: var(--soft-black); color: var(--cream); transform: translateY(-2px); box-shadow: 0 14px 40px rgba(0,0,0,0.16); }   
     </style>
 </head>
 <body>
@@ -1598,101 +1483,75 @@
         </div>
     </section>
       
-    <!-- FAQ / POR QUÉ ELEGIR ESSENTIALS SOAP -->
+    <!-- FAQ -->
 <section class="faq-section" id="faq">
-    <div class="section-header reveal">
-        <div class="section-label">Preguntas Frecuentes</div>
-        <h2 class="section-title">¿Por qué elegir <em>Essentials Soap?</em></h2>
+    <div class="faq-header">
+        <div class="faq-label">
+            <div class="faq-label-line"></div>
+            <span>Preguntas frecuentes</span>
+            <div class="faq-label-line"></div>
+        </div>
+        <h2 class="faq-title">¿Por qué elegir <em>Essentials Soap?</em></h2>
+        <p class="faq-subtitle">Todo lo que necesitas saber antes de tu primer pedido.</p>
     </div>
     <div class="faq-list">
-        
-        <div class="faq-capsule reveal" onclick="toggleFaq(this)">
+        <div class="faq-item">
             <div class="faq-question">
+                <span class="faq-icon">✦</span>
                 <span class="faq-question-text">¿Son realmente naturales y buenos para la piel?</span>
-                <div class="faq-arrow">
-                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-                </div>
+                <div class="faq-arrow"><svg width="12" height="12" viewBox="0 0 24 24"><polyline class="faq-arrow-icon" points="9 18 15 12 9 6"/></svg></div>
             </div>
-            <div class="faq-answer">
-                <div class="faq-answer-inner">
-                    Sí. Nuestros jabones están hechos con ingredientes 100% naturales: glicerina vegetal, aceites esenciales y mantecas naturales. Sin parabenos, sulfatos ni químicos agresivos. Ideales para todo tipo de piel, incluso sensible.
-                </div>
-            </div>
+            <div class="faq-body"><p class="faq-answer">Sí. Nuestros jabones están hechos con ingredientes 100% naturales: glicerina vegetal, aceites esenciales y mantecas naturales. Sin parabenos, sulfatos ni químicos agresivos. Ideales para todo tipo de piel, incluso sensible.</p></div>
         </div>
-
-        <div class="faq-capsule reveal" onclick="toggleFaq(this)">
+        <div class="faq-item">
             <div class="faq-question">
+                <span class="faq-icon">◈</span>
                 <span class="faq-question-text">¿Por qué elegir Essentials Soap?</span>
-                <div class="faq-arrow">
-                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-                </div>
+                <div class="faq-arrow"><svg width="12" height="12" viewBox="0 0 24 24"><polyline class="faq-arrow-icon" points="9 18 15 12 9 6"/></svg></div>
             </div>
-            <div class="faq-answer">
-                <div class="faq-answer-inner">
-                    Porque ofrecemos calidad premium a precios accesibles. Jabones artesanales hechos en México con ingredientes naturales y fragancias inspiradas en las mejores casas del mundo.
-                </div>
-            </div>
+            <div class="faq-body"><p class="faq-answer">Porque ofrecemos calidad premium a precios accesibles. Jabones artesanales hechos en México con ingredientes naturales y fragancias inspiradas en las mejores casas del mundo.</p></div>
         </div>
-
-        <div class="faq-capsule reveal" onclick="toggleFaq(this)">
+        <div class="faq-item">
             <div class="faq-question">
+                <span class="faq-icon">◇</span>
                 <span class="faq-question-text">¿Las fragancias tienen buena duración?</span>
-                <div class="faq-arrow">
-                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-                </div>
+                <div class="faq-arrow"><svg width="12" height="12" viewBox="0 0 24 24"><polyline class="faq-arrow-icon" points="9 18 15 12 9 6"/></svg></div>
             </div>
-            <div class="faq-answer">
-                <div class="faq-answer-inner">
-                    Sí. Seleccionamos decants de alta concentración con duración promedio de 8-12 horas. Buena proyección y fijación gracias a su excelente calidad.
-                </div>
-            </div>
+            <div class="faq-body"><p class="faq-answer">Sí. Seleccionamos decants de alta concentración con duración promedio de 8–12 horas. Buena proyección y fijación gracias a su excelente calidad.</p></div>
         </div>
-
-        <div class="faq-capsule reveal" onclick="toggleFaq(this)">
+        <div class="faq-item">
             <div class="faq-question">
+                <span class="faq-icon">✦</span>
                 <span class="faq-question-text">¿Es una marca realmente mexicana?</span>
-                <div class="faq-arrow">
-                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-                </div>
+                <div class="faq-arrow"><svg width="12" height="12" viewBox="0 0 24 24"><polyline class="faq-arrow-icon" points="9 18 15 12 9 6"/></svg></div>
             </div>
-            <div class="faq-answer">
-                <div class="faq-answer-inner">
-                    100% mexicana. Elaboramos nuestros jabones artesanalmente en Guadalajara en lotes pequeños para garantizar frescura y máxima calidad.
-                </div>
-            </div>
+            <div class="faq-body"><p class="faq-answer">100% mexicana. Elaboramos nuestros jabones artesanalmente en Guadalajara en lotes pequeños para garantizar frescura y máxima calidad.</p></div>
         </div>
-
-        <div class="faq-capsule reveal" onclick="toggleFaq(this)">
+        <div class="faq-item">
             <div class="faq-question">
+                <span class="faq-icon">◈</span>
                 <span class="faq-question-text">¿En qué se diferencian sus jabones?</span>
-                <div class="faq-arrow">
-                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-                </div>
+                <div class="faq-arrow"><svg width="12" height="12" viewBox="0 0 24 24"><polyline class="faq-arrow-icon" points="9 18 15 12 9 6"/></svg></div>
             </div>
-            <div class="faq-answer">
-                <div class="faq-answer-inner">
-                    No solo limpian, también hidratan. Gracias a su alta concentración de glicerina y aceites naturales, dejan la piel suave en lugar de reseca.
-                </div>
-            </div>
+            <div class="faq-body"><p class="faq-answer">No solo limpian, también hidratan. Gracias a su alta concentración de glicerina y aceites naturales, dejan la piel suave en lugar de reseca.</p></div>
         </div>
-
-        <div class="faq-capsule reveal" onclick="toggleFaq(this)">
+        <div class="faq-item">
             <div class="faq-question">
+                <span class="faq-icon">◇</span>
                 <span class="faq-question-text">¿Cómo funciona el envío?</span>
-                <div class="faq-arrow">
-                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-                </div>
+                <div class="faq-arrow"><svg width="12" height="12" viewBox="0 0 24 24"><polyline class="faq-arrow-icon" points="9 18 15 12 9 6"/></svg></div>
             </div>
-            <div class="faq-answer">
-                <div class="faq-answer-inner">
-                    Pedidos por WhatsApp con pago seguro. Envío gratis en Guadalajara a partir de 4 jabones. Entrega personal coordinada por mensaje.
-                </div>
-            </div>
+            <div class="faq-body"><p class="faq-answer">Pedido por WhatsApp, pago seguro y envíos a Guadalajara. Las entregas en punto de reunión o con paquetería confiable.</p></div>
         </div>
-
+    </div>
+    <div class="faq-cta">
+        <p>¿Tienes otra pregunta?</p>
+        <a href="https://wa.me/523334795014" target="_blank" class="faq-cta-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.557 4.126 1.527 5.866L.057 23.928l6.235-1.635A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.661-.5-5.195-1.375l-.372-.221-3.704.972.987-3.608-.242-.381A9.938 9.938 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+            Escríbenos por WhatsApp
+        </a>
     </div>
 </section>
-
             <!-- FOOTER -->
     <footer class="footer" id="contacto">
         <div class="footer-content">
@@ -2448,22 +2307,15 @@
                 }
             });
         });
-        // ===== FAQ ACCORDION =====
-function toggleFaq(capsule) {
-    const wasActive = capsule.classList.contains('active');
-    
-    // Cerrar todas las demás (opcional - quita esto si quieres múltiples abiertas)
-    document.querySelectorAll('.faq-capsule.active').forEach(c => {
-        if (c !== capsule) c.classList.remove('active');
+        <script>
+    document.querySelectorAll('.faq-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const isOpen = item.classList.contains('is-open');
+            document.querySelectorAll('.faq-item.is-open').forEach(el => el.classList.remove('is-open'));
+            if (!isOpen) item.classList.add('is-open');
+        });
     });
-    
-    // Toggle la actual
-    if (wasActive) {
-        capsule.classList.remove('active');
-    } else {
-        capsule.classList.add('active');
-    }
-}
+</script>
     </script>
 </body>
 </html>
