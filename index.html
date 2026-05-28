@@ -1180,15 +1180,6 @@
         .footer-dot:nth-child(2) { background: rgba(196,162,108,0.35); }
         .footer-dot:nth-child(3) { background: rgba(143,172,128,0.35); }
         
-        /* Chatbase widget handles its own positioning */
-        
-        /* ===== SCROLL REVEAL ===== */
-        .reveal {
-            opacity: 0; transform: translateY(32px);
-            transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-        
         /* ===== TOAST ===== */
         .toast {
             position: fixed; bottom: 2rem; left: 50%;
@@ -1292,10 +1283,6 @@
 .faq-cta-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.8rem; border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; color: var(--soft-black); background: rgba(255,255,255,0.95); border: 1px solid rgba(196,168,120,0.3); box-shadow: 0 6px 24px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.95); transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; }
 .faq-cta-btn:hover { background: var(--soft-black); color: var(--cream); transform: translateY(-2px); box-shadow: 0 14px 40px rgba(0,0,0,0.16); }
 </style>
-    <!-- CHATBASE WIDGET — must be in head -->
-    <script>
-        (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="Ve__uAc34ONJMiYwIo1nN";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
-    </script>
 </head>
 <body>
         
