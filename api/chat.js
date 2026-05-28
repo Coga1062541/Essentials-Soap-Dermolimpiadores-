@@ -1,34 +1,35 @@
 export default async function handler(req, res) {
     if (req.method !== 'POST') return res.status(405).end();
-    
     try {
-        const response = await fetch('https://api.anthropic.com/v1/messages', {
+        const { messages, system } = req.body;
+
+        const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'x-api-key': process.env.ANTHROPIC_API_KEY,
-                'anthropic-version': '2023-06-01'
+                'Authorization': `Bearer ${process.env.GROQ_API_KEY}`
             },
-            body: JSON.stringify(req.body)
+            body: JSON.stringify({
+                model: 'llama-3.1-8b-instant',
+                max_tokens: 400,
+                messages: [
+                    { role: 'system', content: system },
+                    ...messages
+                ]
+            })
         });
-        
+
         const data = await response.json();
-        
-        // Si Anthropic devuelve error, lo pasamos completo
+
         if (!response.ok) {
-            return res.status(response.status).json({ 
-                anthropic_error: data,
-                status: response.status,
-                key_present: !!process.env.ANTHROPIC_API_KEY,
-                key_prefix: process.env.ANTHROPIC_API_KEY?.substring(0, 10)
-            });
+            return res.status(response.status).json({ error: data });
         }
-        
-        res.status(200).json(data);
-    } catch (error) {
-        res.status(500).json({ 
-            error: error.message,
-            key_present: !!process.env.ANTHROPIC_API_KEY
+
+        res.status(200).json({
+            content: [{ type: 'text', text: data.choices[0].message.content }]
         });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
 }
