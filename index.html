@@ -3073,6 +3073,127 @@
             if (!isOpen) item.classList.add('is-open');
         });
     });
+            // ===== ESSEI CHAT WIDGET =====
+    const ESSEI_SYSTEM = `Eres "Essei", la asistente virtual oficial de Essentials Soap (essentials-soap.vercel.app), una marca mexicana premium de jabones naturales artesanales y fragancias de lujo inspiradas en marcas icónicas, con sede en Guadalajara, Jalisco.
+
+Tu única función es ayudar a los clientes con información sobre productos, precios, ingredientes, envíos y dudas relacionadas exclusivamente con Essentials Soap.
+
+CATÁLOGO COMPLETO:
+
+JABONES DERMOLIMPIADORES NATURALES (100g · $30 MXN c/u):
+- Carbón Activado: Exfoliante, purificación profunda. Ideal para piel grasa y con tendencia acneica.
+- Avena y Bioazufre: Suavizante, hidratación y alivio para pieles sensibles y con acné.
+- Coco y Arroz: Iluminador, nutrición tropical con efecto aclarador natural.
+- Baba de Caracol: Regenerador, reparación celular y anti-edad con mucina pura.
+- Leche de Burra: Hidratante extremo, suavidad para pieles secas y delicadas.
+- Tepezcohuite: Reparador, cicatrización y regeneración natural.
+
+COMPLEMENTOS PREMIUM:
+- Jabón en Pasta Coco y Arroz 250g: $40 MXN. Formato familiar.
+- Crema Baba de Caracol 150ml: $60 MXN. Hidratación intensiva.
+
+PERFUMES DECANTS 10ml · $50 MXN c/u:
+Masculinos: Santal 33 (Amaderado Elegante Intenso), Eros Flame (Dulce Intenso Nocturno), 212 VIP Black (Nocturno Elegante Intenso), Le Male (Fresco Elegante), Valentino BIR Uomo (Elegante Intenso Nocturno), Invictus Victory (Fresco Elegante), Acqua di Gio (Fresco Elegante), Bleu de Chanel (Amaderado Elegante Intenso), Sauvage (Fresco Amaderado Elegante).
+Femeninos: 212 (Fresco Elegante), Ariana Grande Cloud (Dulce Fresco), Olympéa (Dulce Elegante Intenso), Attrape-Rêves (Dulce Elegante).
+
+REGLAS ESTRICTAS:
+- Solo habla sobre los productos de Essentials Soap. Nunca recomiendes otras marcas.
+- Nunca menciones que las fragancias son de Le Labo, Dior, etc. Solo di que están "inspiradas en" ellas.
+- Si te preguntan algo fuera del catálogo responde: "Por el momento solo manejamos los productos que ves en la página. ¿Te ayudo con algún jabón o fragancia?"
+- Tono elegante, amable, profesional y cercano. Respuestas cortas y directas para móvil.
+- Siempre recomienda agregar al carrito y contactar por WhatsApp al 3334795014 para finalizar el pedido.
+- Los jabones son 100% naturales, artesanales, sin parabenos ni sulfatos.`;
+
+    let esseiHistory = [];
+    let esseiOpen = false;
+    let esseiGreeted = false;
+
+    function toggleEssei() {
+        esseiOpen = !esseiOpen;
+        document.getElementById('esseiBubble').classList.toggle('open', esseiOpen);
+        document.getElementById('esseiWindow').classList.toggle('open', esseiOpen);
+        if (esseiOpen && !esseiGreeted) {
+            esseiGreeted = true;
+            setTimeout(() => esseiAddMsg('bot', '¡Hola! Soy **Essei**, tu asistente de Essentials Soap ✦\n\n¿En qué puedo ayudarte hoy? Puedo recomendarte el jabón ideal para tu tipo de piel, o contarte sobre nuestras fragancias premium 🌿'), 400);
+        }
+        if (esseiOpen) setTimeout(() => document.getElementById('esseiInput').focus(), 450);
+    }
+
+    function esseiAddMsg(role, text) {
+        const container = document.getElementById('esseiMessages');
+        const wrap = document.createElement('div');
+        wrap.className = `essei-msg ${role}`;
+        const bubble = document.createElement('div');
+        bubble.className = 'essei-bubble-msg';
+        // Simple markdown: **bold**, newlines
+        bubble.innerHTML = text
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\n/g, '<br>');
+        const time = document.createElement('div');
+        time.className = 'essei-msg-time';
+        const now = new Date();
+        time.textContent = `${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`;
+        wrap.appendChild(bubble);
+        wrap.appendChild(time);
+        container.appendChild(wrap);
+        container.scrollTop = container.scrollHeight;
+        // Hide chips after first user message
+        if (role === 'user') document.getElementById('esseiSuggestions').style.display = 'none';
+    }
+
+    function esseiShowTyping() {
+        const container = document.getElementById('esseiMessages');
+        const el = document.createElement('div');
+        el.className = 'essei-msg bot'; el.id = 'esseiTyping';
+        el.innerHTML = '<div class="essei-typing"><span></span><span></span><span></span></div>';
+        container.appendChild(el);
+        container.scrollTop = container.scrollHeight;
+    }
+
+    function esseiHideTyping() {
+        const el = document.getElementById('esseiTyping');
+        if (el) el.remove();
+    }
+
+    async function esseiSend() {
+        const input = document.getElementById('esseiInput');
+        const text = input.value.trim();
+        if (!text) return;
+        input.value = ''; input.style.height = 'auto';
+        document.getElementById('esseiSendBtn').disabled = true;
+        esseiAddMsg('user', text);
+        esseiHistory.push({ role: 'user', content: text });
+        esseiShowTyping();
+        try {
+            const res = await fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    model: 'claude-sonnet-4-20250514',
+                    max_tokens: 400,
+                    system: ESSEI_SYSTEM,
+                    messages: esseiHistory
+                })
+            });
+            const data = await res.json();
+            const reply = data.content?.[0]?.text || 'Lo siento, hubo un error. Intenta de nuevo 🌿';
+            esseiHideTyping();
+            esseiHistory.push({ role: 'assistant', content: reply });
+            // Keep history short to avoid token waste
+            if (esseiHistory.length > 16) esseiHistory = esseiHistory.slice(-16);
+            esseiAddMsg('bot', reply);
+        } catch(e) {
+            esseiHideTyping();
+            esseiAddMsg('bot', 'Hubo un error de conexión. Por favor intenta de nuevo 🌿');
+        }
+        document.getElementById('esseiSendBtn').disabled = false;
+        document.getElementById('esseiInput').focus();
+    }
+
+    function esseiSendChip(text) {
+        document.getElementById('esseiInput').value = text;
+        esseiSend();
+    }
     </script>
 </body>
 </html>
