@@ -1508,6 +1508,14 @@
 </style>
 </head>
 <body>
+    <!-- INSTAGRAM WEBVIEW BANNER -->
+    <div class="ig-banner" id="igBanner">
+        <div class="ig-banner-text">
+            <strong>Abre en Chrome</strong> para una experiencia completa 🌿
+        </div>
+        <button class="ig-banner-btn" onclick="openInChrome()">Abrir</button>
+        <button class="ig-banner-close" onclick="document.getElementById('igBanner').classList.remove('show')">✕</button>
+    </div>
         
     <!-- AMBIENT MESH BACKGROUND -->
     <div class="mesh-bg" aria-hidden="true">
@@ -2312,14 +2320,7 @@
             <span class="footer-bottom-badge">Hecho con identidad · México</span>
         </div>
     </footer>
-      <!-- INSTAGRAM WEBVIEW BANNER -->
-    <div class="ig-banner" id="igBanner">
-        <div class="ig-banner-text">
-            <strong>Abre en Chrome</strong> para una experiencia completa 🌿
-        </div>
-        <button class="ig-banner-btn" onclick="openInChrome()">Abrir</button>
-        <button class="ig-banner-close" onclick="document.getElementById('igBanner').classList.remove('show')">✕</button>
-    </div>
+      
     <!-- ESSEI CHAT WIDGET -->
     <button class="essei-bubble" id="esseiBubble" onclick="toggleEssei()" aria-label="Abrir chat con Essei">
         <div class="essei-bubble-inner">
