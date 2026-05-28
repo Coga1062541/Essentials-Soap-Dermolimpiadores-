@@ -1178,7 +1178,34 @@
         }
         .footer-dot:nth-child(2) { background: rgba(196,162,108,0.35); }
         .footer-dot:nth-child(3) { background: rgba(143,172,128,0.35); }
-        
+          /* ===== INSTAGRAM WEBVIEW BANNER ===== */
+        .ig-banner {
+            display: none;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 99999;
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            padding: 0.9rem 1.2rem;
+            align-items: center; justify-content: space-between; gap: 1rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .ig-banner.show { display: flex; }
+        .ig-banner-text {
+            font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 400;
+            color: rgba(255,255,255,0.75); line-height: 1.4; flex: 1;
+        }
+        .ig-banner-text strong { color: #fff; font-weight: 600; }
+        .ig-banner-btn {
+            font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 700;
+            letter-spacing: 0.08em; text-transform: uppercase;
+            background: #fff; color: #1a1a1a;
+            border: none; border-radius: 20px; padding: 0.5rem 1rem;
+            cursor: pointer; white-space: nowrap; flex-shrink: 0;
+            transition: transform 0.2s ease;
+        }
+        .ig-banner-btn:hover { transform: scale(1.05); }
+        .ig-banner-close {
+            background: none; border: none; color: rgba(255,255,255,0.4);
+            font-size: 1.1rem; cursor: pointer; padding: 0.2rem; flex-shrink: 0;
+        }
         /* ===== ESSEI CHAT WIDGET ===== */
         .essei-bubble {
             position: fixed; bottom: 1.8rem; right: 1.8rem; z-index: 4500;
@@ -2285,7 +2312,14 @@
             <span class="footer-bottom-badge">Hecho con identidad · México</span>
         </div>
     </footer>
-    
+      <!-- INSTAGRAM WEBVIEW BANNER -->
+    <div class="ig-banner" id="igBanner">
+        <div class="ig-banner-text">
+            <strong>Abre en Chrome</strong> para una experiencia completa 🌿
+        </div>
+        <button class="ig-banner-btn" onclick="openInChrome()">Abrir</button>
+        <button class="ig-banner-close" onclick="document.getElementById('igBanner').classList.remove('show')">✕</button>
+    </div>
     <!-- ESSEI CHAT WIDGET -->
     <button class="essei-bubble" id="esseiBubble" onclick="toggleEssei()" aria-label="Abrir chat con Essei">
         <div class="essei-bubble-inner">
@@ -3077,6 +3111,34 @@
             if (!isOpen) item.classList.add('is-open');
         });
     });
+          /* ===== INSTAGRAM WEBVIEW BANNER ===== */
+        .ig-banner {
+            display: none;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 99999;
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            padding: 0.9rem 1.2rem;
+            align-items: center; justify-content: space-between; gap: 1rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .ig-banner.show { display: flex; }
+        .ig-banner-text {
+            font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 400;
+            color: rgba(255,255,255,0.75); line-height: 1.4; flex: 1;
+        }
+        .ig-banner-text strong { color: #fff; font-weight: 600; }
+        .ig-banner-btn {
+            font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 700;
+            letter-spacing: 0.08em; text-transform: uppercase;
+            background: #fff; color: #1a1a1a;
+            border: none; border-radius: 20px; padding: 0.5rem 1rem;
+            cursor: pointer; white-space: nowrap; flex-shrink: 0;
+            transition: transform 0.2s ease;
+        }
+        .ig-banner-btn:hover { transform: scale(1.05); }
+        .ig-banner-close {
+            background: none; border: none; color: rgba(255,255,255,0.4);
+            font-size: 1.1rem; cursor: pointer; padding: 0.2rem; flex-shrink: 0;
+        }
             // ===== ESSEI CHAT WIDGET =====
     const ESSEI_SYSTEM = `Eres "Essei", la asistente virtual oficial de Essentials Soap (essentials-soap.vercel.app), una marca mexicana premium de jabones naturales artesanales y fragancias de lujo inspiradas en marcas icónicas, con sede en Guadalajara, Jalisco.
 
