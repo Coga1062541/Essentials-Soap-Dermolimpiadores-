@@ -1196,7 +1196,63 @@
         }
         .footer-dot:nth-child(2) { background: rgba(196,162,108,0.35); }
         .footer-dot:nth-child(3) { background: rgba(143,172,128,0.35); }
-          
+         /* SECCION: CONTENEDOR DEL BOTON CARRITO */
+.cart-btn-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* SECCION: ANUNCIO FLOTANTE "COMPRAR" */
+.cart-notice-badge {
+    position: absolute;
+    top: -2.2rem; /* Lo posiciona justo arriba del botón */
+    right: 50%;
+    transform: translateX(50%);
+    background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+    border: 1px solid rgba(218, 178, 108, 0.4); /* Toque dorado elegante */
+    border-radius: 8px;
+    padding: 0.3rem 0.7rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15), 0 0 15px rgba(218, 178, 108, 0.05);
+    white-space: nowrap;
+    z-index: 10;
+    pointer-events: none; /* No estorba si intentan clickear el carrito */
+    animation: cartBadgeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both, cartBadgeFloat 4s ease-in-out infinite 0.8s;
+}
+
+/* COMPONENTE: FLECHA INDICADORA HACIA ABAJO */
+.cart-notice-badge::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #0f0f0f;
+}
+
+/* COMPONENTE: TEXTO DENTRO DEL ANUNCIO */
+.cart-notice-badge span {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: #dab26c; /* Color oro premium igual al de tu logo */
+}
+
+/* SECCION: ANIMACIONES DE ENTRADA Y FLOTADO */
+@keyframes cartBadgeIn {
+    from { opacity: 0; transform: translate3d(50%, 10px, 0) scale(0.9); }
+    to { opacity: 1; transform: translate3d(50%, 0, 0) scale(1); }
+}
+
+@keyframes cartBadgeFloat {
+    0% { transform: translate3d(50%, 0, 0); }
+    50% { transform: translate3d(50%, -4px, 0); }
+    100% { transform: translate3d(50%, 0, 0); }
+}
+ 
         /* ==========================================================================
    ===== ESSEI CHAT WIDGET (REDISEÑO DE ALTO IMPACTO) =====
    ========================================================================== */
@@ -1682,21 +1738,29 @@
     
     <!-- NAVIGATION -->
     <nav class="nav" id="nav">
-        <a href="#" class="nav-logo">Essentials Soap</a>
-        <div class="nav-center">
-            <a href="https://instagram.com/essentials_.soap" target="_blank" title="Instagram">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#E4405F" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
-            </a>
+    <a href="#" class="nav-logo">Essentials Soap</a>
+    <div class="nav-center">
+        <a href="https://instagram.com/essentials_.soap" target="_blank" title="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#E4405F" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
+        </a>
+        
+        <div class="cart-btn-container">
+            <div class="cart-notice-badge" id="cartNotice">
+                <span>COMPRAR</span>
+            </div>
+            
             <button class="cart-btn-nav" onclick="toggleCart()" title="Carrito">
                 <svg viewBox="0 0 24 24"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M6 6L5 3H2"/></svg>
                 <span class="cart-btn-label">Carrito</span>
                 <span class="cart-count-nav" id="cartCount">0</span>
             </button>
         </div>
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-            <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-        </button>
-    </nav>
+    </div>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+        <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+</nav>
+
     
     <!-- HERO -->
     <section class="hero" id="inicio">
