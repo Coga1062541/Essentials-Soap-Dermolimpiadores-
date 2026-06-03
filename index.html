@@ -1375,8 +1375,106 @@
     .essei-window { right: 1rem; bottom: 5.5rem; width: calc(100vw - 2rem); max-width: calc(100vw - 2rem); }
     .essei-bubble { bottom: 1.2rem; right: 1.2rem; width: 56px; height: 56px; }
 }
-      
-        
+        /* SECCION: ANUNCIO FLOTANTE IA */
+.essei-announcement {
+    position: fixed;
+    bottom: 6.8rem;
+    right: 2rem;
+    width: 280px;
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.9) 0%, rgba(15, 15, 15, 0.95) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(218, 178, 108, 0.4);
+    border-radius: 20px;
+    padding: 1rem 2.5rem 1rem 1.2rem;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.3), 0 0 30px rgba(218, 178, 108, 0.1);
+    z-index: 4400;
+    animation: esseiFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both, esseiFloat 4s ease-in-out infinite 0.8s;
+}
+
+/* COMPONENTE: FLECHA DECORATIVA */
+.essei-announcement::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    right: 24px;
+    width: 0; height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid rgba(15, 15, 15, 0.95);
+}
+
+/* COMPONENTE: ETIQUETA NUEVO */
+.essei-announce-tag {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    background: linear-gradient(90deg, #dab26c 0%, #b89353 100%);
+    color: #1a1a1a;
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+    margin-bottom: 0.4rem;
+    box-shadow: 0 2px 10px rgba(218, 178, 108, 0.3);
+}
+
+/* COMPONENTE: TEXTO E IA RESALTADA */
+.essei-announcement p {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0;
+}
+
+.essei-announcement p b {
+    color: #dab26c;
+    font-weight: 600;
+}
+
+/* COMPONENTE: BOTON CERRAR */
+.essei-announce-close {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.8rem;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    line-height: 1;
+}
+
+.essei-announce-close:hover {
+    color: #fff;
+}
+
+/* SECCION: ANIMACIONES */
+@keyframes esseiFadeInUp {
+    from { opacity: 0; transform: translate3d(0, 20px, 0); }
+    to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes esseiFloat {
+    0% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -6px, 0); }
+    100% { transform: translate3d(0, 0, 0); }
+}
+
+/* SECCION: RESPONSIVE MOVILES */
+@media (max-width: 480px) {
+    .essei-announcement {
+        right: 1rem;
+        bottom: 5.5rem;
+        width: calc(100vw - 2rem);
+    }
+    .essei-announcement::after {
+        right: 18px;
+    }
+}
+           
         /* ===== SCROLL REVEAL ===== */
         .reveal {
             opacity: 0; transform: translateY(32px);
@@ -1676,6 +1774,13 @@
             </div>
         </div>
     </section>
+   
+    <div class="essei-announcement" id="esseiAnnounce">
+    <span class="essei-announce-tag">NUEVO</span>
+    <p>¿No sabes qué jabón elegir? 🌟 ¡Pregúntale a nuestra <b>IA Esencial</b>!</p>
+    <button class="essei-announce-close" onclick="document.getElementById('esseiAnnounce').style.display='none'">×</button>
+</div>
+
         <!-- JABONES -->
     <section class="section" id="jabones" style="position:relative;">
         <div class="section-header reveal">
