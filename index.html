@@ -1242,32 +1242,30 @@
     border-radius: 10px;
     margin-left: 0.2rem;
 }
-/* COMPONENTE: LINK INSTAGRAM ESTILIZADO */
+/* COMPONENTE: LINK INSTAGRAM TRANSPARENTE */
 .nav-instagram-link {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.5rem;
-    border-radius: 50%;
-    background: rgba(0, 0, 0, 0.03);
-    transition: background 0.3s ease, transform 0.2s ease;
+    padding: 0.4rem;
+    background: transparent; /* Eliminado el círculo de fondo */
+    transition: transform 0.25s ease;
 }
 
 .nav-instagram-link svg {
-    width: 18px;
-    height: 18px;
-    stroke: #151515; /* Sigue la misma línea oscura del carrito */
-    transition: stroke 0.3s ease;
+    width: 20px; /* Un pelín más grande al no tener contenedor */
+    height: 20px;
+    stroke: #151515;
+    transition: stroke 0.3s ease, transform 0.3s ease;
 }
 
-/* EFECTO HOVER: TOQUE DORADO SUTIL */
+/* EFECTO HOVER: DESVANECIDO INSTAGRAM */
 .nav-instagram-link:hover {
-    background: rgba(218, 178, 108, 0.1);
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 
 .nav-instagram-link:hover svg {
-    stroke: #b89353; /* Cambia a tu tono oro al pasar el cursor */
+    stroke: url(#ig-gradient); /* Aplica el degradado al pasar el cursor */
 }
 
 /* SECCION: BOTON CARRITO PREMIUM */
@@ -1805,6 +1803,15 @@
     <div class="nav-center">
         <a href="https://instagram.com/essentials_.soap" target="_blank" title="Instagram" class="nav-instagram-link">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <defs>
+                    <linearGradient id="ig-gradient" x1="0%" y1="100%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#f09433"/>
+                        <stop offset="25%" stop-color="#e6683c"/>
+                        <stop offset="50%" stop-color="#dc2743"/>
+                        <stop offset="75%" stop-color="#cc2366"/>
+                        <stop offset="100%" stop-color="#bc1888"/>
+                    </linearGradient>
+                </defs>
                 <rect x="2" y="2" width="20" height="20" rx="5"/>
                 <circle cx="12" cy="12" r="5"/>
                 <circle cx="17.5" cy="6.5" r="1.5"/>
@@ -1825,6 +1832,7 @@
         <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
 </nav>
+
   
     <!-- HERO -->
     <section class="hero" id="inicio">
