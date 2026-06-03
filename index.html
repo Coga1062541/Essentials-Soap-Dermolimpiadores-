@@ -986,31 +986,32 @@
     padding: 1.5rem 2rem;
 }
 
+/* LA TARJETA: Ahora distribuye el espacio de forma limpia */
 .cart-item {
     display: flex;
-    gap: 1.2rem;
-    padding: 1.2rem 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
     align-items: center;
+    gap: 1.5rem; /* Más espacio entre la imagen y el texto */
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     opacity: 0;
-    transform: translate3d(0, 12px, 0); /* Suave empuje vertical sin recortes laterales */
+    transform: translate3d(0, 12px, 0);
     animation: cartItemSlideIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     will-change: transform, opacity;
 }
 
-/* COMPONENTE: CONTENEDOR DE IMAGEN CON EFECTO CRISTAL */
+/* LA IMAGEN: Con un contenedor estilizado para que no se pegue al borde */
 .cart-item-img {
-    width: 70px;
-    height: 70px;
-    border-radius: 12px;
+    width: 80px;
+    height: 80px;
+    min-width: 80px; /* Evita que la foto se aplaste si el texto es largo */
+    border-radius: 14px;
     overflow: hidden;
-    background: rgba(0, 0, 0, 0.02);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(0, 0, 0, 0.04);
+    background: #f5f5f5;
+    border: 1px solid rgba(0, 0, 0, 0.03);
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
 }
 
 .cart-item-img img {
@@ -1021,38 +1022,92 @@
 }
 
 .cart-item:hover .cart-item-img img {
-    transform: scale(1.05); /* Micro-interacción al pasar el mouse por la tarjeta */
+    transform: scale(1.05);
 }
 
-/* COMPONENTE: BOTONES DE INTERACCION INTERNA */
+/* EL CONTENEDOR DE INFORMACION: Centra el texto y los controles */
+.cart-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem; /* Separa el bloque de texto de los botones de cantidad */
+    flex-grow: 1;
+}
+
+/* TEXTOS DEL PRODUCTO */
+.cart-item-name {
+    font-family: 'Playfair Display', serif; /* O la tipografía elegante de tu logo */
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #151515;
+    margin-bottom: 0.2rem;
+}
+
+.cart-item-price {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    color: #b89353; /* El dorado elegante de tu marca */
+    font-weight: 500;
+}
+
+/* CONTROLES DE CANTIDAD (Alineados abajo del texto de forma prolija) */
+.cart-item-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cart-item-qty {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    min-width: 1.2rem;
+    text-align: center;
+}
+
+/* BOTONES MAS Y MENOS (Círculos limpios y minimalistas) */
 .qty-btn {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     background: #ffffff;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 0.85rem;
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    color: #151515;
+    transition: all 0.2s ease;
 }
 
 .qty-btn:hover:not(:disabled) {
     background: #151515;
     color: #ffffff;
     border-color: #151515;
-    transform: scale(1.08);
 }
 
-.qty-btn:disabled {
-    opacity: 0.25;
-    cursor: not-allowed;
+/* BOTON ELIMINAR (La 'X' roja o gris del extremo derecho) */
+.cart-item-remove {
+    margin-left: auto; /* Empuja la X automáticamente hasta la esquina derecha */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.4rem;
+    color: rgba(0, 0, 0, 0.3);
+    transition: color 0.2s ease;
+}
+
+.cart-item-remove:hover {
+    color: #dc2743; /* Color de advertencia sutil */
+}
+
+.cart-item-remove svg {
+    width: 16px;
+    height: 16px;
 }
 
 /* ==========================================================================
-   ===== SECCION: TRANSICIONES Y ANIMACIONES PREMIUM =====
+   ===== ANIMACIONES =====
    ========================================================================== */
 @keyframes cartItemSlideIn {
     to {
@@ -1060,18 +1115,6 @@
         transform: translate3d(0, 0, 0);
     }
 }
-
-@keyframes cartBounce {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.18); } /* Efecto de rebote de confirmación elástica */
-    100% { transform: scale(1); }
-}
-
-.cart-btn-premium.bounce, 
-.cart-count-premium.bounce {
-    animation: cartBounce 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
-}
-
         /* ===== MODAL ===== */
         .modal-overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.62);
