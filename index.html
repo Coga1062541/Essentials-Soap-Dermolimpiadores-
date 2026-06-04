@@ -1647,28 +1647,6 @@
     z-index: 4400;
     animation: esseiFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both, esseiFloat 4s ease-in-out infinite 0.8s;
 }
-/* ==========================================================================
-   ===== ANIMACIÓN DE TEXTO PARA LA IA =====
-   ========================================================================== */
-.typing-active {
-    opacity: 0.95;
-    transition: opacity 0.3s ease;
-    /* Optimización de renderizado para textos en movimiento */
-    will-change: content; 
-}
-
-/* Opcional: Un sutil cursor parpadeante al final del texto mientras escribe, estilo ChatGPT/Gemini */
-.typing-active::after {
-    content: " ✦";
-    font-size: 0.9rem;
-    color: #b89353; /* El dorado de tu marca */
-    animation: iaSparkle 0.8s infinite alternate;
-}
-
-@keyframes iaSparkle {
-    0% { opacity: 0.2; transform: scale(0.9); }
-    100% { opacity: 1; transform: scale(1.1); }
-}
 
 /* COMPONENTE: FLECHA DECORATIVA */
 .essei-announcement::after {
@@ -3640,36 +3618,7 @@ El costo de envío siempre variará dependiendo de la zona y distancia de entreg
     function esseiSendChip(text) {
         document.getElementById('esseiInput').value = text;
         esseiSend();
-    }
-        /* ==========================================================================
-   ===== EFECTO DE ESCRITURA FLUIDA PARA LA IA ESENCIAL =====
-   ========================================================================== */
-function typeEffect(element, text, speed = 25) {
-    element.innerHTML = ""; // Limpiamos el contenedor antes de empezar
-    element.classList.add("typing-active"); // Activamos la transición visual
-    
-    let index = 0;
-    
-    function write() {
-        if (index < text.length) {
-            // Evaluamos si viene un salto de línea para respetarlo en el HTML
-            if (text.charAt(index) === '\n') {
-                element.innerHTML += '<br>';
-            } else {
-                element.innerHTML += text.charAt(index);
-            }
-            index++;
-            // Controla el ritmo de escritura (25ms por letra se siente natural y rápido)
-            setTimeout(write, speed); 
-        } else {
-            element.classList.remove("typing-active"); // Quitamos la clase al terminar
-        }
-    }
-    
-    write();
-}
-
-        
+    }     
     </script>
 </body>
 </html>
