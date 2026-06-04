@@ -438,10 +438,9 @@
             letter-spacing: 0.12em; text-transform: uppercase; color: var(--warm-gray); margin-top: 0.2rem;
         }
         .stat-sep { width: 1px; height: 36px; background: rgba(0,0,0,0.1); }
-        {
-    /* ==========================================================================
-   ===== ESTILOS: TARJETA DE IA INTEGRADA (ESSEI) - MESH ANIMADO =====
-   ========================================================================== */
+        
+    
+/* ESTILOS: TARJETA DE IA INTEGRADA (ESSEI) */
 .ai-banner-container {
     position: relative;
     padding: 2rem 1.5rem;
@@ -450,6 +449,7 @@
 }
 
 .ai-card {
+    background: radial-gradient(circle at center, #2d3b26 0%, #172213 100%);
     border-radius: 32px;
     padding: 2.5rem 2rem;
     display: flex;
@@ -458,29 +458,6 @@
     text-align: center;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.03);
-
-    /* --- EFECTO MESH GRADIENT LIQUIDO ARREGLADO --- */
-    position: relative;
-    overflow: hidden; /* Mantiene los destellos dentro de las esquinas curvas */
-    
-    /* Configuración de 4 esferas de luz con opacidades altas para que sea MUY visible */
-    background: radial-gradient(circle at 10% 20%, rgba(184, 147, 83, 0.38) 0%, transparent 45%),
-                radial-gradient(circle at 90% 80%, rgba(74, 99, 63, 0.65) 0%, transparent 55%),
-                radial-gradient(circle at 80% 15%, rgba(160, 122, 59, 0.3) 0%, transparent 40%),
-                radial-gradient(circle at 30% 85%, rgba(45, 59, 38, 0.85) 0%, transparent 60%),
-                #121b0e; /* Verde ultra oscuro de fondo base */
-                
-    background-size: 200% 200%;
-    
-    /* Animación fluida de 15 segundos que va y viene de forma infinita */
-    animation: meshMovement 15s ease-in-out infinite alternate;
-}
-
-/* IMPORTANTE: Fuerza a todo el contenido de la card a estar al frente 
-   para que no lo tape el movimiento de los colores */
-.ai-card > * {
-    position: relative;
-    z-index: 2;
 }
 
 .ai-card-icon-box {
@@ -548,40 +525,6 @@
     gap: 0.5rem;
     transition: background 0.3s ease, transform 0.2s ease;
 }
-
-.ai-card-btn svg {
-    width: 16px;
-    height: 16px;
-    transition: transform 0.3s ease;
-}
-
-.ai-card-btn:hover {
-    background: #a07a3b;
-    transform: scale(1.02);
-}
-
-.ai-card-btn:hover svg {
-    transform: translate3d(4px, 0, 0);
-}
-
-
-  /* ===== TIMING Y PUNTOS DE MOVIMIENTO DE COLOR (KEYFRAMES) */
-@keyframes meshMovement {
-    0% {
-        background-position: 0% 50%;
-    }
-    33% {
-        background-position: 30% 100%;
-    }
-    66% {
-        background-position: 100% 20%;
-    }
-    100% {
-        background-position: 50% 50%;
-    }
-}
-
-
 /* ===== FEATURE STRIP (below hero) ===== */
         .feature-strip {
             background: #181510;
