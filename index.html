@@ -611,14 +611,17 @@
         .feature-strip-grid {
             max-width: 1100px; margin: 0 auto;
             display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 3rem 2rem; position: relative; z-index: 1;
+            gap: 4.5rem 2rem; position: relative; z-index: 1;
         }
         .feature-item { 
     text-align: left; 
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: flex-start;        
+    max-width: 85%; 
 }
+
+
 
         .feature-icon {
             width: 52px; height: 52px; margin-bottom: 1.2rem;
@@ -647,6 +650,7 @@
 .feature-item:nth-child(even) {
     text-align: right;
     align-items: flex-end;
+    margin-left: auto; 
 }
 
 /* Ajusta el margen del icono solo para los que van a la derecha */
