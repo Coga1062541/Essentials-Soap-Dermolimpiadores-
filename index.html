@@ -613,9 +613,15 @@
             display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 3rem 2rem; position: relative; z-index: 1;
         }
-        .feature-item { text-align: center; }
+        .feature-item { 
+    text-align: left; 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
         .feature-icon {
-            width: 52px; height: 52px; margin: 0 auto 1.2rem;
+            width: 52px; height: 52px; margin-bottom: 1.2rem;
             border: 1px solid rgba(143,172,128,0.25); border-radius: 16px;
             display: flex; align-items: center; justify-content: center;
             background: rgba(143,172,128,0.07);
@@ -637,6 +643,18 @@
             opacity: 0; animation: floatIn 1.2s ease forwards, float 6s ease-in-out infinite;
             will-change: transform;
         }
+        /* Esto busca los elementos pares (2 y 4) y los alinea a la derecha */
+.feature-item:nth-child(even) {
+    text-align: right;
+    align-items: flex-end;
+}
+
+/* Ajusta el margen del icono solo para los que van a la derecha */
+.feature-item:nth-child(even) .feature-icon {
+    margin-left: auto;
+    margin-right: 0;
+}
+
         .hero-float-img:hover { transform: scale(1.05) rotate(2deg); }
         .hero-float-img img { width: 100%; height: 100%; object-fit: cover; }
         .float-1 { width: 180px; height: 220px; top: 15%; left: 8%; animation-delay: 1.5s, 0s; }
