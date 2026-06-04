@@ -2380,12 +2380,13 @@
         </div>
         <!-- FILTROS DE CATEGORÍAS (ESTILO PERFUMES) -->
 <div class="filter-tabs-container">
-    <button class="filter-chip active" onclick="filterProducts('todos')">Todos</button>
-    <button class="filter-chip" onclick="filterProducts('piel-seca')">Piel Seca</button>
-    <button class="filter-chip" onclick="filterProducts('acne')">Acné / Piel Grasa</button>
-    <button class="filter-chip" onclick="filterProducts('hidratante')">Hidratación</button>
-    <button class="filter-chip" onclick="filterProducts('exfoliante')">Exfoliante</button>
+    <button class="filter-chip active" onclick="filterSoaps('all', event)">Todos</button>
+    <button class="filter-chip" onclick="filterSoaps('piel seca', event)">Piel Seca</button>
+    <button class="filter-chip" onclick="filterSoaps('acne', event)">Acné / Piel Grasa</button>
+    <button class="filter-chip" onclick="filterSoaps('hidratacion', event)">Hidratación</button>
+    <button class="filter-chip" onclick="filterSoaps('exfoliante', event)">Exfoliante</button>
 </div>
+
 
         <div class="products-grid">
             <div class="product-card reveal" onclick="openModal('carbon')">
@@ -3993,7 +3994,52 @@ El costo de envío siempre variará dependiendo de la zona y distancia de entreg
     function esseiSendChip(text) {
         document.getElementById('esseiInput').value = text;
         esseiSend();
-    }     
+    }  
+        // ===== FILTRO EXCLUSIVO PARA JABONES DERMOLIMPIADORES =====
+function filterSoaps(category, event) {
+    // 1. Cambiar el estado visual del botón activo
+    const container = event.target.closest('.filter-tabs-container');
+    if (container) {
+        container.querySelectorAll('.filter-chip').forEach(chip => {
+            chip.classList.remove('active');
+        });
+    }
+    event.target.classList.add('active');
+
+    // 2. Filtrar las tarjetas dentro de la cuadrícula de productos
+    const grid = document.querySelector('.products-grid');
+    if (!grid) return;
+
+    // Buscamos todas las tarjetas de jabón directas dentro de la cuadrícula
+    const cards = grid.querySelectorAll('.product-card, [class*="card"]'); 
+
+    cards.forEach(card => {
+        if (category === 'all') {
+            card.style.display = ''; // Muestra todas las tarjetas
+            return;
+        }
+
+        // Convierte todo el texto de la tarjeta a minúsculas para buscar la categoría
+        const cardText = card.textContent.toLowerCase();
+        
+        // Verifica si el texto de la tarjeta incluye la categoría (ej: "piel seca", "hidratante")
+        // O si incluye parte de la palabra (como "hidratación" -> "hidratante")
+        const cleanCategory = category.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // Quita acentos
+        const cleanCardText = cardText.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+        // Mapeo rápido por si el badge dice "Hidratante" pero el botón dice "Hidratación"
+        let match = cleanCardText.includes(cleanCategory);
+        if (cleanCategory === 'hidratacion' && cleanCardText.includes('hidratante')) {
+            match = true;
+        }
+
+        if (match) {
+            card.style.display = '';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
     </script>
 </body>
 </html>
