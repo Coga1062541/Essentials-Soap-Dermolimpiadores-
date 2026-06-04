@@ -953,6 +953,64 @@
             width: 60px; height: 1px; background: rgba(255,255,255,0.2);
             margin: 1.5rem auto;
         }
+        /* BARRA DE FILTROS ESTILO NOTAS DE PERFUME */
+.filter-tabs-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.filter-chip {
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    color: #333333;
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.filter-chip:hover {
+    border-color: #b89353;
+    color: #b89353;
+}
+
+.filter-chip.active {
+    background: #111111;
+    border-color: #111111;
+    color: #ffffff;
+}
+
+/* CÁPSULAS VERDES DENTRO DE LAS CARDS */
+.product-badges-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+}
+
+.badge-tag {
+    background: #f1f5f0; 
+    color: #4a6144; 
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.4rem 0.8rem;
+    border-radius: 50px;
+    display: inline-block;
+}
+
         /* ==========================================================================
    ===== CART SIDEBAR (REDISEÑADO PREMIUM) =====
    ========================================================================== */
@@ -2321,8 +2379,21 @@
                         </button>
                     </div>
                 </div>
+                <!-- FILTROS DE CATEGORÍAS (ESTILO PERFUMES) -->
+<div class="filter-tabs-container">
+    <button class="filter-chip active" onclick="filterProducts('todos')">Todos</button>
+    <button class="filter-chip" onclick="filterProducts('piel-seca')">Piel Seca</button>
+    <button class="filter-chip" onclick="filterProducts('acne')">Acné / Piel Grasa</button>
+    <button class="filter-chip" onclick="filterProducts('hidratante')">Hidratación</button>
+    <button class="filter-chip" onclick="filterProducts('exfoliante')">Exfoliante</button>
+</div>
                 <div class="product-info">
                     <h3 class="product-name">Carbón Activado</h3>
+                    <div class="product-badges-row">
+    <span class="badge-tag">Acné</span>
+    <span class="badge-tag">Piel Grasa</span>
+    <span class="badge-tag">Detox</span>
+</div>
                     <p class="product-desc">Purificación profunda. Elimina toxinas y impurezas de la piel.</p>
                     <div class="product-footer">
                         <div class="product-price">$30 <span>MXN · 100g</span></div>
