@@ -3620,31 +3620,6 @@ El costo de envío siempre variará dependiendo de la zona y distancia de entreg
         esseiSend();
     }
         
-  /* ===== EFECTO DE ESCRITURA FLUIDA PARA LA IA ESENCIAL ===== */
-function typeEffect(element, text, speed = 25) {
-    element.innerHTML = ""; // Limpiamos el contenedor antes de empezar
-    element.classList.add("typing-active"); // Activamos la transición visual
-    
-    let index = 0;
-    
-    function write() {
-        if (index < text.length) {
-            // Evaluamos si viene un salto de línea para respetarlo en el HTML
-            if (text.charAt(index) === '\n') {
-                element.innerHTML += '<br>';
-            } else {
-                element.innerHTML += text.charAt(index);
-            }
-            index++;
-            // Controla el ritmo de escritura (25ms por letra se siente natural y rápido)
-            setTimeout(write, speed); 
-        } else {
-            element.classList.remove("typing-active"); // Quitamos la clase al terminar
-        }
-    }
-    
-    write();
-
     </script>
 </body>
 </html>
