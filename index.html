@@ -449,7 +449,7 @@
 }
 
 .ai-card {
-    background: radial-gradient(circle at center, #2d3b26 0%, #172213 100%);
+    /* Mantenemos tu estructura original */
     border-radius: 32px;
     padding: 2.5rem 2rem;
     display: flex;
@@ -458,7 +458,47 @@
     text-align: center;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.03);
+
+    /* --- TRUCO MESH GRADIENT ANIMADO --- */
+    overflow: hidden; /* Evita que los destellos se salgan de las esquinas */
+    position: relative;
+    
+    /* 4 esferas de color: Dorado, Verde Olivo Claro, Miel y la base ultra oscura original */
+    background: radial-gradient(circle at 10% 20%, rgba(184, 147, 83, 0.35) 0%, transparent 45%),
+                radial-gradient(circle at 90% 80%, rgba(74, 99, 63, 0.6) 0%, transparent 55%),
+                radial-gradient(circle at 80% 15%, rgba(160, 122, 59, 0.25) 0%, transparent 40%),
+                radial-gradient(circle at 30% 85%, rgba(45, 59, 38, 0.8) 0%, transparent 60%),
+                #121b0e; /* Color base de fondo ultra profundo */
+                
+    background-size: 200% 200%;
+    
+    /* Animación fluida de 15 segundos que va y viene de forma infinita */
+    animation: meshMovement 15s ease-in-out infinite alternate;
 }
+
+/* IMPORTANTE: Esto asegura que todo el contenido (texto, botón, icono) 
+   se quede flotando por encima del degradado y no pierda nitidez */
+.ai-card > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* EL VIAJE SIN RUMBO DE LOS COLORES */
+@keyframes meshMovement {
+    0% {
+        background-position: 0% 50%;
+    }
+    33% {
+        background-position: 30% 100%;
+    }
+    66% {
+        background-position: 100% 20%;
+    }
+    100% {
+        background-position: 50% 50%;
+    }
+}
+
 
 .ai-card-icon-box {
     width: 65px;
