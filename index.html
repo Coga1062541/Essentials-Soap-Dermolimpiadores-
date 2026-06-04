@@ -1105,6 +1105,74 @@
     width: 16px;
     height: 16px;
 }
+/* ==========================================================================
+   ===== ESTILOS: CINTA CORREDIZA INFINITA =====
+   ========================================================================== */
+.ticker-wrapper {
+    width: 100%;
+    overflow: hidden;
+    background: #111111; /* El color negro premium de tu fondo */
+    padding: 14px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    display: flex;
+    align-items: center;
+}
+
+/* El contenedor que sostiene los dos grupos y se desplaza */
+.ticker-track {
+    display: flex;
+    width: max-content;
+    animation: marqueeScroll 25s linear infinite;
+    will-change: transform;
+}
+
+/* Cada bloque que contiene el set de textos */
+.ticker-group {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem; /* Separación elegante entre palabras */
+    padding-right: 2.5rem;
+}
+
+/* Estilo de los textos de las viñetas */
+.ticker-group span {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.85);
+    white-space: nowrap; /* Evita que las frases se rompan en dos renglones */
+}
+
+/* El punto separador elegante entre cada viñeta */
+.ticker-dot {
+    width: 5px;
+    height: 5px;
+    background: #b89353; /* Tu dorado de marca distintivo */
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+/* Pausar sutilmente la animación si el usuario mantiene presionada la pantalla */
+.ticker-wrapper:hover .ticker-track {
+    animation-play-state: paused;
+}
+
+/* ==========================================================================
+   ===== KEYFRAMES: MOVIMIENTO LIQUIDO HACIA LA IZQUIERDA =====
+   ========================================================================== */
+@keyframes marqueeScroll {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        /* Se desplaza exactamente la mitad (el ancho del primer bloque) */
+        transform: translate3d(-50%, 0, 0); 
+    }
+}
 
 /* ==========================================================================
    ===== ANIMACIONES =====
@@ -2011,6 +2079,54 @@
             <div class="hero-scroll-line"></div>
         </div>
     </section>
+<!-- ==========================================================================
+     ===== COMPONENTE: CINTA CORREDIZA INFINITA (TICKER MARQUEE) =====
+     ========================================================================== -->
+<div class="ticker-wrapper">
+    <div class="ticker-track">
+        
+        <!-- Bloque Original de Viñetas -->
+        <div class="ticker-group">
+            <span>100% Natural</span>
+            <span class="ticker-dot"></span>
+            <span>IA Personalizada</span>
+            <span class="ticker-dot"></span>
+            <span>Hecho en México</span>
+            <span class="ticker-dot"></span>
+            <span>Envíos a GDL</span>
+            <span class="ticker-dot"></span>
+            <span>Sin Parabenos</span>
+            <span class="ticker-dot"></span>
+            <span>Sin Sulfatos</span>
+            <span class="ticker-dot"></span>
+            <span>Artesanal</span>
+            <span class="ticker-dot"></span>
+            <span>Fragancias Premium</span>
+            <span class="ticker-dot"></span>
+        </div>
+
+        <!-- Bloque Duplicado (Espejo para el bucle infinito sin saltos visuales) -->
+        <div class="ticker-group" aria-hidden="true">
+            <span>100% Natural</span>
+            <span class="ticker-dot"></span>
+            <span>IA Personalizada</span>
+            <span class="ticker-dot"></span>
+            <span>Hecho en México</span>
+            <span class="ticker-dot"></span>
+            <span>Envíos a GDL</span>
+            <span class="ticker-dot"></span>
+            <span>Sin Parabenos</span>
+            <span class="ticker-dot"></span>
+            <span>Sin Sulfatos</span>
+            <span class="ticker-dot"></span>
+            <span>Artesanal</span>
+            <span class="ticker-dot"></span>
+            <span>Fragancias Premium</span>
+            <span class="ticker-dot"></span>
+        </div>
+
+    </div>
+</div>
 
     <!-- FEATURE STRIP -->
     <section class="feature-strip">
