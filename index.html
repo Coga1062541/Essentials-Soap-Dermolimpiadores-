@@ -438,66 +438,7 @@
             letter-spacing: 0.12em; text-transform: uppercase; color: var(--warm-gray); margin-top: 0.2rem;
         }
         .stat-sep { width: 1px; height: 36px; background: rgba(0,0,0,0.1); }
-        /* ESTILOS: CINTA CORREDIZA INFINITA */
-.ticker-wrapper {
-    width: 100%;
-    overflow: hidden;
-    background: #111111;
-    padding: 14px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.03);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-    display: flex;
-    align-items: center;
-}
-
-.ticker-track {
-    display: flex;
-    width: max-content;
-    animation: marqueeScroll 25s linear infinite;
-    will-change: transform;
-}
-
-.ticker-group {
-    display: flex;
-    align-items: center;
-    gap: 2.5rem;
-    padding-right: 2.5rem;
-}
-
-.ticker-group span {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: rgba(255, 255, 255, 0.85);
-    white-space: nowrap;
-}
-
-.ticker-dot {
-    width: 5px;
-    height: 5px;
-    background: #b89353;
-    border-radius: 50%;
-    display: inline-block;
-    flex-shrink: 0;
-}
-
-.ticker-wrapper:hover .ticker-track {
-    animation-play-state: paused;
-}
-
-/* KEYFRAMES: MOVIMIENTO HACIA LA IZQUIERDA */
-@keyframes marqueeScroll {
-    0% {
-        transform: translate3d(0, 0, 0);
-    }
-    100% {
-        transform: translate3d(-50%, 0, 0); 
-    }
-}
-
-/* ESTILOS: TARJETA DE IA INTEGRADA */
+        /* ESTILOS: TARJETA DE IA INTEGRADA (ESSEI) */
 .ai-banner-container {
     position: relative;
     padding: 2rem 1.5rem;
@@ -598,45 +539,7 @@
     transform: translate3d(4px, 0, 0);
 }
 
-/* BOTÓN FLOTANTE INDEPENDIENTE */
-.ai-floating-trigger {
-    position: absolute;
-    bottom: 0px;
-    right: 5px;
-    width: 54px;
-    height: 54px;
-    background: #1e291b;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 50%;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s ease;
-}
-
-.ai-floating-trigger:hover {
-    transform: scale(1.08);
-}
-
-.ai-floating-trigger svg {
-    width: 22px;
-    height: 22px;
-}
-
-.ai-trigger-dot {
-    position: absolute;
-    top: 2px;
-    right: 2px;
-    width: 10px;
-    height: 10px;
-    background: #d9b473;
-    border-radius: 50%;
-    border: 2px solid #1e291b;
-}
-        /* ===== FEATURE STRIP (below hero) ===== */
+/* ===== FEATURE STRIP (below hero) ===== */
         .feature-strip {
             background: #181510;
             padding: 5.5rem 3rem;
@@ -2368,54 +2271,7 @@
     <p>¿No sabes qué jabón elegir? 🌟 ¡Pregúntale a nuestra <b>IA Essei</b>!</p>
     <button class="essei-announce-close" onclick="document.getElementById('esseiAnnounce').style.display='none'">×</button>
 </div>
-    <!-- COMPONENTE: CINTA CORREDIZA INFINITA -->
-<div class="ticker-wrapper">
-    <div class="ticker-track">
-        
-        <!-- Bloque Original de Viñetas -->
-        <div class="ticker-group">
-            <span>100% Natural</span>
-            <span class="ticker-dot"></span>
-            <span>IA Personalizada</span>
-            <span class="ticker-dot"></span>
-            <span>Hecho en México</span>
-            <span class="ticker-dot"></span>
-            <span>Envíos a GDL</span>
-            <span class="ticker-dot"></span>
-            <span>Sin Parabenos</span>
-            <span class="ticker-dot"></span>
-            <span>Sin Sulfatos</span>
-            <span class="ticker-dot"></span>
-            <span>Artesanal</span>
-            <span class="ticker-dot"></span>
-            <span>Fragancias Premium</span>
-            <span class="ticker-dot"></span>
-        </div>
-
-        <!-- Bloque Duplicado -->
-        <div class="ticker-group" aria-hidden="true">
-            <span>100% Natural</span>
-            <span class="ticker-dot"></span>
-            <span>IA Personalizada</span>
-            <span class="ticker-dot"></span>
-            <span>Hecho en México</span>
-            <span class="ticker-dot"></span>
-            <span>Envíos a GDL</span>
-            <span class="ticker-dot"></span>
-            <span>Sin Parabenos</span>
-            <span class="ticker-dot"></span>
-            <span>Sin Sulfatos</span>
-            <span class="ticker-dot"></span>
-            <span>Artesanal</span>
-            <span class="ticker-dot"></span>
-            <span>Fragancias Premium</span>
-            <span class="ticker-dot"></span>
-        </div>
-
-    </div>
-</div>
-
-<!-- COMPONENTE: TARJETA DE IA INTEGRADA -->
+    <!-- COMPONENTE: TARJETA DE IA INTEGRADA -->
 <section class="ai-banner-container">
     <div class="ai-card">
         
@@ -2430,10 +2286,11 @@
         <h2 class="ai-card-title">¿No sabes qué elegir?<br>Nuestra IA te guía en 30 segundos</h2>
         
         <p class="ai-card-text">
-            Essei analiza tu tipo de piel, preferences y necesidades para recomendarte el jabón o fragancia perfecta. Totalmente personalizado, completamente gratis.
+            Essei analiza tu tipo de piel, preferencias y necesidades para recomendarte el jabón o fragancia perfecta. Totalmente personalizado, completamente gratis.
         </p>
 
-        <button class="ai-card-btn" onclick="toggleCart()">
+        <!-- Botón para abrir tu IA Essei -->
+        <button class="ai-card-btn" onclick="toggleEssei()">
             Hablar con Essei 
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -2442,16 +2299,8 @@
         </button>
 
     </div>
-
-    <!-- Botón flotante circular inferior derecho -->
-    <button class="ai-floating-trigger" onclick="toggleCart()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M12 3a7 7 0 00-7 7c0 2.22 1.03 4.2 2.67 5.5A2.5 2.5 0 018.5 17.5v.5h7v-.5a2.5 2.5 0 01.83-2A7 7 0 0012 3z"/>
-        </svg>
-        <span class="ai-trigger-dot"></span>
-    </button>
 </section>
-
+        
         <!-- JABONES -->
     <section class="section" id="jabones" style="position:relative;">
         <div class="section-header reveal">
