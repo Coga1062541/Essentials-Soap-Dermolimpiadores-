@@ -1817,7 +1817,6 @@ body {
     margin-left: 0.2rem;
 }
 
-    
 /* ==========================================================================
    ===== ESSEI CHAT WIDGET (REDISEÑO DE ALTO IMPACTO) =====
    ========================================================================== */
@@ -1867,6 +1866,31 @@ body {
     50%  { transform: scale(1.25); opacity: 0; }
     100% { transform: scale(1.25); opacity: 0; }
 }
+
+/* Ventana de chat optimizada */
+.essei-window {
+    position: fixed; bottom: 6.8rem; right: 2rem; z-index: 4500;
+    width: 380px; max-width: calc(100vw - 4rem);
+    height: 580px; max-height: calc(100vh - 9rem);
+    background: rgba(15, 15, 15, 0.82);
+    backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+    border-radius: 28px;
+    box-shadow: 0 30px 90px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.12);
+    display: flex; flex-direction: column; overflow: hidden;
+    transform: scale(0.92) translate3d(0, 15px, 0); opacity: 0; pointer-events: none;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+    transform-origin: bottom right;
+    border: 1px solid rgba(255,255,255,0.08);
+    -webkit-overflow-scrolling: touch;
+}
+.essei-window.open { transform: scale(1) translate3d(0, 0, 0); opacity: 1; pointer-events: all; }
+
+.essei-header {
+    padding: 1.3rem 1.6rem;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, transparent 100%);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex; align-items: center; gap: 1rem; flex-shrink: 0;
+}
 .essei-avatar {
     width: 42px; height: 42px; border-radius: 50%;
     background: linear-gradient(135deg, var(--olive), #4c5a43);
@@ -1903,6 +1927,171 @@ body {
 @keyframes esseiMsgIn { from { opacity:0; transform:translate3d(0, 10px, 0); } to { opacity:1; transform:translate3d(0, 0, 0); } }
 .essei-msg.user { align-self: flex-end; align-items: flex-end; }
 .essei-msg.bot  { align-self: flex-start; align-items: flex-start; }
+
+.essei-bubble-msg {
+    padding: 0.75rem 1.1rem; border-radius: 18px; line-height: 1.6;
+    font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 400;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+.essei-msg.user .essei-bubble-msg {
+    background: linear-gradient(135deg, var(--olive) 0%, #516346 100%);
+    color: #fff; border-bottom-right-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+.essei-msg.bot .essei-bubble-msg {
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.85); border-bottom-left-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+.essei-msg-time { font-family: 'Inter', sans-serif; font-size: 0.6rem; color: rgba(255,255,255,0.2); padding: 0 0.4rem; }
+
+/* Chips / Sugerencias Inteligentes */
+.essei-suggestions { display: flex; gap: 0.5rem; flex-wrap: wrap; padding: 0 1.4rem 0.8rem; flex-shrink: 0; }
+.essei-chip {font-family: 'Inter', sans-serif; font-size: 0.68rem; font-weight: 500;
+    padding: 0.45rem 0.9rem; border-radius: 20px;
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.55); cursor: pointer; white-space: nowrap;
+    transition: all 0.25s ease;
+}
+.essei-chip:hover { 
+    background: rgba(218,178,108,0.12); 
+    color: #dab26c; 
+    border-color: rgba(218,178,108,0.3);
+    transform: translate3d(0, -1px, 0);
+}
+
+.essei-input-area {
+    padding: 1rem 1.4rem 1.4rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    background: rgba(0,0,0,0.15); flex-shrink: 0;
+    display: flex; gap: 0.75rem; align-items: flex-end;
+}
+.essei-input {
+    flex: 1; background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 14px;
+    padding: 0.75rem 1rem; outline: none;
+    font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 400;
+    color: rgba(255,255,255,0.9); line-height: 1.45;
+    transition: border-color 0.25s ease, background 0.25s ease;
+    -webkit-appearance: none; appearance: none;
+}
+.essei-input::placeholder { color: rgba(255,255,255,0.2); }
+.essei-input:focus { border-color: rgba(122,139,110,0.4); background: rgba(255,255,255,0.08); }
+
+.essei-send {
+    width: 42px; height: 42px; border-radius: 12px; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--olive) 0%, #516346 100%);
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+.essei-send:hover { transform: scale(1.05) translateY(-1px); box-shadow: 0 6px 20px rgba(122,139,110,0.4); }
+.essei-send:disabled { opacity: 0.3; cursor: not-allowed; transform: none; box-shadow: none; }
+.essei-send svg { width: 16px; height: 16px; stroke: white; fill: none; stroke-width: 2.2; }
+
+@media (max-width: 480px) {
+    .essei-window { right: 1rem; bottom: 5.5rem; width: calc(100vw - 2rem); max-width: calc(100vw - 2rem); }
+    .essei-bubble { bottom: 1.2rem; right: 1.2rem; width: 56px; height: 56px; }
+}/* SECCION: ANUNCIO FLOTANTE IA */
+.essei-announcement {
+    position: fixed;
+    bottom: 6.8rem;
+    right: 2rem;
+    width: 280px;
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.9) 0%, rgba(15, 15, 15, 0.95) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(218, 178, 108, 0.4);
+    border-radius: 20px;
+    padding: 1rem 2.5rem 1rem 1.2rem;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.3), 0 0 30px rgba(218, 178, 108, 0.1);
+    z-index: 4400;
+    animation: esseiFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both, esseiFloat 4s ease-in-out infinite 0.8s;
+}
+
+/* COMPONENTE: FLECHA DECORATIVA */
+.essei-announcement::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    right: 24px;
+    width: 0; height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid rgba(15, 15, 15, 0.95);
+}
+
+/* COMPONENTE: ETIQUETA NUEVO */
+.essei-announce-tag {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    background: linear-gradient(90deg, #dab26c 0%, #b89353 100%);
+    color: #1a1a1a;
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+    margin-bottom: 0.4rem;
+    box-shadow: 0 2px 10px rgba(218, 178, 108, 0.3);
+}
+
+/* COMPONENTE: TEXTO E IA RESALTADA */
+.essei-announcement p {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0;
+}
+
+.essei-announcement p b {
+    color: #dab26c;
+    font-weight: 600;
+}
+
+/* COMPONENTE: BOTON CERRAR */
+.essei-announce-close {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.8rem;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    line-height: 1;
+}
+
+.essei-announce-close:hover {
+    color: #fff;
+}
+
+/* SECCION: ANIMACIONES */
+@keyframes esseiFadeInUp {
+    from { opacity: 0; transform: translate3d(0, 20px, 0); }
+    to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes esseiFloat {
+    0% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -6px, 0); }
+    100% { transform: translate3d(0, 0, 0); }
+}
+
+/* SECCION: RESPONSIVE MOVILES */
+@media (max-width: 480px) {
+    .essei-announcement {
+        right: 1rem;
+        bottom: 5.5rem;
+        width: calc(100vw - 2rem);
+    }
+    .essei-announcement::after {
+        right: 18px;
+    }
+}    
 
            
         /* ===== SCROLL REVEAL ===== */
@@ -2985,7 +3174,7 @@ body {
     </footer>
       
 <!-- ESSEI CHAT WIDGET -->
-<button class="essei-bubble" id="esseiBubble" onclick="toggleEssei()" aria-label="Abrir chat con Essei">
+    <button class="essei-bubble" id="esseiBubble" onclick="toggleEssei()" aria-label="Abrir chat con Essei">
         <div class="essei-bubble-inner">
             <span class="essei-bubble-icon">✦</span>
             <span class="essei-bubble-label">Essei</span>
@@ -3026,7 +3215,6 @@ body {
             </button>
         </div>
     </div>
-
 
     <!-- CART SIDEBAR -->
     <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
