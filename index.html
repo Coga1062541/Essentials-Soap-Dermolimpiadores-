@@ -10,53 +10,79 @@
     <meta property="og:description" content="Jabones naturales y perfumes inspirados en fragancias icónicas.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bone: #FAF9F6;
-            --soft-black: #1a1a1a;
-            --warm-gray: #8a8a8a;
-            --olive: #7a8b6e;
-            --beige: #e8e0d4;
-            --cream: #f5f0e8;
-            --dark: #0f0f0f;
-            --glass: rgba(255,255,255,0.08);
-            --glass-border: rgba(255,255,255,0.15);
-            --shadow-premium: 0 25px 80px rgba(0,0,0,0.12);
-            --shadow-soft: 0 10px 40px rgba(0,0,0,0.06);
-            --transition-smooth: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-            --transition-fast: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1), background 0.22s ease, color 0.22s ease;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bone);
-            color: var(--soft-black);
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-        
-        /* ===== STATIC AMBIENT BACKGROUND ===== */
-        .mesh-bg {
-            position: fixed; inset: 0; z-index: -1;
-            background:
-                /* Olive — bottom-left, rich and deep */
-                radial-gradient(ellipse 80% 65% at -5% 95%, rgba(72,106,54,0.38) 0%, rgba(90,120,68,0.22) 40%, transparent 65%),
-                /* Olive — right-center */
-                radial-gradient(ellipse 60% 50% at 102% 52%, rgba(68,102,50,0.30) 0%, transparent 55%),
-                /* Gold — top-left, warm and prominent */
-                radial-gradient(ellipse 75% 58% at 5% 8%, rgba(218,178,108,0.50) 0%, rgba(200,162,100,0.28) 45%, transparent 65%),
-                /* Gold — top-right */
-                radial-gradient(ellipse 55% 45% at 95% 5%, rgba(204,168,112,0.38) 0%, transparent 55%),
-                /* Olive whisper — bottom-right for balance */
-                radial-gradient(ellipse 45% 38% at 88% 92%, rgba(80,110,62,0.22) 0%, transparent 50%),
-                /* Warm centre haze */
-                radial-gradient(ellipse 65% 55% at 50% 50%, rgba(218,195,155,0.14) 0%, transparent 60%),
-                /* Base ivory */
-                #ede9e0;
-        }
-        .mesh-blob { display: none; }
-        
+    <style> 
+  /* ===== CONFIGURACIÓN GENERAL Y FONDO AMBIENTAL LÍQUIDO AUTOMÁTICO =====*/
+:root {
+    --bone: #FAF9F6;
+    --soft-black: #1a1a1a;
+    --warm-gray: #8a8a8a;
+    --olive: #7a8b6e;
+    --beige: #e8e0d4;
+    --cream: #f5f0e8;
+    --dark: #0f0f0f;
+    --glass: rgba(255,255,255,0.08);
+    --glass-border: rgba(255,255,255,0.15);
+    --shadow-premium: 0 25px 80px rgba(0,0,0,0.12);
+    --shadow-soft: 0 10px 40px rgba(0,0,0,0.06);
+    --transition-smooth: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-fast: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1), background 0.22s ease, color 0.22s ease;
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+html { 
+    scroll-behavior: smooth; 
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bone);
+    color: var(--soft-black);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ===== CONTENEDOR MADRE DEL FONDO ===== */
+.mesh-bg {
+    position: fixed; 
+    inset: 0; 
+    z-index: -1;
+    overflow: hidden; /* CANDADO: Evita que las esferas gigantes rompan los bordes del cel */
+    background: #ede9e0; /* Tu base marfil clara original fija */
+}
+
+/* ===== CAPA DE LAVA LÍQUIDA DESTACADA Y ELEGANTE ===== */
+.mesh-bg::before {
+    content: '';
+    position: absolute;
+    /* Se estira al doble del tamaño para que al girar 360° nunca se vean cortes rectos */
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    
+    /* Colores intensificados con opacidades más altas para que tengan presencia real en pantalla */
+    background: radial-gradient(ellipse 80% 65% at 30% 75%, rgba(65,99,47,0.48) 0%, rgba(85,115,62,0.28) 40%, transparent 65%),
+                radial-gradient(ellipse 60% 50% at 85% 45%, rgba(60,95,43,0.38) 0%, transparent 55%),
+                radial-gradient(ellipse 75% 58% at 20% 15%, rgba(214,169,92,0.62) 0%, rgba(196,155,88,0.35) 45%, transparent 65%),
+                radial-gradient(ellipse 55% 45% at 80% 15%, rgba(201,161,100,0.45) 0%, transparent 55%),
+                radial-gradient(ellipse 45% 38% at 75% 85%, rgba(75,105,57,0.30) 0%, transparent 50%),
+                radial-gradient(ellipse 65% 55% at 50% 50%, rgba(214,188,143,0.22) 0%, transparent 60%);
+                
+    /* Movimiento continuo de 60 segundos (lento para que no distraiga la lectura de los jabones) */
+    animation: liquidAmbientMesh 60s linear infinite;
+    transform-origin: center center;
+    filter: blur(45px); /* Difuminado premium que evita que se vea "página barata" */
+}
+
+.mesh-blob { 
+    display: none; 
+}
+
         /* ===== SPLASH / LANDING SCREEN ===== */
         .splash {
             position: fixed; inset: 0; z-index: 9999;
