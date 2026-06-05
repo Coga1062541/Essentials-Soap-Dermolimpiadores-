@@ -1835,10 +1835,24 @@ body {
 }
 
 /* EFECTO MESH LÍQUIDO (Órganico Oliva y Oro) */
+.essei-bubble {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 4500;
+    width: 64px; height: 64px; border-radius: 50%;
+    /* Fondo base oscuro que cambia a mesh animado */
+    background: #111a0e; 
+    box-shadow: 0 10px 35px rgba(0,0,0,0.25), inset 0 1px 1px rgba(255,255,255,0.2);
+    cursor: pointer; border: 1px solid rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+    overflow: hidden;
+}
+
+/* EFECTO MESH LÍQUIDO (Órganico Oliva y Oro) */
 .essei-bubble::before {
     content: '';
     position: absolute;
     top: -50%; left: -50%; width: 200%; height: 200%;
+    /* Combinación de gradientes radiales inspirada en la paleta Essentials Soap */
     background: radial-gradient(circle at 30% 30%, rgba(218, 178, 108, 0.4) 0%, transparent 50%),
                 radial-gradient(circle at 70% 60%, rgba(122, 139, 110, 0.5) 0%, transparent 60%),
                 radial-gradient(circle at 40% 80%, rgba(76, 90, 67, 0.8) 0%, transparent 50%),
@@ -1847,7 +1861,7 @@ body {
     animation: esseiMeshLiquid 12s linear infinite;
     transform-origin: center center;
     z-index: 1;
-    filter: blur(2px);
+    filter: blur(2px); /* Suaviza la transición del mesh */
 }
 
 .essei-bubble:hover { 
@@ -1856,6 +1870,7 @@ body {
     border-color: rgba(218,178,108,0.5);
 }
 
+/* El contenedor interno se mantiene sobre el mesh gracias al z-index */
 .essei-bubble-inner {
     position: relative;
     z-index: 2;
@@ -1871,11 +1886,11 @@ body {
 }
 .essei-bubble.open .essei-bubble-close { opacity: 1; transform: rotate(0deg) scale(1); }
 
-/* ICONO DE ESTRELLA MEJORADO (Destello Dorado Permanente) */
+/* MEJORA TOTAL DEL ICONO: Efecto destello dorado premium */
 .essei-bubble-icon { 
     font-size: 1.6rem; 
     line-height: 1;
-    color: #dab26c; 
+    color: #dab26c; /* Dorado característico */
     text-shadow: 0 0 12px rgba(218, 178, 108, 0.6);
     animation: esseiIconGlow 4s ease-in-out infinite;
 }
@@ -1894,6 +1909,28 @@ body {
     z-index: 0;
 }
 
+/* ==========================================================================
+   ===== NUEVAS ANIMACIONES EXCLUSIVAS PARA LA BURBUJA =====
+   ========================================================================== */
+
+/* Rotación infinita suave para mezclar los gradientes radiales como lava */
+@keyframes esseiMeshLiquid {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.1); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+/* Pulsación de brillo mística en el icono de estrella de Essei */
+@keyframes esseiIconGlow {
+    0%, 100% { text-shadow: 0 0 10px rgba(218, 178, 108, 0.5); transform: scale(1); }
+    50% { text-shadow: 0 0 20px rgba(218, 178, 108, 0.9), 0 0 30px rgba(218, 178, 108, 0.4); transform: scale(1.05); }
+}
+
+@keyframes esseiBubblePing {
+    0%   { transform: scale(1); opacity: 0.7; }
+    50%  { transform: scale(1.22); opacity: 0; }
+    100% { transform: scale(1.22); opacity: 0; }
+}
 /* --- VENTANA DE CHAT --- */
 .essei-window {
     position: fixed; bottom: 6.8rem; right: 2rem; z-index: 4500;
