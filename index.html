@@ -11,7 +11,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap" rel="stylesheet">
     <style> 
-  /* ===== CONFIGURACIÓN GENERAL Y FONDO AMBIENTAL LÍQUIDO AUTOMÁTICO =====*/
+  /* ===== CONFIGURACIÓN GENERAL Y FONDO DE LAVA LÍQUIDA PREMIUM =====*/
+
 :root {
     --bone: #FAF9F6;
     --soft-black: #1a1a1a;
@@ -51,38 +52,54 @@ body {
     position: fixed; 
     inset: 0; 
     z-index: -1;
-    overflow: hidden; /* CANDADO: Evita que las esferas gigantes rompan los bordes del cel */
-    background: #ede9e0; /* Tu base marfil clara original fija */
+    overflow: hidden; 
+    background: #ede9e0;
 }
 
-/* ===== CAPA DE LAVA LÍQUIDA DESTACADA Y ELEGANTE ===== */
+/* ===== CAPA DE LAVA LÍQUIDA EN MOVIMIENTO REAL (60FPS SIN LAG) ===== */
 .mesh-bg::before {
     content: '';
     position: absolute;
-    /* Se estira al doble del tamaño para que al girar 360° nunca se vean cortes rectos */
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
+    top: -40%;
+    left: -40%;
+    width: 180%;
+    height: 180%;
     
-    /* Colores intensificados con opacidades más altas para que tengan presencia real en pantalla */
-    background: radial-gradient(ellipse 80% 65% at 30% 75%, rgba(65,99,47,0.48) 0%, rgba(85,115,62,0.28) 40%, transparent 65%),
-                radial-gradient(ellipse 60% 50% at 85% 45%, rgba(60,95,43,0.38) 0%, transparent 55%),
-                radial-gradient(ellipse 75% 58% at 20% 15%, rgba(214,169,92,0.62) 0%, rgba(196,155,88,0.35) 45%, transparent 65%),
-                radial-gradient(ellipse 55% 45% at 80% 15%, rgba(201,161,100,0.45) 0%, transparent 55%),
-                radial-gradient(ellipse 45% 38% at 75% 85%, rgba(75,105,57,0.30) 0%, transparent 50%),
-                radial-gradient(ellipse 65% 55% at 50% 50%, rgba(214,188,143,0.22) 0%, transparent 60%);
+    /* MISMOS COLORES DE LA TARJETA DE IA: Verde oliva profundo, dorado cálido y miel */
+    background: radial-gradient(circle at 30% 25%, rgba(184, 147, 83, 0.28) 0%, transparent 45%),
+                radial-gradient(circle at 75% 65%, rgba(74, 99, 63, 0.35) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(160, 122, 59, 0.22) 0%, transparent 40%),
+                radial-gradient(circle at 25% 75%, rgba(45, 59, 38, 0.40) 0%, transparent 55%),
+                radial-gradient(circle at 60% 35%, rgba(214, 188, 143, 0.15) 0%, transparent 45%);
                 
-    /* Movimiento continuo de 60 segundos (lento para que no distraiga la lectura de los jabones) */
-    animation: liquidAmbientMesh 60s linear infinite;
+    /* Animación continua y lineal a 45s */
+    animation: liquidAmbientMesh 45s linear infinite;
     transform-origin: center center;
-    filter: blur(45px); /* Difuminado premium que evita que se vea "página barata" */
+    
+    /* TRUCO CLAVE: Reducimos el blur para que las formas de lava se definan y no queden planas */
+    filter: blur(15px); 
 }
 
 .mesh-blob { 
     display: none; 
 }
-
+@keyframes liquidAmbientMesh {
+    0% {
+        transform: rotate(0deg) scale(1) skew(0deg);
+    }
+    25% {
+        transform: rotate(90deg) scale(1.12) skewX(5deg) skewY(2deg);
+    }
+    50% {
+        transform: rotate(180deg) scale(1) skewX(-3deg) skewY(-3deg);
+    }
+    75% {
+        transform: rotate(270deg) scale(1.15) skewX(2deg) skewY(4deg);
+    }
+    100% {
+        transform: rotate(360deg) scale(1) skew(0deg);
+    }
+}
         /* ===== SPLASH / LANDING SCREEN ===== */
         .splash {
             position: fixed; inset: 0; z-index: 9999;
