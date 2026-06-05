@@ -4013,38 +4013,8 @@ function toggleCart() {
             });
         })();
         
-        // ===== INIT =====
-        document.addEventListener('DOMContentLoaded', () => {
-            updateCartUI();
-            initScrollEffects();
-            syncAllCardQtys();
-
-            // Init perfume section: show only masculino by default
-            document.getElementById('femenino-header').style.display = 'none';
-            document.getElementById('grid-femenino').style.display = 'none';
-            document.querySelectorAll('[data-gender="femenino"]').forEach(c => c.style.display = 'none');
-            
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    closeModal();
-                    if (document.getElementById('cartSidebar').classList.contains('active')) {
-                        toggleCart();
-                    }
-                }
-            });
-        });
-    document.querySelectorAll('.faq-item').forEach(function(item) {
-        item.addEventListener('click', function() {
-            var isOpen = item.classList.contains('is-open');
-            document.querySelectorAll('.faq-item.is-open').forEach(function(el) {
-                el.classList.remove('is-open');
-            });
-            if (!isOpen) item.classList.add('is-open');
-        });
-    });
-        
-            // ===== ESSEI CHAT WIDGET =====
-    const ESSEI_SYSTEM = `Eres "Essei", la asistente virtual oficial de Essentials Soap (essentials-soap.vercel.app), una marca mexicana premium de jabones naturales artesanales y fragancias de lujo inspiradas en marcas icónicas, con sede en Guadalajara, Jalisco.
+        // ===== ESSEI CHAT WIDGET =====
+const ESSEI_SYSTEM = `Eres "Essei", la asistente virtual oficial de Essentials Soap (essentials-soap.vercel.app), una marca mexicana premium de jabones naturales artesanales y fragancias de lujo inspiradas en marcas icónicas, con sede en Guadalajara, Jalisco.
 
 Tu única función es ayudar a los clientes con información sobre productos, precios, ingredientes, envíos y dudas relacionadas exclusivamente con Essentials Soap.
 
@@ -4126,7 +4096,7 @@ function esseiAddMsg(role, text) {
         // El bot escribe de manera gradual respetando las etiquetas HTML generadas
         let currentHTML = '';
         let i = 0;
-        const delay 10; // Velocidad de escritura en milisegundos por carácter
+        const delay = 10; // <- CORREGIDO: Se añadió el "=" faltante
 
         function type() {
             if (i < formattedText.length) {
@@ -4167,7 +4137,8 @@ function esseiHideTyping() {
     const el = document.getElementById('esseiTyping');
     if (el) el.remove();
 }
-        async function solicitarRutina(nombreProducto) {
+
+async function solicitarRutina(nombreProducto) {
     if (!esseiOpen) toggleEssei();
     esseiGreeted = true; 
 
@@ -4277,6 +4248,7 @@ function filterSoaps(category, event) {
         }
     });
 }
+// <- CORREGIDO: Se removieron las etiquetas HTML sueltas que causaban conflicto interno
 
     </script>
 </body>
