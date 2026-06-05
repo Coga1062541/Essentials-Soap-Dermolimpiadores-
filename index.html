@@ -1817,282 +1817,92 @@ body {
     margin-left: 0.2rem;
 }
 
+    
 /* ==========================================================================
-   ===== ESSEI CHAT WIDGET (REDISEÑO UNIFICADO - CORREGIDO) =====
+   ===== ESSEI CHAT WIDGET (REDISEÑO DE ALTO IMPACTO) =====
    ========================================================================== */
 .essei-bubble {
-    /* POSICIONAMIENTO */
-    position: fixed !important; 
-    bottom: 2rem !important; 
-    right: 2rem !important; 
-    z-index: 4500 !important;
-    
-    /* DIMENSIONES */
-    width: 64px !important; 
-    height: 64px !important; 
-    border-radius: 50% !important;
-    
-    /* RESET DE ESTILOS NATIVOS DE BOTÓN */
-    padding: 0 !important;
-    margin: 0 !important;
-    outline: none !important;
-    border: 1px solid rgba(255,255,255,0.1) !important;
-    background: #121b0e !important; /* Base verde de la marca */
-    cursor: pointer !important;
-    
-    /* FLEXBOX FORZADO */
-    display: flex !important; 
-    align-items: center !important; 
-    justify-content: center !important;
-    
-    /* EFECTOS */
-    overflow: hidden !important;
-    box-shadow: 0 10px 35px rgba(0,0,0,0.35), inset 0 1px 1px rgba(255,255,255,0.2) !important;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease !important;
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 4500;
+    width: 64px; height: 64px; border-radius: 50%;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+    box-shadow: 0 10px 35px rgba(0,0,0,0.25), inset 0 1px 1px rgba(255,255,255,0.2);
+    cursor: pointer; border: 1px solid rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    overflow: hidden;
+}
 .essei-bubble:hover { 
     transform: scale(1.08) translateY(-3px); 
-    box-shadow: 0 16px 45px rgba(218, 178, 108, 0.35);
-    border-color: rgba(218, 178, 108, 0.5);
+    box-shadow: 0 16px 45px rgba(122,139,110,0.35);
+    border-color: rgba(122,139,110,0.5);
+    background: linear-gradient(135deg, var(--olive) 0%, #4c5a43 100%);
 }
-
-/* EFECTO LAVA LÍQUIDA DE ALTO IMPACTO EN SEGUNDO PLANO */
-.essei-bubble::before {
-    content: '';
-    position: absolute;
-    top: -55%;
-    left: -55%;
-    width: 210%;
-    height: 210%;
-    background: radial-gradient(circle at 30% 30%, rgba(218, 178, 108, 0.45) 0%, transparent 50%),
-                radial-gradient(circle at 70% 70%, rgba(122, 139, 110, 0.6) 0%, transparent 60%),
-                radial-gradient(circle at 80% 20%, rgba(218, 178, 108, 0.3) 0%, transparent 45%),
-                radial-gradient(circle at 20% 80%, rgba(40, 50, 35, 0.9) 0%, transparent 55%);
-    animation: bubbleLiquidMesh 16s linear infinite;
-    transform-origin: center center;
-    z-index: 1;
-    filter: blur(4px);
-}
-
-/* CONTENEDOR INTERNO */
 .essei-bubble-inner {
-    position: relative;
-    z-index: 2;
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: center; 
-    gap: 1px;
-    width: 100%;
-    height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
 }
-.essei-bubble.open .essei-bubble-inner { 
-    transform: scale(0.6) rotate(45deg); 
-    opacity: 0; 
-}
-
-/* ICONO TIPOGRÁFICO RESALTADO */
-.essei-bubble-icon { 
-    font-size: 1.6rem; 
-    line-height: 1;
-    color: #dab26c; /* Dorado premium emblemático */
-    text-shadow: 0 2px 10px rgba(218, 178, 108, 0.5);
-}
-
-.essei-bubble-label {
-    font-family: 'Inter', sans-serif; 
-    font-size: 0.48rem; 
-    font-weight: 700;
-    letter-spacing: 0.12em; 
-    color: rgba(255,255,255,0.75); 
-    text-transform: uppercase;
-}
-.essei-bubble:hover .essei-bubble-label { 
-    color: #ffffff; 
-}
+.essei-bubble.open .essei-bubble-inner { transform: scale(0.6) rotate(45deg); opacity: 0; }
 
 .essei-bubble-close {
-    position: absolute; 
-    z-index: 3;
-    opacity: 0; 
-    transform: rotate(-90deg) scale(0.6);
+    position: absolute; opacity: 0; transform: rotate(-90deg) scale(0.6);
     transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
-    color: white; 
+    color: white; font-size: 1.2rem;
 }
-.essei-bubble.open .essei-bubble-close { 
-    opacity: 1; 
-    transform: rotate(0deg) scale(1); 
+.essei-bubble.open .essei-bubble-close { opacity: 1; transform: rotate(0deg) scale(1); }
+.essei-bubble-icon { font-size: 1.5rem; line-height: 1; }
+.essei-bubble-label {
+    font-family: 'Inter', sans-serif; font-size: 0.45rem; font-weight: 700;
+    letter-spacing: 0.15em; color: rgba(255,255,255,0.6); text-transform: uppercase;
 }
+.essei-bubble:hover .essei-bubble-label { color: rgba(255,255,255,0.9); }
 
-/* Anillo de pulso sutil perimetral */
+/* Anillo de pulso sutil premium */
 .essei-bubble::after {
-    content: ''; 
-    position: absolute; 
-    inset: -2px; 
-    border-radius: 50%;
-    border: 2px solid rgba(218,178,108,0.25);
+    content: ''; position: absolute; inset: -2px; border-radius: 50%;
+    border: 2px solid rgba(218,178,108,0.3);
     animation: esseiBubblePing 3s cubic-bezier(0.24, 0, 0.05, 1) infinite;
-    z-index: 0;
 }
-
 @keyframes esseiBubblePing {
     0%   { transform: scale(1); opacity: 0.8; }
-    50%  { transform: scale(1.22); opacity: 0; }
-    100% { transform: scale(1.22); opacity: 0; }
+    50%  { transform: scale(1.25); opacity: 0; }
+    100% { transform: scale(1.25); opacity: 0; }
 }
-
-/* VENTANA DE CHAT COALINEADA (CORRECCIÓN DE POSICIÓN) */
-.essei-window {
-    position: fixed; 
-    bottom: 7rem; /* Espaciado perfecto sobre la burbuja */
-    right: 2rem; 
-    z-index: 4500;
-    width: 380px; 
-    max-width: calc(100vw - 4rem);
-    height: 580px; 
-    max-height: calc(100vh - 10rem);
-    background: rgba(15, 15, 15, 0.85);
-    backdrop-filter: blur(25px); 
-    -webkit-backdrop-filter: blur(25px);
-    border-radius: 24px;
-    box-shadow: 0 30px 90px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
-    display: flex; 
-    flex-direction: column; 
-    overflow: hidden;
-    transform: scale(0.95) translate3d(0, 15px, 0); 
-    opacity: 0; 
-    pointer-events: none;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
-    transform-origin: bottom right;
-    border: 1px solid rgba(255,255,255,0.08);
-}
-.essei-window.open { 
-    transform: scale(1) translate3d(0, 0, 0); 
-    opacity: 1; 
-    pointer-events: all; 
-}
-
-/* HEADER INTERNO */
-.essei-header {
-    padding: 1.2rem 1.4rem;
-    background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, transparent 100%);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    display: flex; 
-    align-items: center; 
-    gap: 0.85rem; 
-    flex-shrink: 0;
-}
-
 .essei-avatar {
-    width: 40px; 
-    height: 40px; 
-    border-radius: 50%;
-    background: linear-gradient(135deg, #7a8b6e, #4c5a43);
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-    font-size: 1.2rem; 
-    color: #dab26c;
-    text-shadow: 0 2px 6px rgba(218, 178, 108, 0.4);
-    flex-shrink: 0;
+    width: 42px; height: 42px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--olive), #4c5a43);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.15rem; flex-shrink: 0;
     box-shadow: 0 0 0 3px rgba(122,139,110,0.2);
 }
-
 .essei-header-info { flex: 1; }
 .essei-header-name {
-    font-family: 'Playfair Display', serif; 
-    font-size: 1.05rem; 
-    font-weight: 500;
-    color: #f5f2eb; 
+    font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 500;
+    color: var(--bone); letter-spacing: 0.01em;
 }
 .essei-header-status {
-    font-family: 'Inter', sans-serif; 
-    font-size: 0.68rem; 
-    color: rgba(255,255,255,0.4);
-    display: flex; 
-    align-items: center; 
-    gap: 0.4rem; 
-    margin-top: 0.15rem;
+    font-family: 'Inter', sans-serif; font-size: 0.68rem; color: rgba(255,255,255,0.4);
+    display: flex; align-items: center; gap: 0.4rem; margin-top: 0.15rem;
 }
 .essei-status-dot {
-    width: 6px; 
-    height: 6px; 
-    border-radius: 50%; 
-    background: #8fac80;
-    box-shadow: 0 0 8px #8fac80;
+    width: 6px; height: 6px; border-radius: 50%; background: #8fac80;
+    box-shadow: 0 0 10px #8fac80;
     animation: esseiStatusPulse 2s ease-in-out infinite;
 }
 .essei-header-brand {
-    font-family: 'Cormorant Garamond', serif; 
-    font-size: 0.68rem;
-    color: rgba(218,178,108,0.7); 
-    letter-spacing: 0.18em; 
-    text-transform: uppercase;
-    font-style: italic;
+    font-family: 'Cormorant Garamond', serif; font-size: 0.68rem;
+    color: rgba(218,178,108,0.7); letter-spacing: 0.22em; text-transform: uppercase;
+    font-style: italic; font-weight: 500;
 }
 
-/* ÁREA DE MENSAJES Y CHIPS */
-.essei-messages { flex: 1; overflow-y: auto; padding: 1.2rem; display: flex; flex-direction: column; gap: 0.8rem; }
-.essei-msg { display: flex; flex-direction: column; gap: 0.25rem; max-width: 82%; animation: esseiMsgIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both; }
-@keyframes esseiMsgIn { from { opacity:0; transform:translate3d(0, 8px, 0); } to { opacity:1; transform:translate3d(0, 0, 0); } }
+.essei-messages {
+    flex: 1; overflow-y: auto; padding: 1.4rem;
+    display: flex; flex-direction: column; gap: 0.9rem;
+}
+
+.essei-msg { display: flex; flex-direction: column; gap: 0.25rem; max-width: 82%; animation: esseiMsgIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@keyframes esseiMsgIn { from { opacity:0; transform:translate3d(0, 10px, 0); } to { opacity:1; transform:translate3d(0, 0, 0); } }
 .essei-msg.user { align-self: flex-end; align-items: flex-end; }
-.essei-msg.bot { align-self: flex-start; align-items: flex-start; }
-
-.essei-bubble-msg { padding: 0.7rem 1rem; border-radius: 16px; line-height: 1.5; font-family: 'Inter', sans-serif; font-size: 0.82rem; }
-.essei-msg.user .essei-bubble-msg { background: linear-gradient(135deg, #7a8b6e 0%, #516346 100%); color: #fff; border-bottom-right-radius: 4px; border: 1px solid rgba(255,255,255,0.05); }
-.essei-msg.bot .essei-bubble-msg { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.85); border-bottom-left-radius: 4px; border: 1px solid rgba(255,255,255,0.05); }
-.essei-msg-time { font-family: 'Inter', sans-serif; font-size: 0.6rem; color: rgba(255,255,255,0.2); padding: 0 0.4rem; }
-
-.essei-suggestions { display: flex; gap: 0.4rem; flex-wrap: wrap; padding: 0 1.2rem 0.8rem; }
-.essei-chip { font-family: 'Inter', sans-serif; font-size: 0.68rem; padding: 0.4rem 0.8rem; border-radius: 20px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); color: rgba(255,255,255,0.6); cursor: pointer; transition: all 0.2s ease; }
-.essei-chip:hover { background: rgba(218,178,108,0.12); color: #dab26c; border-color: rgba(218,178,108,0.3); }
-
-/* INPUT */
-.essei-input-area { padding: 0.8rem 1.2rem 1.2rem; border-top: 1px solid rgba(255,255,255,0.06); display: flex; gap: 0.6rem; align-items: center; }
-.essei-input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 0.7rem 0.9rem; outline: none; font-family: 'Inter', sans-serif; font-size: 14px; color: #fff; }
-.essei-input:focus { border-color: rgba(122,139,110,0.4); background: rgba(255,255,255,0.07); }
-.essei-send { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, #7a8b6e 0%, #516346 100%); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-.essei-send svg { width: 15px; height: 15px; stroke: white; fill: none; stroke-width: 2.2; }
-
-/* ANUNCIO FLOTANTE */
-.essei-announcement {
-    position: fixed;
-    bottom: 7rem;
-    right: 2rem;
-    width: 280px;
-    background: linear-gradient(135deg, rgba(26, 26, 26, 0.92) 0%, rgba(15, 15, 15, 0.96) 100%);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(218, 178, 108, 0.35);
-    border-radius: 18px;
-    padding: 0.9rem 2.2rem 0.9rem 1.1rem;
-    box-shadow: 0 15px 45px rgba(0,0,0,0.4);
-    z-index: 4400;
-    animation: esseiFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both, esseiFloat 4s ease-in-out infinite 0.8s;
-}
-.essei-announcement::after { content: ''; position: absolute; bottom: -8px; right: 24px; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 8px solid rgba(15, 15, 15, 0.96); }
-.essei-announce-tag { display: inline-block; font-family: 'Inter', sans-serif; font-size: 0.58rem; font-weight: 700; background: linear-gradient(90deg, #dab26c 0%, #b89353 100%); color: #1a1a1a; padding: 0.15rem 0.45rem; border-radius: 4px; margin-bottom: 0.3rem; }
-.essei-announcement p { font-family: 'Inter', sans-serif; font-size: 0.76rem; line-height: 1.35; color: rgba(255, 255, 255, 0.8); margin: 0; }
-.essei-announcement p b { color: #dab26c; font-weight: 600; }
-.essei-announce-close { position: absolute; top: 0.5rem; right: 0.6rem; background: none; border: none; color: rgba(255, 255, 255, 0.3); font-size: 1rem; cursor: pointer; }
-
-/* ANIMACIONES */
-@keyframes bubbleLiquidMesh {
-    0% { transform: rotate(0deg) scale(1); }
-    50% { transform: rotate(180deg) scale(1.1); }
-    100% { transform: rotate(360deg) scale(1); }
-}
-@keyframes esseiFadeInUp { from { opacity: 0; transform: translate3d(0, 15px, 0); } to { opacity: 1; transform: translate3d(0, 0, 0); } }
-@keyframes esseiFloat { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -5px, 0); } }
-@keyframes esseiStatusPulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
-
-/* RESPONSIVE */
-@media (max-width: 480px) {
-    .essei-window { right: 1rem; bottom: 6rem; width: calc(100vw - 2rem); max-width: calc(100vw - 2rem); height: 500px; }
-    .essei-bubble { bottom: 1.5rem; right: 1.5rem; width: 58px; height: 58px; }
-    .essei-announcement { right: 1rem; bottom: 6rem; width: calc(100vw - 2rem); }
-    .essei-announcement::after { right: 18px; }
-}
+.essei-msg.bot  { align-self: flex-start; align-items: flex-start; }
 
            
         /* ===== SCROLL REVEAL ===== */
@@ -3176,46 +2986,47 @@ body {
       
 <!-- ESSEI CHAT WIDGET -->
 <button class="essei-bubble" id="esseiBubble" onclick="toggleEssei()" aria-label="Abrir chat con Essei">
-    <div class="essei-bubble-inner">
-        <span class="essei-bubble-icon">✦</span>
-        <span class="essei-bubble-label">Essei</span>
-    </div>
-    <svg class="essei-bubble-close" viewBox="0 0 24 24" width="22" height="22" stroke="white" stroke-width="2.5" fill="none">
-        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-    </svg>
-</button>
-
-<div class="essei-window" id="esseiWindow">
-    <div class="essei-header">
-        <div class="essei-avatar">✦</div>
-        <div class="essei-header-info">
-            <div class="essei-header-name">Essei</div>
-            <div class="essei-header-status">
-                <div class="essei-status-dot"></div>
-                Asistente virtual · En línea
-            </div>
+        <div class="essei-bubble-inner">
+            <span class="essei-bubble-icon">✦</span>
+            <span class="essei-bubble-label">Essei</span>
         </div>
-        <div class="essei-header-brand">Essentials Soap</div>
+        <svg class="essei-bubble-close" viewBox="0 0 24 24" width="22" height="22" stroke="white" stroke-width="2.5" fill="none">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+    </button>
+
+    <div class="essei-window" id="esseiWindow">
+        <div class="essei-header">
+            <div class="essei-avatar">✦</div>
+            <div class="essei-header-info">
+                <div class="essei-header-name">Essei</div>
+                <div class="essei-header-status">
+                    <div class="essei-status-dot"></div>
+                    Asistente virtual · En línea
+                </div>
+            </div>
+            <div class="essei-header-brand">Essentials Soap</div>
+        </div>
+
+        <div class="essei-messages" id="esseiMessages"></div>
+
+        <div class="essei-suggestions" id="esseiSuggestions">
+            <button class="essei-chip" onclick="esseiSendChip('¿Qué jabón me recomiendas para piel grasa?')">Piel grasa</button>
+            <button class="essei-chip" onclick="esseiSendChip('¿Cuáles son sus perfumes?')">Perfumes</button>
+            <button class="essei-chip" onclick="esseiSendChip('¿Cuánto cuesta el envío?')">Envíos</button>
+            <button class="essei-chip" onclick="esseiSendChip('¿Tienen productos para piel seca?')">Piel seca</button>
+        </div>
+
+        <div class="essei-input-area">
+            <input type="text" class="essei-input" id="esseiInput" placeholder="Escríbeme algo…"
+                onkeydown="if(event.key==='Enter'){event.preventDefault();esseiSend()}"
+                autocomplete="off" autocorrect="off" spellcheck="false">
+            <button class="essei-send" id="esseiSendBtn" onclick="esseiSend()">
+                <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+        </div>
     </div>
 
-    <div class="essei-messages" id="esseiMessages"></div>
-
-    <div class="essei-suggestions" id="esseiSuggestions">
-        <button class="essei-chip" onclick="esseiSendChip('¿Qué jabón me recomiendas para piel grasa?')">Piel grasa</button>
-        <button class="essei-chip" onclick="esseiSendChip('¿Cuáles son sus perfumes?')">Perfumes</button>
-        <button class="essei-chip" onclick="esseiSendChip('¿Cuánto cuesta el envío?')">Envíos</button>
-        <button class="essei-chip" onclick="esseiSendChip('¿Tienen productos para piel seca?')">Piel seca</button>
-    </div>
-
-    <div class="essei-input-area">
-        <input type="text" class="essei-input" id="esseiInput" placeholder="Escríbeme algo…"
-            onkeydown="if(event.key==='Enter'){event.preventDefault();esseiSend()}"
-            autocomplete="off" autocorrect="off" spellcheck="false">
-        <button class="essei-send" id="esseiSendBtn" onclick="esseiSend()">
-            <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-        </button>
-    </div>
-</div>
 
     <!-- CART SIDEBAR -->
     <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
