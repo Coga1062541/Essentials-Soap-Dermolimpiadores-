@@ -1817,50 +1817,127 @@ body {
     margin-left: 0.2rem;
 }
 
-        /* ==========================================================================
-   ===== ESSEI CHAT WIDGET (REDISEÑO DE ALTO IMPACTO) =====
+        
+/* ==========================================================================
+   ===== ESSEI CHAT WIDGET (REDISEÑO DE ALTO IMPACTO - LAVA LÍQUIDA) =====
    ========================================================================== */
 .essei-bubble {
-    position: fixed; bottom: 2rem; right: 2rem; z-index: 4500;
-    width: 64px; height: 64px; border-radius: 50%;
-    background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+    position: fixed; 
+    bottom: 2rem; 
+    right: 2rem; 
+    z-index: 4500;
+    width: 64px; 
+    height: 64px; 
+    border-radius: 50%;
     box-shadow: 0 10px 35px rgba(0,0,0,0.25), inset 0 1px 1px rgba(255,255,255,0.2);
-    cursor: pointer; border: 1px solid rgba(255,255,255,0.1);
-    display: flex; align-items: center; justify-content: center;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
-    overflow: hidden;
+    cursor: pointer; 
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+    
+    /* CONTENEDOR DEL FLUIDO */
+    position: relative;
+    overflow: hidden; /* Mantiene la lava atrapada en la burbuja */
+    background: #121b0e; /* Base verde oscura de la tarjeta */
 }
+
+/* EFECTO HOVER: Sube la intensidad del brillo perimetral */
 .essei-bubble:hover { 
     transform: scale(1.08) translateY(-3px); 
-    box-shadow: 0 16px 45px rgba(122,139,110,0.35);
-    border-color: rgba(122,139,110,0.5);
-    background: linear-gradient(135deg, var(--olive) 0%, #4c5a43 100%);
+    box-shadow: 0 16px 45px rgba(184, 147, 83, 0.3);
+    border-color: rgba(184, 147, 83, 0.4);
 }
+
+/* LA CAPA LÍQUIDA INTERNA DE LA BURBUJA (MISMOS COLORES DE LA TARJETA) */
+.essei-bubble::before {
+    content: '';
+    position: absolute;
+    top: -55%;
+    left: -55%;
+    width: 210%;
+    height: 210%;
+    background: radial-gradient(circle at 30% 30%, rgba(184, 147, 83, 0.45) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(74, 99, 63, 0.7) 0%, transparent 60%),
+                radial-gradient(circle at 80% 20%, rgba(160, 122, 59, 0.4) 0%, transparent 45%),
+                radial-gradient(circle at 20% 80%, rgba(45, 59, 38, 0.9) 0%, transparent 55%);
+    animation: bubbleLiquidMesh 20s linear infinite; /* Movimiento continuo fluido */
+    transform-origin: center center;
+    z-index: 1;
+    filter: blur(6px);
+}
+
+/* CONTENEDOR DEL NUEVO AVATAR PERSONALIZADO */
 .essei-bubble-inner {
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+    position: relative;
+    z-index: 2; /* Flota sobre la lava */
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 2px;
+    width: 100%;
+    height: 100%;
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
 }
-.essei-bubble.open .essei-bubble-inner { transform: scale(0.6) rotate(45deg); opacity: 0; }
+.essei-bubble.open .essei-bubble-inner { 
+    transform: scale(0.6) rotate(45deg); 
+    opacity: 0; 
+}
+
+/* CLASE PARA TU NUEVA IMAGEN PERSONALIZADA (BURBUJA FLOTANTE) */
+.essei-bubble-avatar-img {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
 
 .essei-bubble-close {
-    position: absolute; opacity: 0; transform: rotate(-90deg) scale(0.6);
+    position: absolute; 
+    z-index: 3;
+    opacity: 0; 
+    transform: rotate(-90deg) scale(0.6);
     transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
-    color: white; font-size: 1.2rem;
+    color: white; 
+    font-size: 1.2rem;
 }
-.essei-bubble.open .essei-bubble-close { opacity: 1; transform: rotate(0deg) scale(1); }
-.essei-bubble-icon { font-size: 1.5rem; line-height: 1; }
+.essei-bubble.open .essei-bubble-close { 
+    opacity: 1; 
+    transform: rotate(0deg) scale(1); 
+}
+
+.essei-bubble-icon { 
+    font-size: 1.5rem; 
+    line-height: 1; 
+}
+
 .essei-bubble-label {
-    font-family: 'Inter', sans-serif; font-size: 0.45rem; font-weight: 700;
-    letter-spacing: 0.15em; color: rgba(255,255,255,0.6); text-transform: uppercase;
+    font-family: 'Inter', sans-serif; 
+    font-size: 0.45rem; 
+    font-weight: 700;
+    letter-spacing: 0.15em; 
+    color: rgba(255,255,255,0.7); 
+    text-transform: uppercase;
 }
-.essei-bubble:hover .essei-bubble-label { color: rgba(255,255,255,0.9); }
+.essei-bubble:hover .essei-bubble-label { 
+    color: #ffffff; 
+}
 
 /* Anillo de pulso sutil premium */
 .essei-bubble::after {
-    content: ''; position: absolute; inset: -2px; border-radius: 50%;
+    content: ''; 
+    position: absolute; 
+    inset: -2px; 
+    border-radius: 50%;
     border: 2px solid rgba(218,178,108,0.3);
     animation: esseiBubblePing 3s cubic-bezier(0.24, 0, 0.05, 1) infinite;
+    z-index: 0;
 }
+
 @keyframes esseiBubblePing {
     0%   { transform: scale(1); opacity: 0.8; }
     50%  { transform: scale(1.25); opacity: 0; }
@@ -1869,89 +1946,185 @@ body {
 
 /* Ventana de chat optimizada */
 .essei-window {
-    position: fixed; bottom: 6.8rem; right: 2rem; z-index: 4500;
-    width: 380px; max-width: calc(100vw - 4rem);
-    height: 580px; max-height: calc(100vh - 9rem);
+    position: fixed; 
+    bottom: 6.8rem; 
+    right: 2rem; 
+    z-index: 4500;
+    width: 380px; 
+    max-width: calc(100vw - 4rem);
+    height: 580px; 
+    max-height: calc(100vh - 9rem);
     background: rgba(15, 15, 15, 0.82);
-    backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+    backdrop-filter: blur(25px); 
+    -webkit-backdrop-filter: blur(25px);
     border-radius: 28px;
     box-shadow: 0 30px 90px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.12);
-    display: flex; flex-direction: column; overflow: hidden;
-    transform: scale(0.92) translate3d(0, 15px, 0); opacity: 0; pointer-events: none;
+    display: flex; 
+    flex-direction: column; 
+    overflow: hidden;
+    transform: scale(0.92) translate3d(0, 15px, 0); 
+    opacity: 0; 
+    pointer-events: none;
     transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
     transform-origin: bottom right;
     border: 1px solid rgba(255,255,255,0.08);
     -webkit-overflow-scrolling: touch;
 }
-.essei-window.open { transform: scale(1) translate3d(0, 0, 0); opacity: 1; pointer-events: all; }
+.essei-window.open { 
+    transform: scale(1) translate3d(0, 0, 0); 
+    opacity: 1; 
+    pointer-events: all; 
+}
 
 .essei-header {
     padding: 1.3rem 1.6rem;
     background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, transparent 100%);
     border-bottom: 1px solid rgba(255,255,255,0.06);
-    display: flex; align-items: center; gap: 1rem; flex-shrink: 0;
+    display: flex; 
+    align-items: center; 
+    gap: 1rem; 
+    flex-shrink: 0;
 }
+
+/* NUEVA INTEGRACIÓN PARA LA IMAGEN ADENTRO DEL HEADER DEL CHAT */
 .essei-avatar {
-    width: 42px; height: 42px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--olive), #4c5a43);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.15rem; flex-shrink: 0;
+    width: 42px; 
+    height: 42px; 
+    border-radius: 50%;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    flex-shrink: 0;
     box-shadow: 0 0 0 3px rgba(122,139,110,0.2);
+    overflow: hidden;
 }
-.essei-header-info { flex: 1; }
+
+.essei-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.essei-header-info { 
+    flex: 1; 
+}
+
 .essei-header-name {
-    font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 500;
-    color: var(--bone); letter-spacing: 0.01em;
+    font-family: 'Playfair Display', serif; 
+    font-size: 1.05rem; 
+    font-weight: 500;
+    color: var(--bone); 
+    letter-spacing: 0.01em;
 }
+
 .essei-header-status {
-    font-family: 'Inter', sans-serif; font-size: 0.68rem; color: rgba(255,255,255,0.4);
-    display: flex; align-items: center; gap: 0.4rem; margin-top: 0.15rem;
+    font-family: 'Inter', sans-serif; 
+    font-size: 0.68rem; 
+    color: rgba(255,255,255,0.4);
+    display: flex; 
+    align-items: center; 
+    gap: 0.4rem; 
+    margin-top: 0.15rem;
 }
+
 .essei-status-dot {
-    width: 6px; height: 6px; border-radius: 50%; background: #8fac80;
+    width: 6px; 
+    height: 6px; 
+    border-radius: 50%; 
+    background: #8fac80;
     box-shadow: 0 0 10px #8fac80;
     animation: esseiStatusPulse 2s ease-in-out infinite;
 }
+
 .essei-header-brand {
-    font-family: 'Cormorant Garamond', serif; font-size: 0.68rem;
-    color: rgba(218,178,108,0.7); letter-spacing: 0.22em; text-transform: uppercase;
-    font-style: italic; font-weight: 500;
+    font-family: 'Cormorant Garamond', serif; 
+    font-size: 0.68rem;
+    color: rgba(218,178,108,0.7); 
+    letter-spacing: 0.22em; 
+    text-transform: uppercase;
+    font-style: italic; 
+    font-weight: 500;
 }
 
 .essei-messages {
-    flex: 1; overflow-y: auto; padding: 1.4rem;
-    display: flex; flex-direction: column; gap: 0.9rem;
+    flex: 1; 
+    overflow-y: auto; 
+    padding: 1.4rem;
+    display: flex; 
+    flex-direction: column; 
+    gap: 0.9rem;
 }
 
-.essei-msg { display: flex; flex-direction: column; gap: 0.25rem; max-width: 82%; animation: esseiMsgIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
-@keyframes esseiMsgIn { from { opacity:0; transform:translate3d(0, 10px, 0); } to { opacity:1; transform:translate3d(0, 0, 0); } }
-.essei-msg.user { align-self: flex-end; align-items: flex-end; }
-.essei-msg.bot  { align-self: flex-start; align-items: flex-start; }
+.essei-msg { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 0.25rem; 
+    max-width: 82%; 
+    animation: esseiMsgIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; 
+}
+
+@keyframes esseiMsgIn { 
+    from { opacity:0; transform:translate3d(0, 10px, 0); } 
+    to { opacity:1; transform:translate3d(0, 0, 0); } 
+}
+
+.essei-msg.user { 
+    align-self: flex-end; 
+    align-items: flex-end; 
+}
+
+.essei-msg.bot { 
+    align-self: flex-start; 
+    align-items: flex-start; 
+}
 
 .essei-bubble-msg {
-    padding: 0.75rem 1.1rem; border-radius: 18px; line-height: 1.6;
-    font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 400;
+    padding: 0.75rem 1.1rem; 
+    border-radius: 18px; 
+    line-height: 1.6;
+    font-family: 'Inter', sans-serif; 
+    font-size: 0.82rem; 
+    font-weight: 400;
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 .essei-msg.user .essei-bubble-msg {
     background: linear-gradient(135deg, var(--olive) 0%, #516346 100%);
-    color: #fff; border-bottom-right-radius: 4px;
+    color: #fff; 
+    border-bottom-right-radius: 4px;
     border: 1px solid rgba(255,255,255,0.05);
 }
 .essei-msg.bot .essei-bubble-msg {
     background: rgba(255,255,255,0.06);
-    color: rgba(255,255,255,0.85); border-bottom-left-radius: 4px;
+    color: rgba(255,255,255,0.85); 
+    border-bottom-left-radius: 4px;
     border: 1px solid rgba(255,255,255,0.05);
 }
-.essei-msg-time { font-family: 'Inter', sans-serif; font-size: 0.6rem; color: rgba(255,255,255,0.2); padding: 0 0.4rem; }
+.essei-msg-time { 
+    font-family: 'Inter', sans-serif; 
+    font-size: 0.6rem; 
+    color: rgba(255,255,255,0.2); 
+    padding: 0 0.4rem; 
+}
 
 /* Chips / Sugerencias Inteligentes */
-.essei-suggestions { display: flex; gap: 0.5rem; flex-wrap: wrap; padding: 0 1.4rem 0.8rem; flex-shrink: 0; }
+.essei-suggestions { 
+    display: flex; 
+    gap: 0.5rem; 
+    flex-wrap: wrap; 
+    padding: 0 1.4rem 0.8rem; 
+    flex-shrink: 0; 
+}
 .essei-chip {
-    font-family: 'Inter', sans-serif; font-size: 0.68rem; font-weight: 500;
-    padding: 0.45rem 0.9rem; border-radius: 20px;
-    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-    color: rgba(255,255,255,0.55); cursor: pointer; white-space: nowrap;
+    font-family: 'Inter', sans-serif; 
+    font-size: 0.68rem; 
+    font-weight: 500;
+    padding: 0.45rem 0.9rem; 
+    border-radius: 20px;
+    background: rgba(255,255,255,0.04); 
+    border: 1px solid rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.55); 
+    cursor: pointer; 
+    white-space: nowrap;
     transition: all 0.25s ease;
 }
 .essei-chip:hover { 
@@ -1964,38 +2137,69 @@ body {
 .essei-input-area {
     padding: 1rem 1.4rem 1.4rem;
     border-top: 1px solid rgba(255,255,255,0.06);
-    background: rgba(0,0,0,0.15); flex-shrink: 0;
-    display: flex; gap: 0.75rem; align-items: flex-end;
+    background: rgba(0,0,0,0.15); 
+    flex-shrink: 0;
+    display: flex; 
+    gap: 0.75rem; 
+    align-items: flex-end;
 }
 .essei-input {
-    flex: 1; background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.08); border-radius: 14px;
-    padding: 0.75rem 1rem; outline: none;
-    font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 400;
-    color: rgba(255,255,255,0.9); line-height: 1.45;
+    flex: 1; 
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08); 
+    border-radius: 14px;
+    padding: 0.75rem 1rem; 
+    outline: none;
+    font-family: 'Inter', sans-serif; 
+    font-size: 15px; 
+    font-weight: 400;
+    color: rgba(255,255,255,0.9); 
+    line-height: 1.45;
     transition: border-color 0.25s ease, background 0.25s ease;
-    -webkit-appearance: none; appearance: none;
+    -webkit-appearance: none; 
+    appearance: none;
 }
-.essei-input::placeholder { color: rgba(255,255,255,0.2); }
-.essei-input:focus { border-color: rgba(122,139,110,0.4); background: rgba(255,255,255,0.08); }
+.essei-input::placeholder { 
+    color: rgba(255,255,255,0.2); 
+}
+.essei-input:focus { 
+    border-color: rgba(122,139,110,0.4); 
+    background: rgba(255,255,255,0.08); 
+}
 
 .essei-send {
-    width: 42px; height: 42px; border-radius: 12px; flex-shrink: 0;
+    width: 42px; 
+    height: 42px; 
+    border-radius: 12px; 
+    flex-shrink: 0;
     background: linear-gradient(135deg, var(--olive) 0%, #516346 100%);
-    border: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
+    border: none; 
+    cursor: pointer;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
-.essei-send:hover { transform: scale(1.05) translateY(-1px); box-shadow: 0 6px 20px rgba(122,139,110,0.4); }
-.essei-send:disabled { opacity: 0.3; cursor: not-allowed; transform: none; box-shadow: none; }
-.essei-send svg { width: 16px; height: 16px; stroke: white; fill: none; stroke-width: 2.2; }
-
-@media (max-width: 480px) {
-    .essei-window { right: 1rem; bottom: 5.5rem; width: calc(100vw - 2rem); max-width: calc(100vw - 2rem); }
-    .essei-bubble { bottom: 1.2rem; right: 1.2rem; width: 56px; height: 56px; }
+.essei-send:hover { 
+    transform: scale(1.05) translateY(-1px); 
+    box-shadow: 0 6px 20px rgba(122,139,110,0.4); 
 }
-        /* SECCION: ANUNCIO FLOTANTE IA */
+.essei-send:disabled { 
+    opacity: 0.3; 
+    cursor: not-allowed; 
+    transform: none; 
+    box-shadow: none; 
+}
+.essei-send svg { 
+    width: 16px; 
+    height: 16px; 
+    stroke: white; 
+    fill: none; 
+    stroke-width: 2.2; 
+}
+
+/* SECCION: ANUNCIO FLOTANTE IA */
 .essei-announcement {
     position: fixed;
     bottom: 6.8rem;
@@ -2012,19 +2216,18 @@ body {
     animation: esseiFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both, esseiFloat 4s ease-in-out infinite 0.8s;
 }
 
-/* COMPONENTE: FLECHA DECORATIVA */
 .essei-announcement::after {
     content: '';
     position: absolute;
     bottom: -8px;
     right: 24px;
-    width: 0; height: 0;
+    width: 0; 
+    height: 0;
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
     border-top: 8px solid rgba(15, 15, 15, 0.95);
 }
 
-/* COMPONENTE: ETIQUETA NUEVO */
 .essei-announce-tag {
     display: inline-block;
     font-family: 'Inter', sans-serif;
@@ -2039,7 +2242,6 @@ body {
     box-shadow: 0 2px 10px rgba(218, 178, 108, 0.3);
 }
 
-/* COMPONENTE: TEXTO E IA RESALTADA */
 .essei-announcement p {
     font-family: 'Inter', sans-serif;
     font-size: 0.78rem;
@@ -2053,7 +2255,6 @@ body {
     font-weight: 600;
 }
 
-/* COMPONENTE: BOTON CERRAR */
 .essei-announce-close {
     position: absolute;
     top: 0.6rem;
@@ -2066,12 +2267,19 @@ body {
     transition: color 0.2s ease;
     line-height: 1;
 }
-
 .essei-announce-close:hover {
     color: #fff;
 }
 
-/* SECCION: ANIMACIONES */
+/* REGLAS DE ANIMACIÓN ADICIONALES DE ESSEI */
+@keyframes bubbleLiquidMesh {
+    0% { transform: rotate(0deg) scale(1) skewX(0deg); }
+    25% { transform: rotate(90deg) scale(1.1) skewX(3deg); }
+    50% { transform: rotate(180deg) scale(1) skewX(0deg); }
+    75% { transform: rotate(270deg) scale(1.15) skewX(-3deg); }
+    100% { transform: rotate(360deg) scale(1) skewX(0deg); }
+}
+
 @keyframes esseiFadeInUp {
     from { opacity: 0; transform: translate3d(0, 20px, 0); }
     to { opacity: 1; transform: translate3d(0, 0, 0); }
@@ -2083,17 +2291,14 @@ body {
     100% { transform: translate3d(0, 0, 0); }
 }
 
-/* SECCION: RESPONSIVE MOVILES */
+/* RESPONSIVE MÓVILES COHESIVO */
 @media (max-width: 480px) {
-    .essei-announcement {
-        right: 1rem;
-        bottom: 5.5rem;
-        width: calc(100vw - 2rem);
-    }
-    .essei-announcement::after {
-        right: 18px;
-    }
+    .essei-window { right: 1rem; bottom: 5.5rem; width: calc(100vw - 2rem); max-width: calc(100vw - 2rem); }
+    .essei-bubble { bottom: 1.2rem; right: 1.2rem; width: 56px; height: 56px; }
+    .essei-announcement { right: 1rem; bottom: 5.5rem; width: calc(100vw - 2rem); }
+    .essei-announcement::after { right: 18px; }
 }
+
            
         /* ===== SCROLL REVEAL ===== */
         .reveal {
@@ -3175,47 +3380,52 @@ body {
     </footer>
       
     <!-- ESSEI CHAT WIDGET -->
-    <button class="essei-bubble" id="esseiBubble" onclick="toggleEssei()" aria-label="Abrir chat con Essei">
-        <div class="essei-bubble-inner">
-            <span class="essei-bubble-icon">✦</span>
-            <span class="essei-bubble-label">Essei</span>
-        </div>
-        <svg class="essei-bubble-close" viewBox="0 0 24 24" width="22" height="22" stroke="white" stroke-width="2.5" fill="none">
-            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
-    </button>
-
-    <div class="essei-window" id="esseiWindow">
-        <div class="essei-header">
-            <div class="essei-avatar">✦</div>
-            <div class="essei-header-info">
-                <div class="essei-header-name">Essei</div>
-                <div class="essei-header-status">
-                    <div class="essei-status-dot"></div>
-                    Asistente virtual · En línea
-                </div>
-            </div>
-            <div class="essei-header-brand">Essentials Soap</div>
-        </div>
-
-        <div class="essei-messages" id="esseiMessages"></div>
-
-        <div class="essei-suggestions" id="esseiSuggestions">
-            <button class="essei-chip" onclick="esseiSendChip('¿Qué jabón me recomiendas para piel grasa?')">Piel grasa</button>
-            <button class="essei-chip" onclick="esseiSendChip('¿Cuáles son sus perfumes?')">Perfumes</button>
-            <button class="essei-chip" onclick="esseiSendChip('¿Cuánto cuesta el envío?')">Envíos</button>
-            <button class="essei-chip" onclick="esseiSendChip('¿Tienen productos para piel seca?')">Piel seca</button>
-        </div>
-
-        <div class="essei-input-area">
-            <input type="text" class="essei-input" id="esseiInput" placeholder="Escríbeme algo…"
-                onkeydown="if(event.key==='Enter'){event.preventDefault();esseiSend()}"
-                autocomplete="off" autocorrect="off" spellcheck="false">
-            <button class="essei-send" id="esseiSendBtn" onclick="esseiSend()">
-                <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-            </button>
-        </div>
+<div class="essei-bubble" id="esseiBubble" onclick="toggleEssei()" aria-label="Abrir chat con Essei" role="button" tabIndex="0">
+    <div class="essei-bubble-inner">
+        <!-- REEMPLAZO: Imagen de avatar en la burbuja flotante -->
+        <img src="img/essei-avatar.png" class="essei-bubble-avatar-img" alt="Essei">
+        <span class="essei-bubble-label">Essei</span>
     </div>
+    <svg class="essei-bubble-close" viewBox="0 0 24 24" width="22" height="22" stroke="white" stroke-width="2.5" fill="none">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+    </svg>
+</div>
+
+<div class="essei-window" id="esseiWindow">
+    <div class="essei-header">
+        <!-- REEMPLAZO: Contenedor con la imagen dentro del header del chat -->
+        <div class="essei-avatar">
+            <img src="img/essei-avatar.png" class="essei-avatar-img" alt="Essei Avatar">
+        </div>
+        <div class="essei-header-info">
+            <div class="essei-header-name">Essei</div>
+            <div class="essei-header-status">
+                <div class="essei-status-dot"></div>
+                Asistente virtual · En línea
+            </div>
+        </div>
+        <div class="essei-header-brand">Essentials Soap</div>
+    </div>
+
+    <div class="essei-messages" id="esseiMessages"></div>
+
+    <div class="essei-suggestions" id="esseiSuggestions">
+        <button class="essei-chip" onclick="esseiSendChip('¿Qué jabón me recomiendas para piel grasa?')">Piel grasa</button>
+        <button class="essei-chip" onclick="esseiSendChip('¿Cuáles son sus perfumes?')">Perfumes</button>
+        <button class="essei-chip" onclick="esseiSendChip('¿Cuánto cuesta el envío?')">Envíos</button>
+        <button class="essei-chip" onclick="esseiSendChip('¿Tienen productos para piel seca?')">Piel seca</button>
+    </div>
+
+    <div class="essei-input-area">
+        <input type="text" class="essei-input" id="esseiInput" placeholder="Escríbeme algo…"
+            onkeydown="if(event.key==='Enter'){event.preventDefault();esseiSend()}"
+            autocomplete="off" autocorrect="off" spellcheck="false">
+        <button class="essei-send" id="esseiSendBtn" onclick="esseiSend()">
+            <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+    </div>
+</div>
+
     <!-- CART SIDEBAR -->
     <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
     <div class="cart-sidebar" id="cartSidebar">
