@@ -470,7 +470,22 @@ z-index: 1;
 /* IMPORTANTE: Esto asegura que todo el contenido (texto, botón, icono) 
    se quede flotando por encima del degradado y no pierda nitidez */
 .ai-card > * {
-.ai-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 30%, rgba(184, 147, 83, 0.38) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(74, 99, 63, 0.65) 0%, transparent 60%),
+                radial-gradient(circle at 80% 20%, rgba(160, 122, 59, 0.3) 0%, transparent 45%),
+                radial-gradient(circle at 20% 80%, rgba(45, 59, 38, 0.85) 0%, transparent 55%);
+    animation: liquidMesh 40s linear infinite;
+    transform-origin: center center;
+    z-index: 0; /* CAMBIADO: De -1 a 0 para mejor control interno */
+    filter: blur(8px);
+}
+
     content: '';
     position: absolute;
     top: -50%;
