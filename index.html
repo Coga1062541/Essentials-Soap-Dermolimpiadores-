@@ -1821,26 +1821,34 @@ body {
    ===== ESSEI CHAT WIDGET (REDISEÑO UNIFICADO - CORREGIDO) =====
    ========================================================================== */
 .essei-bubble {
-    position: fixed; 
-    bottom: 2rem; 
-    right: 2rem; 
-    z-index: 4500;
-    width: 64px; 
-    height: 64px; 
-    border-radius: 50%;
-    box-shadow: 0 10px 35px rgba(0,0,0,0.35), inset 0 1px 1px rgba(255,255,255,0.2);
-    cursor: pointer; 
-    border: 1px solid rgba(255,255,255,0.1);
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+    /* POSICIONAMIENTO */
+    position: fixed !important; 
+    bottom: 2rem !important; 
+    right: 2rem !important; 
+    z-index: 4500 !important;
     
-    position: relative;
-    overflow: hidden;
-    background: #121b0e; /* Base oscura verde oliva */
-}
-
+    /* DIMENSIONES */
+    width: 64px !important; 
+    height: 64px !important; 
+    border-radius: 50% !important;
+    
+    /* RESET DE ESTILOS NATIVOS DE BOTÓN */
+    padding: 0 !important;
+    margin: 0 !important;
+    outline: none !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    background: #121b0e !important; /* Base verde de la marca */
+    cursor: pointer !important;
+    
+    /* FLEXBOX FORZADO */
+    display: flex !important; 
+    align-items: center !important; 
+    justify-content: center !important;
+    
+    /* EFECTOS */
+    overflow: hidden !important;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.35), inset 0 1px 1px rgba(255,255,255,0.2) !important;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease !important;
 .essei-bubble:hover { 
     transform: scale(1.08) translateY(-3px); 
     box-shadow: 0 16px 45px rgba(218, 178, 108, 0.35);
@@ -3166,21 +3174,19 @@ body {
         </div>
     </footer>
       
-    <!-- ESSEI CHAT WIDGET -->
-<div class="essei-bubble" id="esseiBubble" onclick="toggleEssei()" aria-label="Abrir chat con Essei" role="button" tabIndex="0">
+<!-- ESSEI CHAT WIDGET -->
+<button class="essei-bubble" id="esseiBubble" onclick="toggleEssei()" aria-label="Abrir chat con Essei">
     <div class="essei-bubble-inner">
-        <!-- Icono llamativo puro sin imágenes -->
         <span class="essei-bubble-icon">✦</span>
         <span class="essei-bubble-label">Essei</span>
     </div>
     <svg class="essei-bubble-close" viewBox="0 0 24 24" width="22" height="22" stroke="white" stroke-width="2.5" fill="none">
         <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
     </svg>
-</div>
+</button>
 
 <div class="essei-window" id="esseiWindow">
     <div class="essei-header">
-        <!-- El avatar interno también usa el icono limpio -->
         <div class="essei-avatar">✦</div>
         <div class="essei-header-info">
             <div class="essei-header-name">Essei</div>
