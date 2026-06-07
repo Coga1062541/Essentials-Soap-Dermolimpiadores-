@@ -2212,6 +2212,20 @@ body {
     color: #ffffff;
     box-shadow: 0 4px 10px rgba(204, 164, 59, 0.2);
         }
+        /* ===== MICRO-ANIMACIÓN DE BURBUJAS AL CARRITO ===== */
+.soap-bubble {
+    position: fixed;
+    z-index: 99999;
+    pointer-events: none; /* No interfiere con los clicks rápidos del cliente */
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.1) 70%, rgba(220, 235, 255, 0.45));
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    box-shadow: inset -2px -2px 6px rgba(0, 0, 0, 0.04), 0 3px 6px rgba(0, 0, 0, 0.06);
+    transition: transform var(--dur, 0.8s) cubic-bezier(0.25, 1, 0.5, 1), opacity var(--dur, 0.8s) ease-in;
+    transform: translate3d(0, 0, 0) scale(1);
+    will-change: transform, opacity;
+}
+
 </style>
 </head>
 <body>
@@ -2548,8 +2562,8 @@ body {
                            <div class="qty-control" id="qtyCtrl-carbon">
                             <button class="qty-btn-inline" onclick="event.stopPropagation(); cardQty('carbon', -1)" id="qtyMinus-carbon" disabled title="Quitar">−</button>
                             <span class="qty-display" id="qtyNum-carbon">0</span>
-                            <button class="qty-btn-inline" onclick="event.stopPropagation(); cardQty('carbon', 1)" id="qtyPlus-carbon" title="Agregar">+</button>
-                         </div>
+                            <button class="qty-btn-inline" onclick="event.stopPropagation(); cardQty('carbon', 1); launchBubbleAnimation(this)" id="qtyPlus-carbon" title="Agregar">+</button>
+                           </div>
                     </div>
                 </div>
             </div>
@@ -4004,6 +4018,62 @@ function toggleCart() {
             if (!isOpen) item.classList.add('is-open');
         });
     });
+        // ===== ANIMACIÓN DE BURBUJAS DESDE EL BOTÓN AL CARRITO =====
+function launchBubbleAnimation(buttonElement) {
+    if (!buttonElement) return;
+
+    // Busca el contador en tu navbar como destino final de las burbujas
+    const cartIcon = document.getElementById('cartCount') || document.querySelector('.cart-count-nav');
+    if (!cartIcon) return;
+
+    const startRect = buttonElement.getBoundingClientRect();
+    const endRect   = cartIcon.getBoundingClientRect();
+
+    const startX = startRect.left + startRect.width / 2;
+    const startY = startRect.top + startRect.height / 2;
+    const endX = endRect.left + endRect.width / 2;
+    const endY = endRect.top + endRect.height / 2;
+
+    const bubbleCount = 4; // Cantidad ideal de pompas por click
+
+    for (let i = 0; i < bubbleCount; i++) {
+        const bubble = document.createElement('div');
+        bubble.className = 'soap-bubble';
+
+        // Tamaños orgánicos (entre 8px y 18px)
+        const size = Math.floor(Math.random() * 10) + 8;
+        bubble.style.width = `${size}px`;
+        bubble.style.height = `${size}px`;
+        bubble.style.left = `${startX - size / 2}px`;
+        bubble.style.top = `${startY - size / 2}px`;
+
+        // Tiempos de viaje desfasados para realismo físico
+        const duration = (0.6 + Math.random() * 0.3).toFixed(2);
+        bubble.style.setProperty('--dur', `${duration}s`);
+
+        document.body.appendChild(bubble);
+
+        // Forzar reflow rápido para inicializar animación
+        bubble.getBoundingClientRect();
+
+        // Efecto "splash" (se dispersan un poco al salir)
+        const scatterX = (Math.random() * 30 - 15);
+        const scatterY = (Math.random() * 30 - 15);
+        
+        const deltaX = endX - startX + scatterX;
+        const deltaY = endY - startY + scatterY;
+
+        // Viajan al carrito encogiéndose
+        bubble.style.transform = `translate3d(${deltaX}px, ${deltaY}px, 0) scale(0.15)`;
+        bubble.style.opacity = '0';
+
+        // Recolector de basura (Elimina el HTML creado para cuidar la RAM)
+        setTimeout(() => {
+            bubble.remove();
+        }, duration * 1000);
+    }
+}
+
                         // ===== ESSEI CHAT WIDGET =====
     const ESSEI_SYSTEM = `Eres "Essei", la asistente virtual oficial de Essentials Soap (essentials-soap.vercel.app), una marca mexicana premium de jabones naturales artesanales y fragancias de lujo inspiradas en marcas icónicas, con sede en Guadalajara, Jalisco.
 
