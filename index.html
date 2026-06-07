@@ -3552,7 +3552,7 @@ body {
                 }
             }
         };
-        /* ==========================================================================
+            /* ==========================================================================
    ===== CARD QTY CONTROLS & ANIMATIONS =====
    ========================================================================== */
 const MAX_QTY = 10;
@@ -3666,10 +3666,11 @@ function triggerCartBounce() {
     }
 }
 
-Function updateCartUI() {
+function updateCartUI() {
     const count = Object.values(cart).reduce((sum, item) => sum + item.qty, 0);
     const countEl = document.getElementById('cartCount');
     if (countEl) countEl.textContent = count;
+    
     const itemsContainer = document.getElementById('cartItems');
     const footer = document.getElementById('cartFooter');
     if (!itemsContainer) return;
@@ -3939,6 +3940,7 @@ function toggleCart() {
                 navCenter.style.gap = '2rem';
             }
         }
+        
         // ===== SPLASH SCREEN =====
         (function() {
             const splash = document.getElementById('splash');
