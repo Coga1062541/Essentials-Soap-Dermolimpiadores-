@@ -2212,20 +2212,21 @@ body {
     color: #ffffff;
     box-shadow: 0 4px 10px rgba(204, 164, 59, 0.2);
         }
-        /* ===== MICRO-ANIMACIÓN DE BURBUJAS AL CARRITO ===== */
+        /* ===== MICRO-ANIMACIÓN DE BURBUJAS MEJORADA (MÁS VISIBLE) ===== */
 .soap-bubble {
     position: fixed;
     z-index: 99999;
-    pointer-events: none; /* No interfiere con los clicks rápidos del cliente */
-    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.1) 70%, rgba(220, 235, 255, 0.45));
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    pointer-events: none;
+    /* Un degradado con más brillo blanco para que resalte en fondos oscuros o con lava */
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(240, 245, 255, 0.4) 60%, rgba(180, 210, 255, 0.6));
+    border: 1px solid rgba(255, 255, 255, 0.7);
     border-radius: 50%;
-    box-shadow: inset -2px -2px 6px rgba(0, 0, 0, 0.04), 0 3px 6px rgba(0, 0, 0, 0.06);
-    transition: transform var(--dur, 0.8s) cubic-bezier(0.25, 1, 0.5, 1), opacity var(--dur, 0.8s) ease-in;
-    transform: translate3d(0, 0, 0) scale(1);
+    /* Un sombreado sutil que las hace resaltar sobre cualquier color de tarjeta */
+    box-shadow: inset -1px -1px 4px rgba(0, 0, 0, 0.1), 0 0 8px rgba(255, 255, 255, 0.5);
+    transition: transform var(--dur, 0.8s) cubic-bezier(0.1, 0.8, 0.3, 1), opacity var(--dur, 0.8s) ease-in;
+    transform: translate3d(0, -15px, 0) scale(1); /* Inicia 15px más arriba para que no la tape el cursor/dedo */
     will-change: transform, opacity;
 }
-
 </style>
 </head>
 <body>
