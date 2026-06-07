@@ -2211,6 +2211,18 @@ body {
     background: #cca43b;
     color: #ffffff;
     box-shadow: 0 4px 10px rgba(204, 164, 59, 0.2);
+        }
+        /* ===== MICRO-ANIMACIÓN DE BURBUJAS DISPARADAS ===== */
+.soap-bubble {
+    position: fixed;
+    z-index: 9999;
+    pointer-events: none; /* Evita interferir con los clicks del usuario */
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.1) 70%, rgba(220, 235, 255, 0.4));
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    box-shadow: inset -2px -2px 6px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform var(--dur, 0.8s) cubic-bezier(0.25, 1, 0.5, 1), opacity var(--dur, 0.8s) ease-in;
+    transform: translate3d(0, 0, 0) scale(1);
 }
 </style>
 </head>
@@ -3670,7 +3682,17 @@ function updateCartUI() {
     const count = Object.values(cart).reduce((sum, item) => sum + item.qty, 0);
     const countEl = document.getElementById('cartCount');
     if (countEl) countEl.textContent = count;
-    
+
+    // >>> NUEVO: Detecta el botón exacto que clickeó el usuario y lanza las burbujas
+    if (window.event && window.event.target) {
+        // Busca si el click vino de un botón o elemento de "añadir"
+        const clickedElement = window.event.target.closest('button') || window.event.target;
+        // Evitamos que se dispare al cargar la página inicialmente
+        if (window.event.type === 'click') {
+            launchBubbleAnimation(clickedElement);
+        }
+    }
+}
     const itemsContainer = document.getElementById('cartItems');
     const footer = document.getElementById('cartFooter');
     if (!itemsContainer) return;
@@ -3940,7 +3962,62 @@ function toggleCart() {
                 navCenter.style.gap = '2rem';
             }
         }
+        // ===== ANIMACIÓN TEMÁTICA DE BURBUJAS AL CARRITO =====
+function launchBubbleAnimation(buttonElement) {
+    // Busca el botón flotante del carrito o el sidebar para saber a dónde viajar
+    const cartIcon = document.getElementById('cartSidebar') || document.querySelector('.cart-icon-header');
+    if (!cartIcon) return;
+
+    // Coordenadas del botón clickeado y del carrito destino
+    const startRect = buttonElement.getBoundingClientRect();
+    const endRect   = cartIcon.getBoundingClientRect();
+
+    const startX = startRect.left + startRect.width / 2;
+    const startY = startRect.top + startRect.height / 2;
+    const endX = endRect.left + endRect.width / 2;
+    const endY = endRect.top + endRect.height / 2;
+
+    const bubbleCount = 4; // Cantidad de burbujitas por click
+
+    for (let i = 0; i < bubbleCount; i++) {
+        const bubble = document.createElement('div');
+        bubble.className = 'soap-bubble';
+
+        // Tamaños aleatorios y sutiles (entre 8px y 18px)
+        const size = Math.floor(Math.random() * 10) + 8;
+        bubble.style.width = `${size}px`;
+        bubble.style.height = `${size}px`;
+
+        // Posición inicial centrada en el botón
+        bubble.style.left = `${startX - size / 2}px`;
+        bubble.style.top = `${startY - size / 2}px`;
+
+        // Duraciones ligeramente variadas para un efecto más fluido y natural
+        const duration = (0.6 + Math.random() * 0.3).toFixed(2);
+        bubble.style.setProperty('--dur', `${duration}s`);
+
+        document.body.appendChild(bubble);
+
+        // Forzar reflow rápido para inicializar posición en el navegador
+        bubble.getBoundingClientRect();
+
+        // Efecto de dispersión aleatoria para que no viajen en una línea rígida
+        const scatterX = (Math.random() * 30 - 15);
+        const scatterY = (Math.random() * 30 - 15);
         
+        const deltaX = endX - startX + scatterX;
+        const deltaY = endY - startY + scatterY;
+
+        // Movimiento optimizado por hardware (transform)
+        bubble.style.transform = `translate3d(${deltaX}px, ${deltaY}px, 0) scale(0.1)`;
+        bubble.style.opacity = '0';
+
+        // Eliminación del elemento inmediatamente al terminar para no saturar la memoria
+        setTimeout(() => {
+            bubble.remove();
+        }, duration * 1000);
+    }
+}
         // ===== SPLASH SCREEN =====
         (function() {
             const splash = document.getElementById('splash');
