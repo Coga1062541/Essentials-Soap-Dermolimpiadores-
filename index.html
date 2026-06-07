@@ -264,29 +264,42 @@ body {
             cursor: pointer;
             overflow: hidden;
             opacity: 0; transform: translateY(14px);
-            animation: splashUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.95s forwards;
-            transition: transform 0.3s cubic-bezier(0.16,1,0.3,1),
-                        box-shadow 0.3s ease,
-                        background 0.3s ease;
+            
+            /* TRUCO: Ejecuta splashUp para entrar, y luego arranca de fondo splashPulse de forma infinita */
+            animation: splashUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.95s forwards,
+                       splashPulse 3s ease-in-out infinite 1.75s; /* Empieza exactamente cuando termina de entrar */
+            
+            transition: transform 0.4s cubic-bezier(0.16,1,0.3,1),
+                        box-shadow 0.4s ease,
+                        background 0.4s ease;
             box-shadow: 0 6px 28px rgba(26,22,14,0.22), 0 2px 8px rgba(26,22,14,0.14);
+            will-change: transform, box-shadow;
         }
         .splash-btn::before {
             content: '';
             position: absolute; top: 0; left: -120%;
             width: 80%; height: 100%;
-            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
             transform: skewX(-15deg);
             transition: left 0.5s ease;
         }
-        .splash-btn:hover { transform: translateY(-3px); box-shadow: 0 16px 44px rgba(26,22,14,0.26); background: #2e2618; }
+        
+        .splash-btn:hover { 
+            animation-play-state: paused; /* Pausa la pulsación para que no tiemble el hover */
+            transform: scale(1.05) translateY(-3px); /* Se agranda un 5% y sube sutilmente */
+            box-shadow: 0 16px 44px rgba(26,22,14,0.35), 0 0 20px rgba(255, 254, 250, 0.1); 
+            background: #2e2618; 
+        }
         .splash-btn:hover::before { left: 140%; }
-        .splash-btn:active { transform: translateY(-1px); }
+        
+        /* Ajuste fino al dar click */
+        .splash-btn:active { transform: scale(0.98) translateY(-1px); }
 
         .splash-btn-arrow {
             display: inline-block; margin-left: 0.7rem;
             transition: transform 0.25s ease;
         }
-        .splash-btn:hover .splash-btn-arrow { transform: translateX(4px); }
+        .splash-btn:hover .splash-btn-arrow { transform: translateX(6px); }
 
         /* Bottom micro-text */
         .splash-micro {
@@ -305,9 +318,24 @@ body {
         }
         @keyframes microPulse { 0%,100%{opacity:0.3} 50%{opacity:0.75} }
 
+        /* ===== ANIMACIONES OPTIMIZADAS ===== */
         @keyframes splashUp {
             to { opacity: 1; transform: translateY(0); }
         }
+        
+        /* Animación de respiración orgánica infinita */
+        @keyframes splashPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 6px 28px rgba(26,22,14,0.22), 0 2px 8px rgba(26,22,14,0.14);
+            }
+            50% {
+                transform: scale(1.025); /* Crece un sutil 2.5% */
+                /* Incrementa suavemente la sombra para simular que flota */
+                box-shadow: 0 10px 35px rgba(26,22,14,0.28), 0 4px 12px rgba(26,22,14,0.18);
+            }
+        }
+
         @keyframes particleDrift {
             0%   { transform: translateY(110vh); opacity: 0; }
             5%   { opacity: 0.8; }
