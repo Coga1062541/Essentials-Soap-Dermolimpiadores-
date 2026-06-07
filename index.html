@@ -3678,19 +3678,14 @@ function triggerCartBounce() {
     }
 }
 
-function updateCartUI() {
+function updateCartUI(clickedElement = null) {
     const count = Object.values(cart).reduce((sum, item) => sum + item.qty, 0);
     const countEl = document.getElementById('cartCount');
     if (countEl) countEl.textContent = count;
 
-    // >>> NUEVO: Detecta el botón exacto que clickeó el usuario y lanza las burbujas
-    if (window.event && window.event.target) {
-        // Busca si el click vino de un botón o elemento de "añadir"
-        const clickedElement = window.event.target.closest('button') || window.event.target;
-        // Evitamos que se dispare al cargar la página inicialmente
-        if (window.event.type === 'click') {
-            launchBubbleAnimation(clickedElement);
-        }
+    // Si el usuario envió el elemento que causó el click, disparamos las burbujas
+    if (clickedElement) {
+        launchBubbleAnimation(clickedElement);
     }
 }
     const itemsContainer = document.getElementById('cartItems');
