@@ -4240,7 +4240,7 @@ function toggleEssei() {
     if (esseiOpen) setTimeout(() => document.getElementById('esseiInput').focus(), 450);
 }
 
-// NUEVA VERSIÓN: Procesador avanzado de formato (Viñetas, Negritas, Emojis y Espacios)
+// VERSIÓN DEFINITIVA: Flujo continuo carácter por carácter sin romper HTML ni cortar texto
 function esseiAddMsg(role, text) {
     const container = document.getElementById('esseiMessages');
     const wrap = document.createElement('div');
@@ -4257,57 +4257,54 @@ function esseiAddMsg(role, text) {
     wrap.appendChild(time);
     container.appendChild(wrap);
 
-    // --- PROCESADOR DE TEXTO PREMIUM ---
+    // 1. Formateo de Markdown a HTML puro
     let formattedText = text;
-
     if (role === 'bot') {
-        // 1. Convertir guiones o asteriscos de lista en viñetas físicas con salto de línea
-        // Esto detecta si una línea empieza con "- " o "* " y le pone un puntito estético
+        // Convierte guiones iniciales de lista en viñetas físicas
         formattedText = formattedText.replace(/^(?:\s*[-*]\s+)(.+)$/gm, '• $1');
-
-        // 2. Procesar formato de negritas (**texto**)
-        formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-
-        // 3. Procesar saltos de línea (respetando dobles saltos para párrafos amplios)
-        formattedText = formattedText.replace(/\n/g, '<br>');
-    } else {
-        formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
     }
+    // Convierte **texto** en negritas y los saltos de línea en <br>
+    formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    formattedText = formattedText.replace(/\n/g, '<br>');
 
     if (role === 'user') {
         bubble.innerHTML = formattedText;
         container.scrollTop = container.scrollHeight;
         document.getElementById('esseiSuggestions').style.display = 'none';
     } else {
-        // Separador inteligente: corta por palabras, etiquetas HTML completos y emojis sin romperlos
-        const tokens = formattedText.split(/(\s+|<br>|<strong>.*?<\/strong>|[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F900}-\u{1F9FF}\u{1FE00}-\u{1FEFF}])/gu);
-        let tokenIndex = 0;
-        const wordDelay = 25; // Flujo rápido y continuo
+        let currentHTML = '';
+        let i = 0;
+        const charDelay = 8; // Velocidad fluida por carácter (puedes bajarlo a 5 si lo quieres más rápido)
 
-        function renderFlow() {
-            if (tokenIndex < tokens.length) {
-                const token = tokens[tokenIndex];
-                
-                if (token !== undefined && token !== null) {
-                    if (token === '<br>') {
-                        bubble.appendChild(document.createElement('br'));
-                    } else if (token.trim() !== '') {
-                        const span = document.createElement('span');
-                        span.className = 'essei-word-flow';
-                        span.innerHTML = token;
-                        bubble.appendChild(span);
+        function typeFlow() {
+            if (i < formattedText.length) {
+                // TRUCO MAESTRO: Si encuentra el inicio de una etiqueta HTML (<strong... o <br>)
+                if (formattedText.charAt(i) === '<') {
+                    const closingBracket = formattedText.indexOf('>', i);
+                    if (closingBracket !== -1) {
+                        // Inyecta la etiqueta completa de golpe en el HTML acumulado para no romper el renderizado
+                        currentHTML += formattedText.substring(i, closingBracket + 1);
+                        i = closingBracket + 1;
                     } else {
-                        // Mantiene los espacios en blanco exactos entre palabras
-                        bubble.appendChild(document.createTextNode(token));
+                        currentHTML += formattedText.charAt(i);
+                        i++;
                     }
+                } else {
+                    // Si es texto normal o emoji, lo suma carácter por carácter
+                    currentHTML += formattedText.charAt(i);
+                    i++;
                 }
-
-                tokenIndex++;
+                
+                // Actualiza el contenedor con el código HTML seguro acumulado
+                bubble.innerHTML = currentHTML;
                 container.scrollTop = container.scrollHeight;
-                setTimeout(renderFlow, wordDelay);
+                
+                // Llama al siguiente carácter
+                setTimeout(typeFlow, charDelay);
             }
         }
-        renderFlow();
+        // Arranca el flujo continuo
+        typeFlow();
     }
 }
 // 1. FUNCIÓN PARA MOSTRAR LAS BURBUJAS DE "ESCRIBIENDO..."
