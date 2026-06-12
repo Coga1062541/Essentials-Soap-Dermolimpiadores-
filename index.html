@@ -2255,23 +2255,29 @@ body {
     transform: translate3d(0, -15px, 0) scale(1); /* Inicia 15px más arriba para que no la tape el cursor/dedo */
     will-change: transform, opacity;
 }
-        /* ===== ANIMACIÓN DE DESVANECIMIENTO PARA LOS MENSAJES DE LA IA ===== */
+        /* ===== EFECTO PRESTIGIO: APARICIÓN SUAVE Y SEGUIDA ===== */
 .essei-fade-in {
-    animation: esseiMessageReveal 0.35s ease-out forwards;
+    animation: esseiRevealPremium 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     opacity: 0;
+    filter: blur(8px); /* Empieza completamente borroso */
+    will-change: transform, opacity, filter;
 }
 
-@keyframes esseiMessageReveal {
-    from {
+@keyframes esseiRevealPremium {
+    0% {
         opacity: 0;
-        transform: translateY(4px); /* Sube sutilmente al aparecer */
+        filter: blur(6px);
+        transform: translateY(12px) scale(0.98); /* Viene un poquito más abajo y chico */
     }
-    to {
+    30% {
+        opacity: 0.5;
+    }
+    100% {
         opacity: 1;
-        transform: translateY(0);
+        filter: blur(0px); /* Se aclara por completo */
+        transform: translateY(0) scale(1); /* Llega a su posición original */
     }
 }
-
 </style>
 </head>
 <body>
