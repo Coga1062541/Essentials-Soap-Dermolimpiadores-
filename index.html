@@ -2255,6 +2255,23 @@ body {
     transform: translate3d(0, -15px, 0) scale(1); /* Inicia 15px más arriba para que no la tape el cursor/dedo */
     will-change: transform, opacity;
 }
+        /* ===== ANIMACIÓN DE DESVANECIMIENTO PARA LOS MENSAJES DE LA IA ===== */
+.essei-fade-in {
+    animation: esseiMessageReveal 0.35s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes esseiMessageReveal {
+    from {
+        opacity: 0;
+        transform: translateY(4px); /* Sube sutilmente al aparecer */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 </style>
 </head>
 <body>
@@ -4157,23 +4174,28 @@ function toggleEssei() {
     if (esseiOpen) setTimeout(() => document.getElementById('esseiInput').focus(), 450);
 }
 
-// NUEVA VERSIÓN: Con efecto máquina de escribir integrado sin romper el Markdown
-function esseiAddMsg(role, text) {
-    const container = document.getElementById('esseiMessages');
-    const wrap = document.createElement('div');
-    wrap.className = `essei-msg ${role}`;
-    const bubble = document.createElement('div');
-    bubble.className = 'essei-bubble-msg';
-    
-    const time = document.createElement('div');
-    time.className = 'essei-msg-time';
-    const now = new Date();
-    time.textContent = `${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`;
-    
-    wrap.appendChild(bubble);
-    wrap.appendChild(time);
-    container.appendChild(wrap);
+// ===== RESPUESTA INMEDIATA DE LA IA CON FADE-IN =====
+function esseiAppendMessage(sender, text) {
+    const chatBody = document.getElementById('esseiBody');
+    if (!chatBody) return;
 
+    const messageDiv = document.createElement('div');
+    // Mantenemos tus clases de diseño originales (ejemplo: 'essei-msg-bot' o 'essei-msg-user')
+    messageDiv.className = `essei-message essei-msg-${sender}`;
+    
+    if (sender === 'bot') {
+        // Le aplicamos la nueva clase de desvanecimiento suave a la respuesta de la IA
+        messageDiv.classList.add('essei-fade-in');
+        messageDiv.innerHTML = text; // Inserta todo el texto/HTML completo de golpe
+    } else {
+        messageDiv.textContent = text;
+    }
+
+    chatBody.appendChild(messageDiv);
+    
+    // Auto-scroll al fondo de forma fluida
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
     // Procesar formato básico primero (**bold** y saltos de línea)
     const formattedText = text
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
