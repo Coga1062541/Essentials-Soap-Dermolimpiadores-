@@ -4242,45 +4242,15 @@ function toggleEssei() {
 }
 
 // VERSIÓN DEFINITIVA: Flujo continuo carácter por carácter sin romper HTML ni cortar texto
-function esseiAddMsg(role, text) {
+
+    // Limpieza de eventos después de un momento para no saturar la memoria
+    function esseiAddMsg(role, text) {
     const container = document.getElementById('esseiMessages');
     const wrap = document.createElement('div');
     wrap.className = `essei-msg ${role}`;
     const bubble = document.createElement('div');
     bubble.className = 'essei-bubble-msg';
     
-    // Formateo inicial
-    let formattedText = text;
-    if (role === 'bot') {
-        formattedText = formattedText.replace(/^(?:\s*[-*]\s+)(.+)$/gm, '• $1');
-    }
-    formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    formattedText = formattedText.replace(/\n/g, '<br>');
-
-    // Variable para controlar si el usuario tomó el control del scroll
-    let userScrolledUp = false;
-
-    // Escuchamos si el usuario hace scroll hacia arriba o toca la pantalla
-    const handleUserScroll = () => {
-        // Si la distancia al fondo es mayor a 40px, significa que el usuario subió manualmente
-        if (container.scrollHeight - container.scrollTop - container.clientHeight > 40) {
-            userScrolledUp = true;
-        }
-    };
-
-    // Detectar scroll en mouse, trackpad o pantallas táctiles
-    container.addEventListener('scroll', handleUserScroll);
-    container.addEventListener('touchstart', () => userScrolledUp = true);
-    container.addEventListener('wheel', handleUserScroll);
-
-    if (role === 'user') {
-        bubble.innerHTML = formattedText;
-    } else {
-        bubble.innerHTML = formattedText;
-        bubble.classList.add('essei-typing-active'); 
-    }
-
-    // Agregar fecha y limpiar
     const time = document.createElement('div');
     time.className = 'essei-msg-time';
     const now = new Date();
@@ -4290,18 +4260,75 @@ function esseiAddMsg(role, text) {
     wrap.appendChild(time);
     container.appendChild(wrap);
 
-    // CONTROL DE SCROLL INTELIGENTE:
-    // Solo baja automáticamente si el usuario NO ha decidido subir a leer otra cosa
-    if (!userScrolledUp) {
-        container.scrollTop = container.scrollHeight;
+    // 1. Formateo de Markdown a HTML puro
+    let formattedText = text;
+    if (role === 'bot') {
+        formattedText = formattedText.replace(/^(?:\s*[-*]\s+)(.+)$/gm, '• $1');
     }
+    formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    formattedText = formattedText.replace(/\n/g, '<br>');
 
-    // Limpieza de eventos después de un momento para no saturar la memoria
-    setTimeout(() => {
-        container.removeEventListener('scroll', handleUserScroll);
-        container.removeEventListener('wheel', handleUserScroll);
-    }, 2000);
+    if (role === 'user') {
+        bubble.innerHTML = formattedText;
+        container.scrollTop = container.scrollHeight;
+        document.getElementById('esseiSuggestions').style.display = 'none';
+    } else {
+        // VARIABLES PARA EL SCROLL INTELIGENTE
+        let userScrolledUp = false;
+
+        const handleUserScroll = () => {
+            // Si el usuario sube más de 40px del fondo, bloqueamos el auto-scroll
+            if (container.scrollHeight - container.scrollTop - container.clientHeight > 40) {
+                userScrolledUp = true;
+            }
+        };
+
+        // Escuchas nativos para detectar cuando el usuario interactúa con el scroll
+        container.addEventListener('scroll', handleUserScroll);
+        container.addEventListener('touchstart', () => userScrolledUp = true);
+        container.addEventListener('wheel', handleUserScroll);
+
+        // 2. EFECTO DE ESCRITURA SEGURO (Por palabras y etiquetas completas)
+        const tokens = formattedText.split(/(\s+|<br>|<strong>.*?<\/strong>)/g);
+        let tokenIndex = 0;
+        const wordDelay = 30; // Velocidad de la escritura en vivo
+
+        function renderWords() {
+            if (tokenIndex < tokens.length) {
+                const token = tokens[tokenIndex];
+                
+                if (token !== undefined && token !== null) {
+                    if (token === '<br>') {
+                        bubble.appendChild(document.createElement('br'));
+                    } else if (token.trim() !== '') {
+                        const span = document.createElement('span');
+                        span.className = 'essei-word-flow';
+                        span.innerHTML = token;
+                        bubble.appendChild(span);
+                    } else {
+                        bubble.appendChild(document.createTextNode(token));
+                    }
+                }
+
+                tokenIndex++;
+
+                // Solo hace scroll automático si el usuario NO ha deslizado hacia arriba
+                if (!userScrolledUp) {
+                    container.scrollTop = container.scrollHeight;
+                }
+
+                setTimeout(renderWords, wordDelay);
+            } else {
+                // Al terminar la escritura, removemos los eventos para limpiar memoria
+                container.removeEventListener('scroll', handleUserScroll);
+                container.removeEventListener('wheel', handleUserScroll);
+            }
+        }
+        // Arranca la escritura interactiva
+        renderWords();
+    }
 }
+
 
     // 1. Formateo de Markdown a HTML puro
     let formattedText = text;
