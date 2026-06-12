@@ -2323,6 +2323,19 @@ body {
         opacity: 1;
     }
 }
+/* Espaciado para que las negritas resalten con la tipografía premium */
+.essei-bubble-msg strong {
+    font-weight: 700;
+    color: #fff; /* Hace que resalten un poquito más claras en el fondo oscuro */
+    letter-spacing: 0.02em;
+}
+
+/* Darle aire a los saltos de línea para que no se peguen los renglones */
+.essei-bubble-msg br {
+    content: "";
+    margin-block: 4px;
+    display: block;
+}
 
 </style>
 </head>
@@ -4226,8 +4239,7 @@ function toggleEssei() {
     if (esseiOpen) setTimeout(() => document.getElementById('esseiInput').focus(), 450);
 }
 
-// NUEVA VERSIÓN: Sin efecto máquina de escribir, ahora con desvanecimiento suave
-// NUEVA VERSIÓN: Revelado de texto fluido y continuo (Estilo chat premium)
+// NUEVA VERSIÓN: Procesador avanzado de formato (Viñetas, Negritas, Emojis y Espacios)
 function esseiAddMsg(role, text) {
     const container = document.getElementById('esseiMessages');
     const wrap = document.createElement('div');
@@ -4244,34 +4256,49 @@ function esseiAddMsg(role, text) {
     wrap.appendChild(time);
     container.appendChild(wrap);
 
-    // Procesar formato básico primero (**bold** y saltos de línea)
-    const formattedText = text
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\n/g, '<br>');
+    // --- PROCESADOR DE TEXTO PREMIUM ---
+    let formattedText = text;
+
+    if (role === 'bot') {
+        // 1. Convertir guiones o asteriscos de lista en viñetas físicas con salto de línea
+        // Esto detecta si una línea empieza con "- " o "* " y le pone un puntito estético
+        formattedText = formattedText.replace(/^(?:\s*[-*]\s+)(.+)$/gm, '• $1');
+
+        // 2. Procesar formato de negritas (**texto**)
+        formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+        // 3. Procesar saltos de línea (respetando dobles saltos para párrafos amplios)
+        formattedText = formattedText.replace(/\n/g, '<br>');
+    } else {
+        formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+    }
 
     if (role === 'user') {
         bubble.innerHTML = formattedText;
         container.scrollTop = container.scrollHeight;
         document.getElementById('esseiSuggestions').style.display = 'none';
     } else {
-        // Separamos por espacios pero manteniendo las etiquetas HTML unidas
-        const tokens = formattedText.split(/(\s+|<br>|<strong>.*?<\/strong>)/g);
+        // Separador inteligente: corta por palabras, etiquetas HTML completos y emojis sin romperlos
+        const tokens = formattedText.split(/(\s+|<br>|<strong>.*?<\/strong>|[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F900}-\u{1F9FF}\u{1FE00}-\u{1FEFF}])/gu);
         let tokenIndex = 0;
-        const wordDelay = 35; // Velocidad de flujo por palabra (ajustable a tu gusto)
+        const wordDelay = 25; // Flujo rápido y continuo
 
         function renderFlow() {
             if (tokenIndex < tokens.length) {
                 const token = tokens[tokenIndex];
                 
-                // Creamos un contenedor temporal para aplicar el desvanecimiento individual
-                if (token.trim() !== '' || token === '<br>') {
-                    const span = document.createElement('span');
-                    span.className = 'essei-word-flow';
-                    span.innerHTML = token;
-                    bubble.appendChild(span);
-                } else {
-                    // Si es un espacio simple, lo dejamos directo
-                    bubble.appendChild(document.createTextNode(token));
+                if (token !== undefined && token !== null) {
+                    if (token === '<br>') {
+                        bubble.appendChild(document.createElement('br'));
+                    } else if (token.trim() !== '') {
+                        const span = document.createElement('span');
+                        span.className = 'essei-word-flow';
+                        span.innerHTML = token;
+                        bubble.appendChild(span);
+                    } else {
+                        // Mantiene los espacios en blanco exactos entre palabras
+                        bubble.appendChild(document.createTextNode(token));
+                    }
                 }
 
                 tokenIndex++;
