@@ -4249,6 +4249,25 @@ function esseiAddMsg(role, text) {
     const bubble = document.createElement('div');
     bubble.className = 'essei-bubble-msg';
     
+    // Formateo inicial
+    let formattedText = text;
+    if (role === 'bot') {
+        formattedText = formattedText.replace(/^(?:\s*[-*]\s+)(.+)$/gm, '• $1');
+    }
+    formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    formattedText = formattedText.replace(/\n/g, '<br>');
+
+    // Si es usuario, inserta directo
+    if (role === 'user') {
+        bubble.innerHTML = formattedText;
+    } else {
+        // Si es bot, inyecta el HTML ya formateado de golpe para evitar que se corte
+        // Y usamos el CSS de revelado para que se vea premium
+        bubble.innerHTML = formattedText;
+        bubble.classList.add('essei-typing-active'); 
+    }
+
+    // Agregar fecha y limpiar
     const time = document.createElement('div');
     time.className = 'essei-msg-time';
     const now = new Date();
@@ -4257,57 +4276,8 @@ function esseiAddMsg(role, text) {
     wrap.appendChild(bubble);
     wrap.appendChild(time);
     container.appendChild(wrap);
-
-    // 1. Formateo de Markdown a HTML puro (Limpio y sin alteraciones)
-    let formattedText = text;
-    if (role === 'bot') {
-        formattedText = formattedText.replace(/^(?:\s*[-*]\s+)(.+)$/gm, '• $1');
-    }
-    formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    formattedText = formattedText.replace(/\n/g, '<br>');
-
-    if (role === 'user') {
-        bubble.innerHTML = formattedText;
-        container.scrollTop = container.scrollHeight;
-        document.getElementById('esseiSuggestions').style.display = 'none';
-    } else {
-        // VARIABLES PARA EL SCROLL INTELIGENTE
-        let userScrolledUp = false;
-
-        const handleUserScroll = () => {
-            if (container.scrollHeight - container.scrollTop - container.clientHeight > 40) {
-                userScrolledUp = true;
-            }
-        };
-
-        container.addEventListener('scroll', handleUserScroll);
-        container.addEventListener('touchstart', () => userScrolledUp = true);
-        container.addEventListener('wheel', handleUserScroll);
-
-        // 2. REVELADO SEGURO DE ALTA VELOCIDAD
-        // Metemos el HTML 100% puro de golpe para que jamás aparezcan guiones bajos ni se moche
-        bubble.innerHTML = formattedText;
-        
-        // Aplicamos la animación premium que hace que todo el bloque aparezca de forma elástica y viva
-        bubble.classList.add('essei-typing-active');
-
-        // Efecto de scroll acompañado
-        let scrollDuration = 600; 
-        let scrollInterval = setInterval(() => {
-            if (!userScrolledUp) {
-                container.scrollTop = container.scrollHeight;
-            }
-        }, 30);
-
-        setTimeout(() => {
-            clearInterval(scrollInterval);
-            if (!userScrolledUp) container.scrollTop = container.scrollHeight;
-            container.removeEventListener('scroll', handleUserScroll);
-            container.removeEventListener('wheel', handleUserScroll);
-        }, scrollDuration);
-    }
+    container.scrollTop = container.scrollHeight;
 }
-
     // 1. Formateo de Markdown a HTML puro
     let formattedText = text;
     if (role === 'bot') {
