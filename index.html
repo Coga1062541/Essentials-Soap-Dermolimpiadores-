@@ -4257,12 +4257,25 @@ function esseiAddMsg(role, text) {
     formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     formattedText = formattedText.replace(/\n/g, '<br>');
 
-    // Si es usuario, inserta directo
+    // Variable para controlar si el usuario tomó el control del scroll
+    let userScrolledUp = false;
+
+    // Escuchamos si el usuario hace scroll hacia arriba o toca la pantalla
+    const handleUserScroll = () => {
+        // Si la distancia al fondo es mayor a 40px, significa que el usuario subió manualmente
+        if (container.scrollHeight - container.scrollTop - container.clientHeight > 40) {
+            userScrolledUp = true;
+        }
+    };
+
+    // Detectar scroll en mouse, trackpad o pantallas táctiles
+    container.addEventListener('scroll', handleUserScroll);
+    container.addEventListener('touchstart', () => userScrolledUp = true);
+    container.addEventListener('wheel', handleUserScroll);
+
     if (role === 'user') {
         bubble.innerHTML = formattedText;
     } else {
-        // Si es bot, inyecta el HTML ya formateado de golpe para evitar que se corte
-        // Y usamos el CSS de revelado para que se vea premium
         bubble.innerHTML = formattedText;
         bubble.classList.add('essei-typing-active'); 
     }
@@ -4276,7 +4289,18 @@ function esseiAddMsg(role, text) {
     wrap.appendChild(bubble);
     wrap.appendChild(time);
     container.appendChild(wrap);
-    container.scrollTop = container.scrollHeight;
+
+    // CONTROL DE SCROLL INTELIGENTE:
+    // Solo baja automáticamente si el usuario NO ha decidido subir a leer otra cosa
+    if (!userScrolledUp) {
+        container.scrollTop = container.scrollHeight;
+    }
+
+    // Limpieza de eventos después de un momento para no saturar la memoria
+    setTimeout(() => {
+        container.removeEventListener('scroll', handleUserScroll);
+        container.removeEventListener('wheel', handleUserScroll);
+    }, 2000);
 }
 
     // 1. Formateo de Markdown a HTML puro
