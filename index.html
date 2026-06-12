@@ -4249,6 +4249,25 @@ function esseiAddMsg(role, text) {
     const bubble = document.createElement('div');
     bubble.className = 'essei-bubble-msg';
     
+    // Formateo inicial
+    let formattedText = text;
+    if (role === 'bot') {
+        formattedText = formattedText.replace(/^(?:\s*[-*]\s+)(.+)$/gm, '• $1');
+    }
+    formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    formattedText = formattedText.replace(/\n/g, '<br>');
+
+    // Si es usuario, inserta directo
+    if (role === 'user') {
+        bubble.innerHTML = formattedText;
+    } else {
+        // Si es bot, inyecta el HTML ya formateado de golpe para evitar que se corte
+        // Y usamos el CSS de revelado para que se vea premium
+        bubble.innerHTML = formattedText;
+        bubble.classList.add('essei-typing-active'); 
+    }
+
+    // Agregar fecha y limpiar
     const time = document.createElement('div');
     time.className = 'essei-msg-time';
     const now = new Date();
@@ -4257,6 +4276,8 @@ function esseiAddMsg(role, text) {
     wrap.appendChild(bubble);
     wrap.appendChild(time);
     container.appendChild(wrap);
+    container.scrollTop = container.scrollHeight;
+}
 
     // 1. Formateo de Markdown a HTML puro
     let formattedText = text;
