@@ -4174,28 +4174,23 @@ function toggleEssei() {
     if (esseiOpen) setTimeout(() => document.getElementById('esseiInput').focus(), 450);
 }
 
-// ===== RESPUESTA INMEDIATA DE LA IA CON FADE-IN =====
-function esseiAppendMessage(sender, text) {
-    const chatBody = document.getElementById('esseiBody');
-    if (!chatBody) return;
-
-    const messageDiv = document.createElement('div');
-    // Mantenemos tus clases de diseño originales (ejemplo: 'essei-msg-bot' o 'essei-msg-user')
-    messageDiv.className = `essei-message essei-msg-${sender}`;
+// NUEVA VERSIÓN: Con efecto máquina de escribir integrado sin romper el Markdown
+function esseiAddMsg(role, text) {
+    const container = document.getElementById('esseiMessages');
+    const wrap = document.createElement('div');
+    wrap.className = `essei-msg ${role}`;
+    const bubble = document.createElement('div');
+    bubble.className = 'essei-bubble-msg';
     
-    if (sender === 'bot') {
-        // Le aplicamos la nueva clase de desvanecimiento suave a la respuesta de la IA
-        messageDiv.classList.add('essei-fade-in');
-        messageDiv.innerHTML = text; // Inserta todo el texto/HTML completo de golpe
-    } else {
-        messageDiv.textContent = text;
-    }
-
-    chatBody.appendChild(messageDiv);
+    const time = document.createElement('div');
+    time.className = 'essei-msg-time';
+    const now = new Date();
+    time.textContent = `${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`;
     
-    // Auto-scroll al fondo de forma fluida
-    chatBody.scrollTop = chatBody.scrollHeight;
-}
+    wrap.appendChild(bubble);
+    wrap.appendChild(time);
+    container.appendChild(wrap);
+
     // Procesar formato básico primero (**bold** y saltos de línea)
     const formattedText = text
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
