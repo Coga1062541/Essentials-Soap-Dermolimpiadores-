@@ -2278,20 +2278,16 @@ body {
         transform: translateY(0) scale(1); /* Llega a su posición original */
     }
 }
-        /* ===== NUEVO: REVELADO PREMIUM CONTINUO (ESTILO GEMINI) ===== */
-.essei-typing-active {
-    animation: esseiSmoothReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        /* ===== EFECTO DE FLUJO DE TEXTO CONTINUO ===== */
+.essei-word-flow {
+    display: inline-block;
     opacity: 0;
-    transform: translateY(12px);
-    will-change: transform, opacity;
+    transform: translateY(3px);
+    animation: esseiWordReveal 0.25s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
-@keyframes esseiSmoothReveal {
-    0% {
-        opacity: 0;
-        transform: translateY(12px);
-    }
-    100% {
+@keyframes esseiWordReveal {
+    to {
         opacity: 1;
         transform: translateY(0);
     }
@@ -4247,14 +4243,14 @@ function toggleEssei() {
 }
         
 // VERSIÓN DEFINITIVA: Flujo continuo carácter por carácter sin romper HTML ni cortar texto        
-function esseiAddMsg(role, text) {
+Function esseiAddMsg(role, text) {
     const container = document.getElementById('esseiMessages');
     const wrap = document.createElement('div');
     wrap.className = `essei-msg ${role}`;
     const bubble = document.createElement('div');
     bubble.className = 'essei-bubble-msg';
     
-    // Formateo inicial (El tuyo que funciona perfecto)
+    // Formateo inicial
     let formattedText = text;
     if (role === 'bot') {
         formattedText = formattedText.replace(/^(?:\s*[-*]\s+)(.+)$/gm, '• $1');
@@ -4262,51 +4258,17 @@ function esseiAddMsg(role, text) {
     formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     formattedText = formattedText.replace(/\n/g, '<br>');
 
-    // Variable para controlar si el usuario tomó el control del scroll
-    let userScrolledUp = false;
-
-    // Detector de scroll manual
-    const handleUserScroll = () => {
-        // Si el usuario sube más de 40px del fondo, bloqueamos el auto-scroll
-        if (container.scrollHeight - container.scrollTop - container.clientHeight > 40) {
-            userScrolledUp = true;
-        }
-    };
-
+    // Si es usuario, inserta directo
     if (role === 'user') {
         bubble.innerHTML = formattedText;
-        container.scrollTop = container.scrollHeight;
-        document.getElementById('esseiSuggestions').style.display = 'none';
     } else {
-        // Escuchas activos solo durante la respuesta del bot para detectar si el usuario sube
-        container.addEventListener('scroll', handleUserScroll);
-        container.addEventListener('touchstart', () => userScrolledUp = true);
-        container.addEventListener('wheel', handleUserScroll);
-
-        // Inyectamos el texto limpio de golpe (Cero errores de formato, cero guiones raros)
+        // Si es bot, inyecta el HTML ya formateado de golpe para evitar que se corte
+        // Y usamos el CSS de revelado para que se vea premium
         bubble.innerHTML = formattedText;
-        
-        // Activamos la nueva animación de CSS para el efecto premium
         bubble.classList.add('essei-typing-active'); 
-
-        // Acompañamos la aparición del texto con un scroll automático muy suave
-        let scrollDuration = 600; // Tiempo que dura la animación de CSS
-        let scrollInterval = setInterval(() => {
-            if (!userScrolledUp) {
-                container.scrollTop = container.scrollHeight;
-            }
-        }, 30);
-
-        // Limpiamos intervalos y detectores al terminar para que la web vaya ligera
-        setTimeout(() => {
-            clearInterval(scrollInterval);
-            if (!userScrolledUp) container.scrollTop = container.scrollHeight;
-            container.removeEventListener('scroll', handleUserScroll);
-            container.removeEventListener('wheel', handleUserScroll);
-        }, scrollDuration);
     }
 
-    // Agregar fecha y tiempo
+    // Agregar fecha y limpiar
     const time = document.createElement('div');
     time.className = 'essei-msg-time';
     const now = new Date();
@@ -4315,14 +4277,10 @@ function esseiAddMsg(role, text) {
     wrap.appendChild(bubble);
     wrap.appendChild(time);
     container.appendChild(wrap);
-    
-    // Ajuste de scroll inmediato por seguridad
-    if (!userScrolledUp) {
-        container.scrollTop = container.scrollHeight;
-    }
+    container.scrollTop = container.scrollHeight;
 }
 
-    // 1. Formateo de Markdown a HTML puro
+        // 1. Formateo de Markdown a HTML puro
     let formattedText = text;
     if (role === 'bot') {
         // Convierte guiones iniciales de lista en viñetas físicas
