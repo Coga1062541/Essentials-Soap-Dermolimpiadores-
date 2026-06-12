@@ -4242,8 +4242,8 @@ function toggleEssei() {
     if (esseiOpen) setTimeout(() => document.getElementById('esseiInput').focus(), 450);
 }
         
-// VERSIÓN DEFINITIVA: Flujo continuo carácter por carácter sin romper HTML ni cortar texto        
-Function esseiAddMsg(role, text) {
+// VERSIÓN DEFINITIVA: Flujo continuo carácter por carácter sin romper HTML ni cortar texto
+function esseiAddMsg(role, text) {
     const container = document.getElementById('esseiMessages');
     const wrap = document.createElement('div');
     wrap.className = `essei-msg ${role}`;
@@ -4280,7 +4280,7 @@ Function esseiAddMsg(role, text) {
     container.scrollTop = container.scrollHeight;
 }
 
-        // 1. Formateo de Markdown a HTML puro
+    // 1. Formateo de Markdown a HTML puro
     let formattedText = text;
     if (role === 'bot') {
         // Convierte guiones iniciales de lista en viñetas físicas
@@ -4329,6 +4329,7 @@ Function esseiAddMsg(role, text) {
         // Arranca el flujo continuo
         typeFlow();
     }
+
 
 // 1. FUNCIÓN PARA MOSTRAR LAS BURBUJAS DE "ESCRIBIENDO..."
 function showEsseiLoading() {
