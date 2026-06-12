@@ -4174,13 +4174,18 @@ function toggleEssei() {
     if (esseiOpen) setTimeout(() => document.getElementById('esseiInput').focus(), 450);
 }
 
-// NUEVA VERSIÓN: Con efecto máquina de escribir integrado sin romper el Markdown
+// NUEVA VERSIÓN: Sin efecto máquina de escribir, ahora con desvanecimiento suave
 function esseiAddMsg(role, text) {
     const container = document.getElementById('esseiMessages');
     const wrap = document.createElement('div');
     wrap.className = `essei-msg ${role}`;
     const bubble = document.createElement('div');
     bubble.className = 'essei-bubble-msg';
+    
+    // Si es bot, añadimos la clase de desvanecimiento
+    if (role === 'bot') {
+        bubble.classList.add('essei-fade-in');
+    }
     
     const time = document.createElement('div');
     time.className = 'essei-msg-time';
@@ -4191,45 +4196,17 @@ function esseiAddMsg(role, text) {
     wrap.appendChild(time);
     container.appendChild(wrap);
 
-    // Procesar formato básico primero (**bold** y saltos de línea)
+    // Procesar formato básico
     const formattedText = text
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
         .replace(/\n/g, '<br>');
 
-    if (role === 'user') {
-        // El usuario ve su mensaje al instante
-        bubble.innerHTML = formattedText;
-        container.scrollTop = container.scrollHeight;
-        document.getElementById('esseiSuggestions').style.display = 'none';
-    } else {
-        // El bot escribe de manera gradual respetando las etiquetas HTML generadas
-        let currentHTML = '';
-        let i = 0;
-        const delay = 15; // Velocidad de escritura en milisegundos por carácter
+    // Tanto usuario como bot muestran el mensaje al instante con formato
+    bubble.innerHTML = formattedText;
+    container.scrollTop = container.scrollHeight;
 
-        function type() {
-            if (i < formattedText.length) {
-                // Si encontramos una etiqueta HTML (como <strong> o <br>), la metemos completa de golpe para no romper el renderizado
-                if (formattedText.charAt(i) === '<') {
-                    const closingBracket = formattedText.indexOf('>', i);
-                    if (closingBracket !== -1) {
-                        currentHTML += formattedText.substring(i, closingBracket + 1);
-                        i = closingBracket + 1;
-                    } else {
-                        currentHTML += formattedText.charAt(i);
-                        i++;
-                    }
-                } else {
-                    currentHTML += formattedText.charAt(i);
-                    i++;
-                }
-                
-                bubble.innerHTML = currentHTML;
-                container.scrollTop = container.scrollHeight;
-                setTimeout(type, delay);
-            }
-        }
-        type();
+    if (role === 'user') {
+        document.getElementById('esseiSuggestions').style.display = 'none';
     }
 }
 
