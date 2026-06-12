@@ -4247,21 +4247,17 @@ function toggleEssei() {
 function esseiAddMsg(role, text) {
     const container = document.getElementById('esseiMessages');
 
-    // Ocultar chips tras el primer mensaje del usuario
     if (role === 'user') {
         document.getElementById('esseiSuggestions').style.display = 'none';
     }
 
-    // Formatear Markdown → HTML
     let formatted = text;
     if (role === 'bot') {
-        // Guiones de lista → viñeta
         formatted = formatted.replace(/^[ \t]*[-*]\s+(.+)$/gm, '• $1');
     }
     formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     formatted = formatted.replace(/\n/g, '<br>');
 
-    // Crear estructura del mensaje
     const wrap = document.createElement('div');
     wrap.className = `essei-msg ${role}`;
 
@@ -4278,20 +4274,23 @@ function esseiAddMsg(role, text) {
     container.appendChild(wrap);
 
     if (role === 'user') {
-        // Mensajes del usuario: aparecen de golpe
         bubble.innerHTML = formatted;
         container.scrollTop = container.scrollHeight;
     } else {
-        // Mensajes del bot: typewriter carácter por carácter, saltando etiquetas HTML completas
         let i = 0;
         let currentHTML = '';
-        const CHAR_DELAY = 12; // ms por carácter — bajar para más velocidad
+        const CHAR_DELAY = 12;
+
+        // Auto-scroll solo si el usuario NO ha scrolleado manualmente hacia arriba
+        function shouldAutoScroll() {
+            const threshold = 60; // px de tolerancia
+            return container.scrollHeight - container.scrollTop - container.clientHeight <= threshold;
+        }
 
         function typeNext() {
-            if (i >= formatted.length) return; // Terminado
+            if (i >= formatted.length) return;
 
             if (formatted[i] === '<') {
-                // Etiqueta HTML: inyectar completa de una vez para no romper el DOM
                 const end = formatted.indexOf('>', i);
                 if (end !== -1) {
                     currentHTML += formatted.substring(i, end + 1);
@@ -4299,15 +4298,13 @@ function esseiAddMsg(role, text) {
                 } else {
                     currentHTML += formatted[i++];
                 }
-                // Las etiquetas no tienen delay visual propio — seguimos inmediatamente
                 bubble.innerHTML = currentHTML;
-                container.scrollTop = container.scrollHeight;
+                if (shouldAutoScroll()) container.scrollTop = container.scrollHeight;
                 setTimeout(typeNext, 0);
             } else {
-                // Carácter normal: añadir con delay
                 currentHTML += formatted[i++];
                 bubble.innerHTML = currentHTML;
-                container.scrollTop = container.scrollHeight;
+                if (shouldAutoScroll()) container.scrollTop = container.scrollHeight;
                 setTimeout(typeNext, CHAR_DELAY);
             }
         }
