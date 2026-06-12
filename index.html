@@ -2292,6 +2292,38 @@ body {
         transform: translateY(0);
     }
 }
+        /* ===== BURBUJAS DE CARGA DE LA IA (ESCRIBIENDO...) ===== */
+.essei-typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 8px;
+}
+
+.essei-typing-indicator span {
+    width: 7px;
+    height: 7px;
+    background-color: #faf8f3; /* Usa el color claro de tu tipografía */
+    border-radius: 50%;
+    opacity: 0.4;
+    animation: esseiBubbleBounce 1.4s infinite ease-in-out both;
+}
+
+/* Desfase de tiempo para que suban y bajen en ola */
+.essei-typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+.essei-typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes esseiBubbleBounce {
+    0%, 80%, 100% { 
+        transform: scale(0.6);
+        opacity: 0.4;
+    } 
+    40% { 
+        transform: scale(1.1) translateY(-4px); /* Sube y se agranda un poquito */
+        opacity: 1;
+    }
+}
+
 </style>
 </head>
 <body>
@@ -4250,7 +4282,43 @@ function esseiAddMsg(role, text) {
         renderFlow();
     }
 }
+// 1. FUNCIÓN PARA MOSTRAR LAS BURBUJAS DE "ESCRIBIENDO..."
+function showEsseiLoading() {
+    const container = document.getElementById('esseiMessages');
+    
+    // Si ya existe el indicador, no lo duplicamos
+    if (document.getElementById('esseiLoading')) return;
 
+    const wrap = document.createElement('div');
+    wrap.className = 'essei-msg bot';
+    wrap.id = 'esseiLoading'; // ID para poder borrarlo después
+    
+    const bubble = document.createElement('div');
+    bubble.className = 'essei-bubble-msg';
+    
+    // Metemos las 3 burbujitas HTML
+    bubble.innerHTML = `
+        <div class="essei-typing-indicator">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    `;
+    
+    wrap.appendChild(bubble);
+    container.appendChild(wrap);
+    container.scrollTop = container.scrollHeight;
+}
+
+// 2. FUNCIÓN PARA QUITAR LAS BURBUJAS
+function removeEsseiLoading() {
+    const loadingElement = document.getElementById('esseiLoading');
+    if (loadingElement) {
+        loadingElement.remove();
+    }
+}
+
+        
 function esseiShowTyping() {
     const container = document.getElementById('esseiMessages');
     const el = document.createElement('div');
