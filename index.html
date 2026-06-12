@@ -4231,6 +4231,7 @@ let esseiHistory = [];
 let esseiOpen = false;
 let esseiGreeted = false;
 
+        // ─── Abrir / cerrar ventana ───────────────────────────────────────────────────
 function toggleEssei() {
     esseiOpen = !esseiOpen;
     document.getElementById('esseiBubble').classList.toggle('open', esseiOpen);
@@ -4241,139 +4242,92 @@ function toggleEssei() {
     }
     if (esseiOpen) setTimeout(() => document.getElementById('esseiInput').focus(), 450);
 }
-        
-// VERSIÓN DEFINITIVA: Flujo continuo carácter por carácter sin romper HTML ni cortar texto
+
+// ─── Añadir mensaje con efecto typewriter para bot ───────────────────────────
 function esseiAddMsg(role, text) {
     const container = document.getElementById('esseiMessages');
+
+    // Ocultar chips tras el primer mensaje del usuario
+    if (role === 'user') {
+        document.getElementById('esseiSuggestions').style.display = 'none';
+    }
+
+    // Formatear Markdown → HTML
+    let formatted = text;
+    if (role === 'bot') {
+        // Guiones de lista → viñeta
+        formatted = formatted.replace(/^[ \t]*[-*]\s+(.+)$/gm, '• $1');
+    }
+    formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    formatted = formatted.replace(/\n/g, '<br>');
+
+    // Crear estructura del mensaje
     const wrap = document.createElement('div');
     wrap.className = `essei-msg ${role}`;
+
     const bubble = document.createElement('div');
     bubble.className = 'essei-bubble-msg';
-    
-    // Formateo inicial
-    let formattedText = text;
-    if (role === 'bot') {
-        formattedText = formattedText.replace(/^(?:\s*[-*]\s+)(.+)$/gm, '• $1');
-    }
-    formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    formattedText = formattedText.replace(/\n/g, '<br>');
 
-    // Si es usuario, inserta directo
-    if (role === 'user') {
-        bubble.innerHTML = formattedText;
-    } else {
-        // Si es bot, inyecta el HTML ya formateado de golpe para evitar que se corte
-        // Y usamos el CSS de revelado para que se vea premium
-        bubble.innerHTML = formattedText;
-        bubble.classList.add('essei-typing-active'); 
-    }
-
-    // Agregar fecha y limpiar
     const time = document.createElement('div');
     time.className = 'essei-msg-time';
     const now = new Date();
-    time.textContent = `${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`;
-    
+    time.textContent = `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}`;
+
     wrap.appendChild(bubble);
     wrap.appendChild(time);
     container.appendChild(wrap);
-    container.scrollTop = container.scrollHeight;
-}
-
-    // 1. Formateo de Markdown a HTML puro
-    let formattedText = text;
-    if (role === 'bot') {
-        // Convierte guiones iniciales de lista en viñetas físicas
-        formattedText = formattedText.replace(/^(?:\s*[-*]\s+)(.+)$/gm, '• $1');
-    }
-    // Convierte **texto** en negritas y los saltos de línea en <br>
-    formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    formattedText = formattedText.replace(/\n/g, '<br>');
 
     if (role === 'user') {
-        bubble.innerHTML = formattedText;
+        // Mensajes del usuario: aparecen de golpe
+        bubble.innerHTML = formatted;
         container.scrollTop = container.scrollHeight;
-        document.getElementById('esseiSuggestions').style.display = 'none';
     } else {
-        let currentHTML = '';
+        // Mensajes del bot: typewriter carácter por carácter, saltando etiquetas HTML completas
         let i = 0;
-        const charDelay = 8; // Velocidad fluida por carácter (puedes bajarlo a 5 si lo quieres más rápido)
+        let currentHTML = '';
+        const CHAR_DELAY = 12; // ms por carácter — bajar para más velocidad
 
-        function typeFlow() {
-            if (i < formattedText.length) {
-                // TRUCO MAESTRO: Si encuentra el inicio de una etiqueta HTML (<strong... o <br>)
-                if (formattedText.charAt(i) === '<') {
-                    const closingBracket = formattedText.indexOf('>', i);
-                    if (closingBracket !== -1) {
-                        // Inyecta la etiqueta completa de golpe en el HTML acumulado para no romper el renderizado
-                        currentHTML += formattedText.substring(i, closingBracket + 1);
-                        i = closingBracket + 1;
-                    } else {
-                        currentHTML += formattedText.charAt(i);
-                        i++;
-                    }
+        function typeNext() {
+            if (i >= formatted.length) return; // Terminado
+
+            if (formatted[i] === '<') {
+                // Etiqueta HTML: inyectar completa de una vez para no romper el DOM
+                const end = formatted.indexOf('>', i);
+                if (end !== -1) {
+                    currentHTML += formatted.substring(i, end + 1);
+                    i = end + 1;
                 } else {
-                    // Si es texto normal o emoji, lo suma carácter por carácter
-                    currentHTML += formattedText.charAt(i);
-                    i++;
+                    currentHTML += formatted[i++];
                 }
-                
-                // Actualiza el contenedor con el código HTML seguro acumulado
+                // Las etiquetas no tienen delay visual propio — seguimos inmediatamente
                 bubble.innerHTML = currentHTML;
                 container.scrollTop = container.scrollHeight;
-                
-                // Llama al siguiente carácter
-                setTimeout(typeFlow, charDelay);
+                setTimeout(typeNext, 0);
+            } else {
+                // Carácter normal: añadir con delay
+                currentHTML += formatted[i++];
+                bubble.innerHTML = currentHTML;
+                container.scrollTop = container.scrollHeight;
+                setTimeout(typeNext, CHAR_DELAY);
             }
         }
-        // Arranca el flujo continuo
-        typeFlow();
-    }
 
-
-// 1. FUNCIÓN PARA MOSTRAR LAS BURBUJAS DE "ESCRIBIENDO..."
-function showEsseiLoading() {
-    const container = document.getElementById('esseiMessages');
-    
-    // Si ya existe el indicador, no lo duplicamos
-    if (document.getElementById('esseiLoading')) return;
-
-    const wrap = document.createElement('div');
-    wrap.className = 'essei-msg bot';
-    wrap.id = 'esseiLoading'; // ID para poder borrarlo después
-    
-    const bubble = document.createElement('div');
-    bubble.className = 'essei-bubble-msg';
-    
-    // Metemos las 3 burbujitas HTML
-    bubble.innerHTML = `
-        <div class="essei-typing-indicator">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    `;
-    
-    wrap.appendChild(bubble);
-    container.appendChild(wrap);
-    container.scrollTop = container.scrollHeight;
-}
-
-// 2. FUNCIÓN PARA QUITAR LAS BURBUJAS
-function removeEsseiLoading() {
-    const loadingElement = document.getElementById('esseiLoading');
-    if (loadingElement) {
-        loadingElement.remove();
+        typeNext();
     }
 }
 
-        
+// ─── Indicador de "escribiendo…" ─────────────────────────────────────────────
 function esseiShowTyping() {
     const container = document.getElementById('esseiMessages');
-    const el = document.createElement('div');
-    el.className = 'essei-msg bot'; el.id = 'esseiTyping';
-    el.innerHTML = '<div class="essei-typing"><span></span><span></span><span></span></div>';
-    container.appendChild(el);
+    if (document.getElementById('esseiTyping')) return; // evitar duplicado
+    const wrap = document.createElement('div');
+    wrap.className = 'essei-msg bot';
+    wrap.id = 'esseiTyping';
+    const bubble = document.createElement('div');
+    bubble.className = 'essei-bubble-msg';
+    bubble.innerHTML = `<div class="essei-typing-indicator"><span></span><span></span><span></span></div>`;
+    wrap.appendChild(bubble);
+    container.appendChild(wrap);
     container.scrollTop = container.scrollHeight;
 }
 
@@ -4381,78 +4335,83 @@ function esseiHideTyping() {
     const el = document.getElementById('esseiTyping');
     if (el) el.remove();
 }
-        async function solicitarRutina(nombreProducto) {
-    if (!esseiOpen) toggleEssei();
-    esseiGreeted = true; 
 
-    const peticionTexto = `Hola Essei, acabo de ver el jabón de ${nombreProducto} en el catálogo. ¿Me podrías diseñar una rutina de cuidado personalizada utilizándolo?`;
-    
-    esseiAddMsg('user', peticionTexto);
-    esseiHistory.push({ role: 'user', content: peticionTexto });
-    esseiShowTyping();
-    
-    try {
-        const res = await fetch('/api/chat', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                model: 'claude-sonnet-4-20250514',
-                max_tokens: 400,
-                system: ESSEI_SYSTEM,
-                messages: esseiHistory
-            })
-        });
-        const data = await res.json();
-        const reply = data.content?.[0]?.text || 'Lo siento, hubo un error al armar tu rutina. Intenta de nuevo 🌿';
-        
-        esseiHideTyping();
-        esseiHistory.push({ role: 'assistant', content: reply });
-        if (esseiHistory.length > 16) esseiHistory = esseiHistory.slice(-16);
-        esseiAddMsg('bot', reply);
-    } catch(e) {
-        esseiHideTyping();
-        esseiAddMsg('bot', 'Hubo un error de conexión al intentar diseñar tu rutina.');
-    }
+// ─── Llamada a la API unificada ───────────────────────────────────────────────
+async function esseiCallAPI(userText, systemOverride) {
+    const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            model: 'claude-sonnet-4-20250514',
+            max_tokens: 1500,
+            system: systemOverride || ESSEI_SYSTEM,
+            messages: esseiHistory
+        })
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    // Compatibilidad con Anthropic API y proxy Groq
+    return data.content?.[0]?.text
+        || data.choices?.[0]?.message?.content
+        || 'Lo siento, hubo un error. Intenta de nuevo 🌿';
 }
 
+// ─── Enviar mensaje del usuario ───────────────────────────────────────────────
 async function esseiSend() {
     const input = document.getElementById('esseiInput');
     const text = input.value.trim();
     if (!text) return;
-    input.value = ''; 
+
+    input.value = '';
     document.getElementById('esseiSendBtn').disabled = true;
+
     esseiAddMsg('user', text);
     esseiHistory.push({ role: 'user', content: text });
     esseiShowTyping();
+
     try {
-        const res = await fetch('/api/chat', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                model: 'claude-sonnet-4-20250514',
-                max_tokens: 800,
-                system: ESSEI_SYSTEM,
-                messages: esseiHistory
-            })
-        });
-        const data = await res.json();
-        const reply = data.content?.[0]?.text || 'Lo siento, hubo un error. Intenta de nuevo 🌿';
+        const reply = await esseiCallAPI(text);
         esseiHideTyping();
         esseiHistory.push({ role: 'assistant', content: reply });
-        if (esseiHistory.length > 16) esseiHistory = esseiHistory.slice(-16);
+        if (esseiHistory.length > 20) esseiHistory = esseiHistory.slice(-20);
         esseiAddMsg('bot', reply);
-    } catch(e) {
+    } catch (e) {
         esseiHideTyping();
         esseiAddMsg('bot', 'Hubo un error de conexión. Por favor intenta de nuevo 🌿');
     }
+
     document.getElementById('esseiSendBtn').disabled = false;
     document.getElementById('esseiInput').focus();
 }
 
+// ─── Chip de sugerencia ───────────────────────────────────────────────────────
 function esseiSendChip(text) {
     document.getElementById('esseiInput').value = text;
     esseiSend();
-}  
+}
+
+// ─── Rutina personalizada desde botón de producto ─────────────────────────────
+async function solicitarRutina(nombreProducto) {
+    if (!esseiOpen) toggleEssei();
+    esseiGreeted = true;
+
+    const peticionTexto = `Hola Essei, acabo de ver el jabón de ${nombreProducto} en el catálogo. ¿Me podrías diseñar una rutina de cuidado personalizada utilizándolo?`;
+
+    esseiAddMsg('user', peticionTexto);
+    esseiHistory.push({ role: 'user', content: peticionTexto });
+    esseiShowTyping();
+
+    try {
+        const reply = await esseiCallAPI(peticionTexto);
+        esseiHideTyping();
+        esseiHistory.push({ role: 'assistant', content: reply });
+        if (esseiHistory.length > 20) esseiHistory = esseiHistory.slice(-20);
+        esseiAddMsg('bot', reply);
+    } catch (e) {
+        esseiHideTyping();
+        esseiAddMsg('bot', 'Hubo un error de conexión al intentar diseñar tu rutina 🌿');
+    }
+}
 
 // ===== FILTRO EXCLUSIVO PARA JABONES DERMOLIMPIADORES =====
 function filterSoaps(category, event) {
@@ -4491,7 +4450,6 @@ function filterSoaps(category, event) {
         }
     });
 }
-
     </script>
 </body>
 </html>
