@@ -4265,7 +4265,7 @@ body {
             }
         };
                                     
-                /* ==========================================================================
+/* ==========================================================================
    ===== CARD QTY CONTROLS & ANIMATIONS =====
    ========================================================================== */
 const MAX_QTY = 10;
@@ -4559,7 +4559,6 @@ function toggleCart() {
                 `;
             }
             
-            const relatedHtml = getRelatedProductsHtml(productId);
             const esseiTipHtml = getEsseiTipHtml(productId);
             
             document.getElementById('modalContent').innerHTML = `
@@ -4574,7 +4573,6 @@ function toggleCart() {
                     <p class="modal-desc">${p.desc}</p>
                     ${esseiTipHtml}
                     <div class="modal-specs">${specsHtml}</div>
-                    ${relatedHtml}
                     <button class="modal-add" onclick="addToCart('${productId}'); closeModal();">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M6 6L5 3H2"/></svg>
                         Agregar al carrito
@@ -4588,37 +4586,165 @@ function toggleCart() {
         
         // ===== NOTAS QUE COMBINAN (cross-sell por afinidad de notas) =====
         // ===== ESSEI CONTEXTUAL — TIPS POR CATEGORÍA (curados, sin afirmaciones médicas) =====
-        const esseiTipsByCategory = {
-            'Jabón Natural': [
-                { icon: '💡', text: 'Ideal para uso diario, facial y corporal.' },
-                { icon: '🌿', text: 'Elaborado a mano con ingredientes naturales.' },
-                { icon: '✨', text: 'Uno de los favoritos de nuestros clientes.' },
+        // ===== ESSEI — BANCO DE FRASES ÚNICAS POR PRODUCTO (rotación real, no genérica) =====
+        const esseiTipsByProduct = {
+            kit1: [
+                { icon: '🎁', text: 'La puerta de entrada perfecta a la colección.' },
+                { icon: '✨', text: 'Piel y aroma, en un solo paso.' },
+                { icon: '💡', text: 'Pensado para quien aún no sabe por dónde empezar.' },
+                { icon: '🌿', text: 'Dos jabones, un perfume, ninguna duda.' },
             ],
-            'Complemento': [
-                { icon: '🌿', text: 'Pensado como complemento de tu rutina habitual.' },
-                { icon: '💡', text: 'Aprovecha mejor su fórmula usándolo después de la limpieza.' },
-                { icon: '✨', text: 'Una opción premium dentro de nuestra colección.' },
+            kit2: [
+                { icon: '🧼', text: 'Tres aromas, una sola decisión.' },
+                { icon: '✨', text: 'Para quien no quiere comprometerse con uno solo.' },
+                { icon: '💡', text: 'El ritual completo, sin vueltas.' },
+                { icon: '🌿', text: 'Variedad real, precio de uno solo.' },
             ],
-            'Perfume Decant': [
-                { icon: '✨', text: 'Decant de larga duración, ideal para probar el aroma antes de un frasco completo.' },
-                { icon: '💡', text: 'Aplica sobre piel hidratada para mayor fijación.' },
-                { icon: '🌿', text: 'Una de las fragancias más solicitadas del catálogo.' },
+            kit3: [
+                { icon: '✨', text: 'Lo que pides cuando ya sabes lo que quieres.' },
+                { icon: '💎', text: 'Un paso más allá de lo básico.' },
+                { icon: '🌿', text: 'Regeneración y aroma, sin compromisos a medias.' },
+                { icon: '🎁', text: 'El kit que se siente como regalo, aunque sea para ti.' },
             ],
-            'Kit Promocional': [
-                { icon: '✨', text: 'La forma más conveniente de probar varios productos a la vez.' },
-                { icon: '🎁', text: 'Precio especial por tiempo limitado.' },
+            carbon: [
+                { icon: '⚫', text: 'Piel mate, sin brillos de más.' },
+                { icon: '✨', text: 'El favorito de quienes batallan con grasa facial.' },
+                { icon: '💡', text: 'Limpieza profunda, sin resecar.' },
+                { icon: '🌿', text: 'Carbón real, no relleno de marketing.' },
+            ],
+            avena: [
+                { icon: '🌾', text: 'Calma incluso en los días de piel irritada.' },
+                { icon: '✨', text: 'Bioazufre que sí hace su trabajo.' },
+                { icon: '💡', text: 'El que recomendamos cuando preguntan por piel sensible.' },
+                { icon: '🌿', text: 'Suave de verdad, no solo en el empaque.' },
+            ],
+            coco: [
+                { icon: '🥥', text: 'Hidrata mientras aclara, sin forzar nada.' },
+                { icon: '✨', text: 'El aroma que todos preguntan de dónde sale.' },
+                { icon: '💡', text: 'Coco virgen, sin atajos.' },
+                { icon: '🌿', text: 'Uno de los que más se repiten en pedidos.' },
+            ],
+            baba: [
+                { icon: '🐌', text: 'La mucina hace el trabajo lento que la prisa no logra.' },
+                { icon: '✨', text: 'Textura de piel distinta tras unas semanas.' },
+                { icon: '💡', text: 'Regeneración, no solo limpieza.' },
+                { icon: '🌿', text: 'El que más sorprende a quien lo prueba por primera vez.' },
+            ],
+            leche: [
+                { icon: '🤍', text: 'El más suave del catálogo, sin competencia.' },
+                { icon: '✨', text: 'Para piel que se irrita con casi todo, menos esto.' },
+                { icon: '💡', text: 'Confort desde el primer uso, no después de la tercera barra.' },
+                { icon: '🌿', text: 'Pieles secas lo piden por su nombre.' },
+            ],
+            tepezcohuite: [
+                { icon: '🌳', text: 'Tradición mexicana que sigue funcionando.' },
+                { icon: '✨', text: 'El que se lleva quien busca algo más que perfume bonito.' },
+                { icon: '💡', text: 'Reparación con raíz, literal.' },
+                { icon: '🌿', text: 'Pocos lo conocen, los que lo prueban no cambian.' },
+            ],
+            pastacoco: [
+                { icon: '🥥', text: 'La misma fórmula, en formato que no se acaba rápido.' },
+                { icon: '✨', text: 'Para quien ya sabe que Coco y Arroz es lo suyo.' },
+                { icon: '💡', text: '250g pensados para no estar reabasteciendo cada semana.' },
+                { icon: '🌿', text: 'El favorito en versión familiar.' },
+            ],
+            cremababa: [
+                { icon: '🐌', text: '80% mucina, sin diluir la fórmula para verse bonita.' },
+                { icon: '✨', text: 'Hidratación que se nota a las 24 horas, no a los 24 días.' },
+                { icon: '💎', text: 'El paso extra que separa una rutina de un ritual.' },
+                { icon: '🌿', text: 'Concentrado de verdad, no cosmético de aparador.' },
+            ],
+            santal33: [
+                { icon: '🪵', text: 'Sándalo que no se siente impuesto, se siente tuyo.' },
+                { icon: '✨', text: 'El decant que más repiten compra.' },
+                { icon: '💡', text: 'Sofisticado sin esforzarse en demostrarlo.' },
+                { icon: '🌙', text: 'De los pocos que huelen igual de bien en junio que en diciembre.' },
+            ],
+            erosflame: [
+                { icon: '🔥', text: 'Cítrico al inicio, intenso al final. Ahí está el truco.' },
+                { icon: '✨', text: 'Para quien quiere notarse sin gritar.' },
+                { icon: '💡', text: 'Oriental amaderado que dura toda la salida.' },
+                { icon: '🌙', text: 'El que más preguntan "¿qué traes puesto?".' },
+            ],
+            '212vipblack': [
+                { icon: '🖤', text: 'Nocturno de verdad, no solo de nombre.' },
+                { icon: '✨', text: 'Absinta y café — combinación que no se olvida.' },
+                { icon: '💡', text: 'El que se guarda para ocasiones, no para el diario.' },
+                { icon: '🌙', text: 'Intenso sin pasarse de la raya.' },
+            ],
+            lemale: [
+                { icon: '🌊', text: 'Menta y lavanda en equilibrio, no en competencia.' },
+                { icon: '✨', text: 'Un clásico que sigue vigente por algo.' },
+                { icon: '💡', text: 'Fresco sin ser genérico.' },
+                { icon: '🌿', text: 'El que muchos empezaron a usar copiándose de otro.' },
+            ],
+            valentino: [
+                { icon: '🌸', text: 'Violeta que no se siente dulce de más.' },
+                { icon: '✨', text: 'Moderno sin perder elegancia clásica.' },
+                { icon: '💡', text: 'De los más nuevos del catálogo, ya con seguidores.' },
+                { icon: '🌙', text: 'Sofisticado desde el primer rocío.' },
+            ],
+            invictus: [
+                { icon: '⚡', text: 'Fresco con carácter, no solo cítrico simple.' },
+                { icon: '✨', text: 'El que se lleva quien entrena y también sale.' },
+                { icon: '💡', text: 'Potente sin ser pesado.' },
+                { icon: '🌿', text: 'De los más pedidos en decant de 10ml.' },
+            ],
+            acquadigio: [
+                { icon: '💧', text: 'Acuático real, no solo en el nombre.' },
+                { icon: '✨', text: 'Bergamota que abre y se queda, no se va en minutos.' },
+                { icon: '💡', text: 'El clásico que nunca pasa de moda.' },
+                { icon: '🌿', text: 'Fresco todo el día, no solo los primeros 20 minutos.' },
+            ],
+            bleudechanel: [
+                { icon: '🪵', text: 'Cítricos al inicio, madera al fondo. Bien resuelto.' },
+                { icon: '✨', text: 'El que pides cuando quieres ir a lo seguro.' },
+                { icon: '💡', text: 'Amaderado aromático sin sobrecargar.' },
+                { icon: '🌙', text: 'De traje o de jeans, le queda a los dos.' },
+            ],
+            sauvage: [
+                { icon: '🏔️', text: 'Bergamota de Calabria, no genérica de frasco barato.' },
+                { icon: '✨', text: 'El más pedido, con razón.' },
+                { icon: '💡', text: 'Fresco y salvaje sin contradecirse.' },
+                { icon: '🌿', text: 'Si solo vas a probar uno, que sea este.' },
+            ],
+            '212': [
+                { icon: '🌼', text: 'Floral fresco que no se siente femenino ni forzado.' },
+                { icon: '✨', text: 'Naranja y gardenia en equilibrio real.' },
+                { icon: '💡', text: 'Un clásico que sigue funcionando en cualquier ocasión.' },
+                { icon: '🌿', text: 'Versátil de verdad, no solo en la descripción.' },
+            ],
+            cloud: [
+                { icon: '☁️', text: 'Dulce sin empalagar — ahí está lo difícil.' },
+                { icon: '✨', text: 'Lavanda y coco que se sienten ligeros, no pesados.' },
+                { icon: '💡', text: 'El que más piden quienes buscan algo etéreo.' },
+                { icon: '🌿', text: 'Suave, pero se nota igual.' },
+            ],
+            olympea: [
+                { icon: '🌊', text: 'Oriental salado, distinto a todo lo dulce de siempre.' },
+                { icon: '✨', text: 'Vainilla con sal — combinación que sorprende.' },
+                { icon: '💡', text: 'Intenso sin ser el típico dulzón.' },
+                { icon: '🌙', text: 'El que rompe el molde de los perfumes femeninos comunes.' },
+            ],
+            attrapereves: [
+                { icon: '🍫', text: 'Cacao y vainilla, sin sentirse postre.' },
+                { icon: '✨', text: 'Dulce y soñador, pero con clase.' },
+                { icon: '💡', text: 'De los más distintos del catálogo, en buen sentido.' },
+                { icon: '🌿', text: 'No es para todos, y eso lo hace especial.' },
             ],
         };
         
         function getEsseiTipForProduct(productId) {
-            const p = products[productId];
-            if (!p || !p.category) return null;
-            const tips = esseiTipsByCategory[p.category];
+            const tips = esseiTipsByProduct[productId];
             if (!tips || tips.length === 0) return null;
-            // Selección pseudo-aleatoria pero estable por producto (mismo tip cada vez que se abre)
-            let hash = 0;
-            for (let i = 0; i < productId.length; i++) hash = (hash * 31 + productId.charCodeAt(i)) % 997;
-            return tips[hash % tips.length];
+            
+            // Rotación real: cuenta cuántas veces se ha visto este producto y avanza en el banco
+            const viewCounts = JSON.parse(localStorage.getItem('essei_view_counts') || '{}');
+            const count = viewCounts[productId] || 0;
+            viewCounts[productId] = count + 1;
+            localStorage.setItem('essei_view_counts', JSON.stringify(viewCounts));
+            
+            return tips[count % tips.length];
         }
         
         function getEsseiTipHtml(productId) {
@@ -4632,67 +4758,30 @@ function toggleCart() {
             `;
         }
         
-        // ===== ESSEI CONTEXTUAL — MENSAJE AL AGREGAR AL CARRITO (una vez por producto/sesión) =====
+        // ===== ESSEI — MENSAJE AL AGREGAR AL CARRITO (frase distinta del mismo banco, sin repetir la del modal) =====
         const esseiCartMessageShown = new Set(
             JSON.parse(localStorage.getItem('essei_tips_shown') || '[]')
         );
         
         function maybeShowEsseiCartMessage(productId) {
             if (esseiCartMessageShown.has(productId)) return false;
-            const tip = getEsseiTipForProduct(productId);
+            const tips = esseiTipsByProduct[productId];
             const p = products[productId];
-            if (!tip || !p) return false;
+            if (!tips || !p) return false;
+            
             esseiCartMessageShown.add(productId);
             localStorage.setItem('essei_tips_shown', JSON.stringify([...esseiCartMessageShown]));
-            showToast(`Buena elección. ${p.name}: ${tip.text}`, { essei: true, emoji: tip.icon, duration: 4200 });
+            
+            // Usa una frase distinta a la mostrada en el modal, tomando otra posición del banco
+            const viewCounts = JSON.parse(localStorage.getItem('essei_view_counts') || '{}');
+            const lastIndex = ((viewCounts[productId] || 1) - 1) % tips.length;
+            const cartIndex = (lastIndex + 1) % tips.length;
+            const tip = tips[cartIndex];
+            
+            showToast(`${tip.icon} ${p.name}: ${tip.text}`, { essei: true, emoji: tip.icon, duration: 4200 });
             return true;
         }
 
-        function getRelatedProductsHtml(productId) {
-            const current = products[productId];
-            if (!current || !current.notes) return '';
-            
-            const currentIsPerfume = current.category === 'Perfume Decant';
-            const currentTags = current.notes.split(' ');
-            
-            // Solo cruzar entre categorías opuestas: perfume <-> jabón/complemento
-            const candidates = Object.values(products).filter(prod => {
-                if (prod.id === productId || !prod.notes) return false;
-                const prodIsPerfume = prod.category === 'Perfume Decant';
-                return prodIsPerfume !== currentIsPerfume;
-            });
-            
-            const scored = candidates.map(prod => {
-                const tags = prod.notes.split(' ');
-                const shared = tags.filter(t => currentTags.includes(t)).length;
-                return { prod, shared };
-            }).filter(s => s.shared > 0);
-            
-            scored.sort((a, b) => b.shared - a.shared);
-            const top = scored.slice(0, 2);
-            
-            if (top.length === 0) return '';
-            
-            const cardsHtml = top.map(({ prod }) => `
-                <div class="related-card" onclick="openModal('${prod.id}')">
-                    <img src="${prod.image}" alt="${prod.name}">
-                    <div class="related-card-info">
-                        <span class="related-card-name">${prod.name}</span>
-                        <span class="related-card-price">$${prod.price} MXN</span>
-                    </div>
-                </div>
-            `).join('');
-            
-            const label = currentIsPerfume ? 'Combina bien con' : 'Aromas que combinan';
-            
-            return `
-                <div class="related-products">
-                    <div class="related-products-label">${label}</div>
-                    <div class="related-products-grid">${cardsHtml}</div>
-                </div>
-            `;
-        }
-        
         function closeModal() {
             document.getElementById('modalOverlay').classList.remove('active');
             document.body.style.overflow = '';
@@ -5238,6 +5327,4 @@ function filterSoaps(category, event) {
 }
     </script>
 </body>
-</html>
-        
-        
+</html>       
