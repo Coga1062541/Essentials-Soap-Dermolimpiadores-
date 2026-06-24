@@ -4608,7 +4608,7 @@ function toggleCart() {
                     </div>
                 `;
             }
-            
+            const relatedHtml = getRelatedProductsHtml(productId);
             const esseiTipHtml = getEsseiTipHtml(productId);
             
             document.getElementById('modalContent').innerHTML = `
@@ -4623,6 +4623,7 @@ function toggleCart() {
                     <p class="modal-desc">${p.desc}</p>
                     ${esseiTipHtml}
                     <div class="modal-specs">${specsHtml}</div>
+                    ${relatedHtml}
                     <button class="modal-add" onclick="addToCart('${productId}'); closeModal();">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M6 6L5 3H2"/></svg>
                         Agregar al carrito
@@ -4638,6 +4639,8 @@ function toggleCart() {
         // ===== ESSEI CONTEXTUAL — TIPS POR CATEGORÍA (curados, sin afirmaciones médicas) =====
         // ===== ESSEI — BANCO DE FRASES ÚNICAS POR PRODUCTO (rotación real, no genérica) =====
         const esseiTipsByProduct = {
+
+
             kit1: [
                 { icon: '🎁', text: 'La puerta de entrada perfecta a la colección.' },
                 { icon: '✨', text: 'Piel y aroma, en un solo paso.' },
