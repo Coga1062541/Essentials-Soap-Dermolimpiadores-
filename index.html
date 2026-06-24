@@ -1737,6 +1737,56 @@ body {
         
         /* ===== NOTAS QUE COMBINAN (related products en modal) ===== */
         
+                .related-products {
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--beige);
+        }
+        .related-products-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.7rem; font-weight: 500;
+            letter-spacing: 0.22em; text-transform: uppercase;
+            color: var(--warm-gray); margin-bottom: 0.9rem;
+        }
+        .related-products-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+        }
+        .related-card {
+            display: flex; align-items: center; gap: 0.7rem;
+            padding: 0.6rem;
+            border: 1px solid var(--beige);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            background: var(--cream);
+        }
+        .related-card:hover {
+            border-color: var(--olive);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-soft);
+        }
+        .related-card img {
+            width: 42px; height: 42px; object-fit: contain;
+            flex-shrink: 0;
+        }
+        .related-card-info {
+            display: flex; flex-direction: column; gap: 0.15rem;
+            overflow: hidden;
+        }
+        .related-card-name {
+            font-size: 0.76rem; font-weight: 600; color: var(--soft-black);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .related-card-price {
+            font-size: 0.72rem; color: var(--olive); font-weight: 600;
+        }
+        @media (max-width: 480px) {
+            .related-products-grid { grid-template-columns: 1fr; }
+        }
+
         /* ===== FOOTER — REDESIGNED ===== */
         .footer {
             position: relative; overflow: hidden;
@@ -4781,7 +4831,51 @@ function toggleCart() {
             showToast(`${tip.icon} ${p.name}: ${tip.text}`, { essei: true, emoji: tip.icon, duration: 4200 });
             return true;
         }
-
+        function getRelatedProductsHtml(productId) {
+            const current = products[productId];
+            if (!current || !current.notes) return '';
+            
+            const currentIsPerfume = current.category === 'Perfume Decant';
+            const currentTags = current.notes.split(' ');
+            
+            // Solo cruzar entre categorías opuestas: perfume <-> jabón/complemento
+            const candidates = Object.values(products).filter(prod => {
+                if (prod.id === productId || !prod.notes) return false;
+                const prodIsPerfume = prod.category === 'Perfume Decant';
+                return prodIsPerfume !== currentIsPerfume;
+            });
+            
+            const scored = candidates.map(prod => {
+                const tags = prod.notes.split(' ');
+                const shared = tags.filter(t => currentTags.includes(t)).length;
+                return { prod, shared };
+            }).filter(s => s.shared > 0);
+            
+            scored.sort((a, b) => b.shared - a.shared);
+            const top = scored.slice(0, 2);
+            
+            if (top.length === 0) return '';
+            
+            const cardsHtml = top.map(({ prod }) => `
+                <div class="related-card" onclick="openModal('${prod.id}')">
+                    <img src="${prod.image}" alt="${prod.name}">
+                    <div class="related-card-info">
+                        <span class="related-card-name">${prod.name}</span>
+                        <span class="related-card-price">$${prod.price} MXN</span>
+                    </div>
+                </div>
+            `).join('');
+            
+            const label = currentIsPerfume ? 'Combina bien con' : 'Aromas que combinan';
+            
+            return `
+                <div class="related-products">
+                    <div class="related-products-label">${label}</div>
+                    <div class="related-products-grid">${cardsHtml}</div>
+                </div>
+            `;
+        }
+        
         function closeModal() {
             document.getElementById('modalOverlay').classList.remove('active');
             document.body.style.overflow = '';
