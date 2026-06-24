@@ -1736,55 +1736,6 @@ body {
         }
         
         /* ===== NOTAS QUE COMBINAN (related products en modal) ===== */
-        .related-products {
-            margin-top: 1.5rem;
-            margin-bottom: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--beige);
-        }
-        .related-products-label {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 0.7rem; font-weight: 500;
-            letter-spacing: 0.22em; text-transform: uppercase;
-            color: var(--warm-gray); margin-bottom: 0.9rem;
-        }
-        .related-products-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.8rem;
-        }
-        .related-card {
-            display: flex; align-items: center; gap: 0.7rem;
-            padding: 0.6rem;
-            border: 1px solid var(--beige);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: var(--transition-fast);
-            background: var(--cream);
-        }
-        .related-card:hover {
-            border-color: var(--olive);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-soft);
-        }
-        .related-card img {
-            width: 42px; height: 42px; object-fit: contain;
-            flex-shrink: 0;
-        }
-        .related-card-info {
-            display: flex; flex-direction: column; gap: 0.15rem;
-            overflow: hidden;
-        }
-        .related-card-name {
-            font-size: 0.76rem; font-weight: 600; color: var(--soft-black);
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
-        .related-card-price {
-            font-size: 0.72rem; color: var(--olive); font-weight: 600;
-        }
-        @media (max-width: 480px) {
-            .related-products-grid { grid-template-columns: 1fr; }
-        }
         
         /* ===== FOOTER — REDESIGNED ===== */
         .footer {
@@ -2801,7 +2752,6 @@ body {
 </style>
 </head>
 <body>
-
     <!--BARRA DE PROGRESO DE SCROLL -->
     <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
        <!-- AMBIENT MESH BACKGROUND -->
